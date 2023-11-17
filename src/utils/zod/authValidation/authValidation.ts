@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 export type signupSchemaType = z.infer<typeof signupSchema> // 타입 추론 자동
 export type loginSchemaType = z.infer<typeof loginSchema>
+const phoneRegex = new RegExp(/^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/)
 
 export const signupSchema = z
   .object({
@@ -9,13 +10,12 @@ export const signupSchema = z
       .string()
       .nonempty('이메일을 입력해주세요.')
       .email('이메일 형식을 입력해주세요.'),
-    nickname: z
+    username: z
       .string()
-      .nonempty('아이디를 입력해주세요.')
-      .regex(
-        /^[a-z0-9]{4,30}$/,
-        '영문 소문자 또는 영문+숫자 조합 4~30자리를 입력해주세요.',
-      ),
+      .nonempty('이름을 입력해주세요.')
+      .min(3, '이름은 3글자 이상으로 입력해주세요')
+      .max(6, '이름은 6글자 이하로 입력해주세요')
+      .regex(/^[가-힣]{2,}$/, '이름을 정확히 입력해주세요'),
     password: z
       .string()
       .nonempty('비밀번호를 입력해주세요.')
@@ -24,11 +24,21 @@ export const signupSchema = z
         '영문+숫자+특수문자(! @ # $ % & * ?) 조합 8~15자리를 입력해주세요.',
       ),
     passwordCheck: z.string().nonempty('비밀번호를 다시 입력해주세요.'),
-    recommendationCode: z
+    phoneNumber: z.string().regex(phoneRegex, '부정확한 전화번호입니다.'),
+    job: z
       .string()
-      .regex(/^[a-z]{0,}$/, '추천코드는 소문자로 입력 가능합니다')
-      .optional(),
-    agree: z.string().optional(),
+      .nonempty('직무를 입력해주세요.')
+      .max(20, '20자 이내로 입력해주세요.'),
+    teamSize: z
+      .string()
+      .nonempty('팀을 선택해 주세요.')
+      .refine(value => {
+        return ['lessthanfive', 'sixToTen', 'exceedTen'].includes(value)
+      }, '올바른 팀원 수를 선택해 주세요.'),
+    company: z
+      .string()
+      .nonempty('회사를 입력해주세요.')
+      .max(20, '20자 이내로 입력해주세요.'),
   })
   .refine(data => data.password === data.passwordCheck, {
     path: ['passwordCheck'],
