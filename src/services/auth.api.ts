@@ -3,10 +3,14 @@ import { signupSchemaType } from '@/utils/zod/authValidation/authValidation'
 
 const API_URL = 'https://jsonplaceholder.typicode.com' //더미
 
-export const signupRequest = async (signupSchema: signupSchemaType) => {
+export const signupRequest = async (
+  signupSchema: signupSchemaType,
+  numberValue: string,
+  url: string,
+) => {
   const postData = {
     userEamil: signupSchema.email,
-    userPhoneNumber: signupSchema.phoneNumber,
+    userPhoneNumber: numberValue,
     userName: signupSchema.username,
     userPassword: signupSchema.password,
     userVerifyPassword: signupSchema.passwordCheck,

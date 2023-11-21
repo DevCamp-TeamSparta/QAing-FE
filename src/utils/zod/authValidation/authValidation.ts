@@ -24,9 +24,7 @@ export const signupSchema = z
         '영문+숫자+특수문자(! @ # $ % & * ?) 조합 8~15자리를 입력해주세요.',
       ),
     passwordCheck: z.string().nonempty('비밀번호를 다시 입력해주세요.'),
-    phoneNumber: z
-      .string()
-      .regex(phoneRegex, '000-0000-0000형식으로 입력해 주세요'),
+    // phoneNumber: z.string().regex(phoneRegex, '000-0000-0000로 입력해주세요'),
     job: z
       .string()
       .nonempty('직무를 입력해주세요.')

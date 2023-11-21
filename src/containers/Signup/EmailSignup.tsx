@@ -4,18 +4,67 @@ import {
   signupSchema,
   signupSchemaType,
 } from '@/utils/zod/authValidation/authValidation'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { signupRequest } from '@/services/auth.api'
 
 export default function EmailSignup() {
+  const [values, setValues] = useState({
+    numberValue: '',
+  })
+  const { numberValue } = values
+
+  const handleNumber = (e: any) => {
+    const { value, name } = e.target
+    setValues({
+      ...values,
+      [name]: value,
+    })
+  }
+  const mockData = {
+    company: '팀스파르타',
+    email: 'rhsok923@naver.cm',
+    job: '개발자',
+    password: 'Fkaus1234!',
+    passwordCheck: 'Fkaus1234!',
+    phoneNumber: '010-2222-4444',
+    teamSize: 'exceedTen',
+    username: '라형선',
+  }
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<signupSchemaType>({ resolver: zodResolver(signupSchema) })
-  const onSubmit = (data: signupSchemaType) => {
-    console.log('data', data)
+  const onSubmit = async (data: signupSchemaType) => {
+    const submitData = { ...data, phoneNumber: numberValue }
+    console.log('numberValue', numberValue)
+    const url =
+      'https://f7925a2a-767f-408d-8944-356e3f6e4a88.mock.pstmn.io/signup'
+    try {
+      signupRequest(data, numberValue, url)
+    } catch (error) {
+      console.log(error)
+    }
   }
-  // console.log('a')
+  useEffect(() => {
+    if (numberValue.length === 11) {
+      setValues({
+        numberValue: numberValue.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
+      })
+    } else if (numberValue.length === 13) {
+      setValues({
+        numberValue: numberValue
+          //하이픈이 입력되면 공백으로 변경되고 하이픈이 다시 생성됨
+          .replace(/-/g, '')
+          .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
+      })
+    }
+    console.log('numberValue', numberValue)
+  }, [numberValue])
+
   return (
     <section
       id="emailsignup"
@@ -49,6 +98,7 @@ export default function EmailSignup() {
                 className="relative bottom-[1px] right-[2.5px] ml-[16px]  h-[24px] w-[189px] appearance-none py-2  font-light tracking-tight text-[#91959D]
                   outline-none"
                 placeholder="닉네임을 입력해주세요."
+                maxLength={3}
               />
               {errors.username && (
                 <div className="text-red-500 text-sm">
@@ -144,20 +194,22 @@ export default function EmailSignup() {
               <p className="relative bottom-[1px] left-[16px] mt-[8px] leading-4">
                 연락처
               </p>
-              <label htmlFor="email" className="sr-only">
+              <label htmlFor="phoneNumber" className="sr-only">
                 연락처
               </label>
               <input
                 id="phoneNumber"
-                {...register('phoneNumber')}
-                // value={values.email}
-                // onChange={handleChange}
+                // {...register('phoneNumber')}
+                onChange={handleNumber}
+                name="numberValue"
+                value={numberValue || ''}
+                maxLength={13}
                 className="relative bottom-[1px] ml-[16px]  h-[24px] w-[189px] appearance-none py-2 font-light tracking-wide text-[#91959D]  outline-none"
                 placeholder="연락처를 입력해 주세요"
               />
-              {errors.phoneNumber && (
+              {/* {errors.phoneNumber && (
                 <div className="text-red-500">{errors.phoneNumber.message}</div>
-              )}
+              )} */}
             </div>
             <div
               className={`inputBox mb-[3px] mt-4 
@@ -166,7 +218,7 @@ export default function EmailSignup() {
               <p className="relative bottom-[1px] left-[16px] mt-[8px] leading-4">
                 직무
               </p>
-              <label htmlFor="email" className="sr-only">
+              <label htmlFor="job" className="sr-only">
                 직무
               </label>
               <input
@@ -225,6 +277,8 @@ export default function EmailSignup() {
               {errors.company && (
                 <div className="text-red-500">{errors.company.message}</div>
               )}
+
+              <input maxLength={10} />
             </div>
 
             <div
