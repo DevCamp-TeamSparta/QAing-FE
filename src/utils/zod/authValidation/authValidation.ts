@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export type signupSchemaType = z.infer<typeof signupSchema> // 타입 추론 자동
 export type loginSchemaType = z.infer<typeof loginSchema>
-const phoneRegex = new RegExp(/^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/)
+const phoneRegex = new RegExp(/^\d{3}-\d{4}-\d{4}$/)
 
 export const signupSchema = z
   .object({
@@ -24,7 +24,9 @@ export const signupSchema = z
         '영문+숫자+특수문자(! @ # $ % & * ?) 조합 8~15자리를 입력해주세요.',
       ),
     passwordCheck: z.string().nonempty('비밀번호를 다시 입력해주세요.'),
-    phoneNumber: z.string().regex(phoneRegex, '부정확한 전화번호입니다.'),
+    phoneNumber: z
+      .string()
+      .regex(phoneRegex, '000-0000-0000형식으로 입력해 주세요'),
     job: z
       .string()
       .nonempty('직무를 입력해주세요.')
