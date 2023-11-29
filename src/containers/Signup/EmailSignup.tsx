@@ -21,16 +21,6 @@ export default function EmailSignup() {
       [name]: value,
     })
   }
-  const mockData = {
-    company: '팀스파르타',
-    email: 'rhsok923@naver.cm',
-    job: '개발자',
-    password: 'Fkaus1234!',
-    passwordCheck: 'Fkaus1234!',
-    phoneNumber: '010-2222-4444',
-    teamSize: 'exceedTen',
-    username: '라형선',
-  }
 
   const {
     register,
@@ -42,7 +32,8 @@ export default function EmailSignup() {
     const submitData = { ...data, phoneNumber: numberValue }
     console.log('numberValue', numberValue)
     const url =
-      'https://f7925a2a-767f-408d-8944-356e3f6e4a88.mock.pstmn.io/signup'
+      'https://cadd15ba-0d98-402b-a9fe-bf7d8bf264f5.mock.pstmn.io/signup'
+
     try {
       signupRequest(data, numberValue, url)
     } catch (error) {

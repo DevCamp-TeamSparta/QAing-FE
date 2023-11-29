@@ -2,7 +2,7 @@ export default function Signup() {
   return (
     <div
       id="singup"
-      className=" flex  min-h-screen justify-center bg-[#1E1E1E] "
+      className=" flex font-pretendard min-h-screen justify-center bg-[#1E1E1E] "
     >
       <div className="h-[664px]  min-w-[375px] max-w-md space-y-8  bg-white">
         {/* 구분선 */}

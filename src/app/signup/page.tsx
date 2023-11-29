@@ -5,7 +5,7 @@ function page() {
   return (
     <div
       id="singup"
-      className=" flex  min-h-screen justify-center bg-[#1E1E1E] "
+      className=" flex min-h-screen font-pretendard  justify-center bg-[#1E1E1E] "
     >
       <div className="h-[664px]  min-w-[375px] max-w-md space-y-8  bg-white">
         {/* 구분선 */}
@@ -25,7 +25,7 @@ function page() {
               type="button"
             >
               <div className="flex flex-row items-center justify-center text-[15px] font-bold">
-                <p className="relative right-[6px] font-medium tracking-normal bg-blue-200">
+                <p className="relative  right-[6px] font-medium tracking-normal bg-blue-200">
                   카카오로 3초만에 시작하기
                 </p>
               </div>
