@@ -2,9 +2,9 @@ import type { Config } from 'tailwindcss'
 
 const config: Config = {
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/containers/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -25,7 +25,7 @@ const config: Config = {
         },
         gray: {
           100: '#FAFAFA',
-          200: '#5B5B5B',
+          200: '#F5F5F5',
           300: '#F0F0F0',
           400: '#DEDEDE',
           500: '#C2C2C2',
