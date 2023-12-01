@@ -1,20 +1,16 @@
 import React from 'react'
 import Drondwon from '@/components/atoms/Dropdown'
 
-type DropdownTitleProps = {
+type DropdownProps = {
   dropdownTitle: string
+  dropdwonList: string[]
 }
 
-function DropdownMoleclue({ dropdownTitle }: DropdownTitleProps) {
-  const dropdownPosition = {
-    positiontop: 4,
-  }
+function DropdownMoleclue({ dropdownTitle, dropdwonList }: DropdownProps) {
   return (
-    <div className="w-[440px] h-[80px] bg-white  ">
-      <span className="text-base bg-blue-400 font-medium  bottom-[2px] ">
-        {dropdownTitle}
-      </span>
-      <Drondwon dropdownPosition={dropdownPosition} />
+    <div className="w-[440px] h-[80px]   space-y-[5px]">
+      <p className="text-base font-medium   bottom-[2px]">{dropdownTitle}</p>
+      <Drondwon dropdwonList={dropdwonList} />
     </div>
   )
 }

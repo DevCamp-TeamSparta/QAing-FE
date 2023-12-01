@@ -29,16 +29,16 @@ export default function EmailSignup() {
     formState: { errors },
   } = useForm<signupSchemaType>({ resolver: zodResolver(signupSchema) })
   const onSubmit = async (data: signupSchemaType) => {
-    const submitData = { ...data, phoneNumber: numberValue }
-    console.log('numberValue', numberValue)
-    const url =
-      'https://cadd15ba-0d98-402b-a9fe-bf7d8bf264f5.mock.pstmn.io/signup'
-
-    try {
-      signupRequest(data, numberValue, url)
-    } catch (error) {
-      console.log(error)
-    }
+    alert('test')
+    // const submitData = { ...data, phoneNumber: numberValue }
+    // console.log('numberValue', numberValue)
+    // const url =
+    //   'https://cadd15ba-0d98-402b-a9fe-bf7d8bf264f5.mock.pstmn.io/signup'
+    // try {
+    //   signupRequest(data, numberValue, url)
+    // } catch (error) {
+    //   console.log(error)
+    // }
   }
   useEffect(() => {
     if (numberValue.length === 11) {

@@ -2,7 +2,7 @@ import Cookies from 'js-cookie'
 import { create } from 'zustand'
 import type { StateCreator } from 'zustand'
 // import { devtools } from 'zustand/middleware'
-import type { UserStore } from './types/userStore.types'
+import type { UserStore } from '../../types/userStore.types'
 // import { env } from '../../../env.mjs'
 import { setCookieStorage } from '../../utils/storage'
 

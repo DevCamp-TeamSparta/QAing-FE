@@ -1,20 +1,25 @@
 import Input from '@/components/atoms/Input/index'
+import { RegisterOptions, UseFormRegisterReturn } from 'react-hook-form'
 
 type InputTitleProps = {
   inputTitle: string
+  register?: UseFormRegisterReturn
+  errors?: object
 }
 
-function InputMolcules({ inputTitle }: InputTitleProps) {
+function InputMolcules({ inputTitle, register, errors }: InputTitleProps) {
   const inputPosition = {
     positiontop: 4,
   }
 
   return (
-    <div className="w-[440px] h-[80px] bg-white   ">
-      <span className="text-base bg-blue-400 font-medium relative bottom-[2px]">
-        {inputTitle}
-      </span>
-      <Input inputPosition={inputPosition} />
+    <div className="w-[440px] h-[80px] space-y-[5px]   ">
+      <p className="text-base w-fit  font-medium  bottom-[2px]">{inputTitle}</p>
+      <Input
+        inputPosition={inputPosition}
+        register={register}
+        errors={errors}
+      />
     </div>
   )
 }
