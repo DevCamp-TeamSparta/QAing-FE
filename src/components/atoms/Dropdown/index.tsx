@@ -1,21 +1,40 @@
 'use client'
-import { useState, useRef } from 'react'
+import React from 'react'
+import { useState, useRef, ReactNode } from 'react'
+import { FieldError, UseFormSetValue } from 'react-hook-form'
 
 interface dropdownProps {
   dropdwonList: string[]
+  setValue?: UseFormSetValue<{
+    username: string
+    company: string
+    teamsize: string
+  }>
+  control?: any
+  onChange?: (value: any) => void | undefined
+  errors?: FieldError
 }
 
-function Drondwon({ dropdwonList }: dropdownProps) {
+function Dropdown({
+  dropdwonList,
+  setValue,
+  control,
+  onChange,
+  errors,
+}: dropdownProps) {
   const [openState, setOpenState] = useState<boolean>(false)
   const [selectedElement, setSelectedElement] = useState<string | undefined>()
   const dropdownRef = useRef<HTMLDivElement | null>(null)
 
-  const listToChooseFrom = dropdwonList
-  console.log('dropdwonList', dropdwonList)
+  console.log('드롭다운에러', errors)
 
   return (
     <div className="text-[15px] font-medium">
-      <div className="w-[440px] h-[52px] bg-gray-200  rounded-lg overflow-auto ">
+      <div
+        className={`w-[440px] h-[52px] bg-gray-200  rounded-lg overflow-auto ${
+          errors && 'border border-sementic-danger'
+        }`}
+      >
         <div
           onClick={() => {
             setOpenState(!openState)
@@ -45,6 +64,9 @@ function Drondwon({ dropdwonList }: dropdownProps) {
                   onClick={e => {
                     setOpenState(false)
                     setSelectedElement(item)
+                    {
+                      onChange && onChange(item)
+                    }
                   }}
                 >
                   {item}
@@ -53,8 +75,11 @@ function Drondwon({ dropdwonList }: dropdownProps) {
             })}
         </ul>
       </div>
+      {errors && errors.message}
     </div>
   )
 }
 
-export default Drondwon
+export default React.memo(Dropdown)
+//react memo 언제사용해야 좋을까?
+//유효성 검사에서 인풋값이 바뀔때마다 드롭다운에서 랜더링이 일어나기 때문에 사용

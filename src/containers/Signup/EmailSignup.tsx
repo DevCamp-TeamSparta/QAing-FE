@@ -194,7 +194,6 @@ export default function EmailSignup() {
                 onChange={handleNumber}
                 name="numberValue"
                 value={numberValue || ''}
-                maxLength={13}
                 className="relative bottom-[1px] ml-[16px]  h-[24px] w-[189px] appearance-none py-2 font-light tracking-wide text-[#91959D]  outline-none"
                 placeholder="연락처를 입력해 주세요"
               />

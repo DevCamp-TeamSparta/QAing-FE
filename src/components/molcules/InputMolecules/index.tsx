@@ -1,4 +1,5 @@
 import Input from '@/components/atoms/Input/index'
+import { ChangeEvent } from 'react'
 import { RegisterOptions, UseFormRegisterReturn } from 'react-hook-form'
 
 type InputTitleProps = {
@@ -8,18 +9,10 @@ type InputTitleProps = {
 }
 
 function InputMolcules({ inputTitle, register, errors }: InputTitleProps) {
-  const inputPosition = {
-    positiontop: 4,
-  }
-
   return (
     <div className="w-[440px] h-[80px] space-y-[5px]   ">
       <p className="text-base w-fit  font-medium  bottom-[2px]">{inputTitle}</p>
-      <Input
-        inputPosition={inputPosition}
-        register={register}
-        errors={errors}
-      />
+      <Input register={register} errors={errors} />
     </div>
   )
 }

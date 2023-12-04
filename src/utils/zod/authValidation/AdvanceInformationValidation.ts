@@ -18,8 +18,9 @@ export const advanceInformationSchema = z.object({
   //   .refine(value => {
   //     return ['lessthanfive', 'sixToTen', 'exceedTen'].includes(value)
   //   }, '올바른 팀원 수를 선택해 주세요.'),
-  company: z
+  company: z.string().max(20, '20자 이내로 입력해주세요.'),
+  teamsize: z
     .string()
-    .nonempty('회사를 입력해주세요.')
-    .max(20, '20자 이내로 입력해주세요.'),
+    .refine(value => value !== '전부', '팀사이즈를 선택해 주세요'),
+  job: z.string().refine(value => value !== '전부', '를 선택해 주세요'),
 })

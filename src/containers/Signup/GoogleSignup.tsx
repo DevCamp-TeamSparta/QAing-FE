@@ -1,18 +1,33 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect, ChangeEvent } from 'react'
 import Logo from '@/components/atoms/Logo/index'
 import InputMolecules from '@/components/molcules/InputMolecules/index'
+import PhoneNumberInputMolcules from '@/components/molcules/InputMolecules/PhoneNumberInputMolecule'
 import DropdownMoleclue from '@/components/molcules/DropdownMolecule/index'
 import CTAButton from '@/components/atoms/CallToActionAButton'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
   advanceInformationSchemaType,
   advanceInformationSchema,
 } from '@/utils/zod/authValidation/AdvanceInformationValidation'
+import usePhoneNumber from '@/hooks/auth/usePhoneNumber'
 
 function GoogleSignup() {
   const [buttonClicked, setButtonClicked] = useState<boolean>(false)
+
+  //휴대폰 자동 하이픈생성훅 프롭스
+  const phoneNumberProps = {
+    type: 'tel',
+    maxLength: 13,
+  }
+  const { phoneValue, onChangePhoneNumber, phoneNumberAutoFormat } =
+    usePhoneNumber()
+
+  const [isPhoneValueExist, setIsPhoneValueExist] = useState<boolean>(false)
+
+  console.log(`phoneValue`, phoneValue.replace(/-/g, ''))
+  console.log(`isPhoneValueExist`, isPhoneValueExist)
 
   //로고 사이즈 프롭스
   const logoSize = {
@@ -36,7 +51,6 @@ function GoogleSignup() {
 
   //드롭다운 프롭스
   //직무
-
   const dropdownList = {
     JobList: ['기획자', '디자이너', '개발', 'QA 엔지니어', '비즈니스', '기타'],
     TeamSizeList: [
@@ -55,13 +69,20 @@ function GoogleSignup() {
   const {
     register,
     handleSubmit,
+    setValue,
+    control,
     formState: { errors },
   } = useForm<advanceInformationSchemaType>({
     resolver: zodResolver(advanceInformationSchema),
   })
 
   //제출 함수
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: advanceInformationSchemaType) => {
+    if (phoneValue === '') {
+      setIsPhoneValueExist(true)
+    } else {
+      setIsPhoneValueExist(false)
+    }
     alert('확인')
     console.log('Button clicked!', data)
   }
@@ -90,25 +111,57 @@ function GoogleSignup() {
           <div></div>
 
           <div className=" mt-[45px]">
-            <InputMolecules
+            <PhoneNumberInputMolcules
               inputTitle={lnputTitle.phone}
-              // register={register('')}
-              errors={errors}
+              isPhoneValueExist={isPhoneValueExist}
+              phoneNumberProps={phoneNumberProps}
+              onChangePhoneNumber={onChangePhoneNumber}
+              phoneValue={phoneValue}
+            />
+            {/* <input
+              type="tel"
+              onChange={onChangePhoneNumber}
+              value={phoneValue}
+            /> */}
+            <div></div>
+          </div>
+          <div className=" mt-[45px]">
+            <Controller
+              control={control}
+              name="job"
+              render={({ field: { onChange } }) => (
+                <DropdownMoleclue
+                  onChange={onChange}
+                  // setValue={setValue}
+                  dropdownTitle={dropdownTitle.job}
+                  dropdwonList={dropdownList.JobList}
+                  errors={errors.job}
+                />
+              )}
             />
             <div></div>
           </div>
           <div className=" mt-[45px]">
-            <DropdownMoleclue
-              dropdownTitle={dropdownTitle.job}
-              dropdwonList={dropdownList.JobList}
+            <Controller
+              control={control}
+              name="teamsize"
+              render={({ field: { onChange } }) => (
+                <DropdownMoleclue
+                  onChange={onChange}
+                  // setValue={setValue}
+                  dropdownTitle={dropdownTitle.teamSize}
+                  dropdwonList={dropdownList.TeamSizeList}
+                  errors={errors.teamsize}
+                />
+              )}
             />
-            <div></div>
-          </div>
-          <div className=" mt-[45px]">
-            <DropdownMoleclue
+
+            {/* <DropdownMoleclue
+              control={control || ''}
+              setValue={setValue}
               dropdownTitle={dropdownTitle.teamSize}
               dropdwonList={dropdownList.TeamSizeList}
-            />
+            /> */}
           </div>
           <div className=" mt-[45px]">
             <InputMolecules
