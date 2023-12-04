@@ -1,5 +1,5 @@
 import React from 'react'
-import Signup from '@/containers/Signup/Signup'
+import Signup from '@/components/templetes/Signup/Signup'
 
 function page() {
   return (

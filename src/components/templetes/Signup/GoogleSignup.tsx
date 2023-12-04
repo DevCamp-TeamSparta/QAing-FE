@@ -1,8 +1,7 @@
 'use client'
-import React, { useState, useEffect, ChangeEvent } from 'react'
+import React, { useState } from 'react'
 import Logo from '@/components/atoms/Logo/index'
 import InputMolecules from '@/components/molcules/InputMolecules/index'
-import PhoneNumberInputMolcules from '@/components/molcules/InputMolecules/PhoneNumberInputMolecule'
 import DropdownMoleclue from '@/components/molcules/DropdownMolecule/index'
 import CTAButton from '@/components/atoms/CallToActionAButton'
 import { useForm, Controller } from 'react-hook-form'
@@ -12,9 +11,11 @@ import {
   advanceInformationSchema,
 } from '@/utils/zod/authValidation/AdvanceInformationValidation'
 import usePhoneNumber from '@/hooks/auth/usePhoneNumber'
+import Router from 'next/router'
 
 function GoogleSignup() {
   const [buttonClicked, setButtonClicked] = useState<boolean>(false)
+  const router = Router
 
   //휴대폰 자동 하이픈생성훅 프롭스
   const phoneNumberProps = {
@@ -81,6 +82,11 @@ function GoogleSignup() {
   const onSubmit = (data: advanceInformationSchemaType) => {
     alert('확인')
     console.log('Button clicked!', data)
+  }
+
+  const GoogleURL = process.env.NEXT_PUBLIC_GOOGLE_URL
+  const googleAuth = () => {
+    router.push(`${GoogleURL}`)
   }
 
   return (
@@ -186,7 +192,7 @@ function GoogleSignup() {
             </p>
           </div>
           <div className="mt-4">
-            <CTAButton>가입 완료하기</CTAButton>
+            <CTAButton onClick={() => googleAuth()}>가입 완료하기</CTAButton>
           </div>
         </form>
       </div>
