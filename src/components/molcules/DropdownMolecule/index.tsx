@@ -19,6 +19,7 @@ type DropdownProps = {
   }>
   errors?: FieldError
   control?: any
+  dropdownPlaceholder?: string
 }
 
 function DropdownMoleclue({
@@ -28,6 +29,7 @@ function DropdownMoleclue({
   control,
   onChange,
   errors,
+  dropdownPlaceholder,
 }: DropdownProps) {
   return (
     <div className="w-[440px] h-[80px]   space-y-[5px]">
@@ -38,6 +40,7 @@ function DropdownMoleclue({
         setValue={setValue}
         control={control}
         errors={errors}
+        dropdownPlaceholder={dropdownPlaceholder}
       />
     </div>
   )

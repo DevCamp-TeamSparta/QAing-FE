@@ -14,9 +14,15 @@ export const advanceInformationSchema = z.object({
     .regex(/^[가-힣a-zA-Z]{2,}$/, '이름을 정확히 입력해주세요'),
 
   company: z.string().max(20, '20자 이내로 입력해주세요.'),
-  teamsize: z
-    .string()
-    .refine(value => value !== '전부', '팀사이즈를 선택해 주세요'),
+  teamsize: z.string().refine(value => {
+    if (value === '직무를 선택해주세요') {
+      return '직무를 선택해주세요'
+    }
+    if (value === '팀 규모를 선택해 주세요') {
+      return '팀사이즈를 선택해 주세요'
+    }
+    return true
+  }),
   job: z.string().refine(value => value !== '전부', '를 선택해 주세요'),
   phone: z
     .string()

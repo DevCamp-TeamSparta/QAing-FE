@@ -13,6 +13,7 @@ interface dropdownProps {
   control?: any
   onChange?: (value: any) => void | undefined
   errors?: FieldError
+  dropdownPlaceholder?: string
 }
 
 function Dropdown({
@@ -21,12 +22,13 @@ function Dropdown({
   control,
   onChange,
   errors,
+  dropdownPlaceholder,
 }: dropdownProps) {
   const [openState, setOpenState] = useState<boolean>(false)
   const [selectedElement, setSelectedElement] = useState<string | undefined>()
   const dropdownRef = useRef<HTMLDivElement | null>(null)
 
-  console.log('드롭다운에러', errors)
+  console.log('dropdownPlaceholder', dropdownPlaceholder)
 
   return (
     <div className="text-[15px] font-medium">
@@ -42,9 +44,11 @@ function Dropdown({
           className="w-[408px] h-[24px]  ml-4 mt-[14px] font-regular  "
         >
           <input
-            type="button"
-            value={selectedElement || '선택'}
-            className="w-[376px] h-[24px] bg-gray-200  text-left "
+            type="text"
+            readOnly
+            value={selectedElement || ''}
+            placeholder={dropdownPlaceholder && dropdownPlaceholder}
+            className="w-[376px] h-[24px] bg-gray-200  text-left outline-none placeholder:b4 "
           />
         </div>
       </div>

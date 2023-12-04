@@ -45,6 +45,10 @@ function GoogleSignup() {
     job: '직무 *',
     teamSize: '팀 규모',
   }
+  const dropdownPlaceholder = {
+    job: '직무를 선택해주세요',
+    teamSize: '팀 규모를 선택해주세요',
+  }
 
   //드롭다운 프롭스
   //직무
@@ -140,6 +144,7 @@ function GoogleSignup() {
                   onChange={onChange}
                   // setValue={setValue}
                   dropdownTitle={dropdownTitle.job}
+                  dropdownPlaceholder={dropdownPlaceholder.job}
                   dropdwonList={dropdownList.JobList}
                   errors={errors.job}
                 />
@@ -156,6 +161,7 @@ function GoogleSignup() {
                   onChange={onChange}
                   // setValue={setValue}
                   dropdownTitle={dropdownTitle.teamSize}
+                  dropdownPlaceholder={dropdownPlaceholder.teamSize}
                   dropdwonList={dropdownList.TeamSizeList}
                   errors={errors.teamsize}
                 />

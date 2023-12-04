@@ -6,7 +6,7 @@ import {
 } from '@/utils/zod/authValidation/authValidation'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { signupRequest } from '@/services/auth.api'
+import { signupRequest } from '@/services/auth/auth.api'
 
 export default function EmailSignup() {
   const [values, setValues] = useState({
