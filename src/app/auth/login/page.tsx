@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import Login from '@/containers/Login/Login'
+import Login from '@/components/templetes/Login/Login'
 
 function page() {
   return <Login />
