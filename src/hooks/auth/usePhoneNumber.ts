@@ -2,6 +2,7 @@ import { ChangeEvent, useState } from 'react'
 
 export default function usePhoneNumber() {
   const [phoneValue, setPhoneValue] = useState<string>('')
+
   const phoneNumberAutoFormat = (phoneNumber: string): string => {
     const number = phoneNumber.trim().replace(/[^0-9]/g, '')
 

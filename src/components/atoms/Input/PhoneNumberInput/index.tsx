@@ -26,7 +26,7 @@ function PhoneNumberInput({
       }`}
     >
       <input
-        type="tel"
+        type={phoneNumberProps.type}
         maxLength={phoneNumberProps.maxLength}
         onChange={onChangePhoneNumber}
         value={phoneValue}

@@ -52,7 +52,7 @@ function Dropdown({
       <div
         className={`${
           openState ? ' h-[332px] ' : 'h-0  overflow-hidden '
-        } w-[440px]  bg-white  mt-2 rounded-lg transition-all ease-in-out	duration-[500ms] absolute z-500 rotate-360 shadow-md`}
+        } w-[440px]  bg-white  b4 rounded-lg transition-all ease-in-out	duration-[500ms] absolute z-500 rotate-360 shadow-modal`}
       >
         <ul className={`p-[12px]  `}>
           {dropdwonList &&
@@ -75,7 +75,6 @@ function Dropdown({
             })}
         </ul>
       </div>
-      {errors && errors.message}
     </div>
   )
 }

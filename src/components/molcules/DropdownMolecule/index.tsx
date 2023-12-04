@@ -31,7 +31,7 @@ function DropdownMoleclue({
 }: DropdownProps) {
   return (
     <div className="w-[440px] h-[80px]   space-y-[5px]">
-      <p className="text-base font-medium   bottom-[2px]">{dropdownTitle}</p>
+      <p className="b4   bottom-[2px]">{dropdownTitle}</p>
       <Dropdown
         onChange={onChange}
         dropdwonList={dropdwonList}

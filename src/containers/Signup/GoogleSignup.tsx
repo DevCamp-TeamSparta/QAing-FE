@@ -24,28 +24,25 @@ function GoogleSignup() {
   const { phoneValue, onChangePhoneNumber, phoneNumberAutoFormat } =
     usePhoneNumber()
 
-  const [isPhoneValueExist, setIsPhoneValueExist] = useState<boolean>(false)
-
   console.log(`phoneValue`, phoneValue.replace(/-/g, ''))
-  console.log(`isPhoneValueExist`, isPhoneValueExist)
 
   //로고 사이즈 프롭스
   const logoSize = {
     alt: 'Logo',
-    width: 124,
-    height: 44,
+    width: 100,
+    height: 36,
   }
 
   //인풋 타이틀 프롭스
   const lnputTitle = {
-    name: '이름*',
-    phone: '연락처*',
-    company: '회사명(선택)',
+    name: '이름 *',
+    phone: '연락처 *',
+    company: '회사명 (선택)',
   }
 
   //드롭다운 타이틀 프롭스
   const dropdownTitle = {
-    job: '직무*',
+    job: '직무 *',
     teamSize: '팀 규모',
   }
 
@@ -78,46 +75,55 @@ function GoogleSignup() {
 
   //제출 함수
   const onSubmit = (data: advanceInformationSchemaType) => {
-    if (phoneValue === '') {
-      setIsPhoneValueExist(true)
-    } else {
-      setIsPhoneValueExist(false)
-    }
     alert('확인')
     console.log('Button clicked!', data)
   }
 
   return (
     <div>
-      <div className="h-[108px] ml-[35px] bg-blue-200 flex flex-col justify-center ">
-        <Logo logoSize={logoSize} />
-      </div>
+      <header className="h-[108px]   flex flex-col justify-center ">
+        <div className="ml-[35px]">
+          <Logo logoSize={logoSize} />
+        </div>
+      </header>
 
-      <div className="flex flex-col items-center">
-        <h1 className="h1 mt-[35px]">QAing에 오신 걸 환영해요!</h1>
-        <p className="ml-2 mt-[12px] text-gray-800 b4">
+      <div className="flex flex-col items-center ">
+        <h1 className="h1 mt-[39px]">QAing에 오신 걸 환영해요!</h1>
+        <p className=" mt-[17px] text-gray-800 b2">
           앞으로 여러분에게 더 도움이 되는 QAing이 되기 위해
         </p>
-        <p className=" text-gray-800 b4">
+        <p className=" text-gray-800 b2">
           여러분의 데이터를 안전하게 수집하고 있어요!
         </p>
 
-        <form onSubmit={handleSubmit(onSubmit)} className=" mt-[55px]">
+        <form onSubmit={handleSubmit(onSubmit)} className=" mt-[56px] ">
           <InputMolecules
             register={register('username')}
             inputTitle={lnputTitle.name}
             errors={errors.username}
+            phoneNumberProps={phoneNumberProps}
           />
           <div></div>
 
+          <div className="mt-[43px]">
+            <InputMolecules
+              register={register('phone')}
+              inputTitle={lnputTitle.phone}
+              errors={errors.phone}
+              phoneNumberProps={phoneNumberProps}
+              onChangePhoneNumber={onChangePhoneNumber}
+              phoneValue={phoneValue}
+            />
+          </div>
+
           <div className=" mt-[45px]">
-            <PhoneNumberInputMolcules
+            {/* <PhoneNumberInputMolcules
               inputTitle={lnputTitle.phone}
               isPhoneValueExist={isPhoneValueExist}
               phoneNumberProps={phoneNumberProps}
               onChangePhoneNumber={onChangePhoneNumber}
               phoneValue={phoneValue}
-            />
+            /> */}
             {/* <input
               type="tel"
               onChange={onChangePhoneNumber}
@@ -155,13 +161,6 @@ function GoogleSignup() {
                 />
               )}
             />
-
-            {/* <DropdownMoleclue
-              control={control || ''}
-              setValue={setValue}
-              dropdownTitle={dropdownTitle.teamSize}
-              dropdwonList={dropdownList.TeamSizeList}
-            /> */}
           </div>
           <div className=" mt-[45px]">
             <InputMolecules
@@ -170,18 +169,18 @@ function GoogleSignup() {
               errors={errors.company}
             />
           </div>
-          <div>
-            <p className="b6">
+          <div className="">
+            <p className="b4 mt-2 text-[#808181]">
               회사명이 부담스러우시다면, 산업 또는 주요 프로덕트를 적어주세요
             </p>
           </div>
           <div>
-            <p className="b6">
+            <p className="b4 mt-[56px] text-center text-[#808181]">
               QAing의 서비스 이용약관 및 개인정보 처리 방침이 적용됩니다.
             </p>
           </div>
-          <div>
-            <CTAButton>가입하기</CTAButton>
+          <div className="mt-4">
+            <CTAButton>가입 완료하기</CTAButton>
           </div>
         </form>
       </div>

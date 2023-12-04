@@ -7,15 +7,14 @@ type CTAButtonProps = {
 }
 
 function CTAButton({ disabled, onClick, children }: CTAButtonProps) {
-  // const {} = CTAButtonProps
   return (
     <div>
       <button
         type="submit"
-        className={`w-[440px] h-[56px]  px-4 py-2 border rounded-[99px]  focus:outline-none hover:bg-brand-hover ${
+        className={`w-[440px] h-[56px]  px-4 py-2 border-none rounded-[99px]  text-white  focus:outline-none hover:bg-primary-hover ${
           disabled
-            ? 'bg-gray-400 cursor-not-allowed'
-            : 'bg-brand-default   active:bg-brand-pressed'
+            ? 'bg-sementic-disabled  hover:bg-sementic-disabled cursor-not-allowed'
+            : 'bg-primary-default   active:bg-primary-pressed'
         }`}
         disabled={disabled}
         onClick={onClick}
