@@ -1,10 +1,11 @@
 export type User = {
-  email: string | undefined
-  password: string | undefined
-  confirmPassword?: string | undefined
-  username?: string | undefined
-  confirmPasswordmatch?: string | undefined
-  event: boolean
+  userEmail: string | undefined
+  //사전 정보입력에서 받은 값
+  userPhoneNumber: number | undefined
+  userName: string | undefined
+  userJob: string | undefined
+  userTeamSize: string | undefined
+  userCompany: string | undefined
 }
 
 export type UserStore = {
@@ -12,7 +13,6 @@ export type UserStore = {
   accessToken: string | null
   refreshToken: string | null
   registerUser: User | null
-  setRouterQuery: (query: string) => void
   setRegisterUser: (user: User) => void
   setAccessToken: (token: string) => void
   setRefreshToken: (token: string) => void

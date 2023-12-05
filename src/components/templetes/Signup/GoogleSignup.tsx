@@ -11,11 +11,11 @@ import {
   advanceInformationSchema,
 } from '@/utils/zod/authValidation/AdvanceInformationValidation'
 import usePhoneNumber from '@/hooks/auth/usePhoneNumber'
-import Router from 'next/router'
+import { useRouter } from 'next/navigation'
 
 function GoogleSignup() {
   const [buttonClicked, setButtonClicked] = useState<boolean>(false)
-  const router = Router
+  const router = useRouter()
 
   //휴대폰 자동 하이픈생성훅 프롭스
   const phoneNumberProps = {
@@ -86,7 +86,7 @@ function GoogleSignup() {
 
   const GoogleURL = process.env.NEXT_PUBLIC_GOOGLE_URL
   const googleAuth = () => {
-    router.push(`${GoogleURL}`)
+    router.push(`${GoogleURL}/auth/google`)
   }
 
   return (

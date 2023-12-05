@@ -11,9 +11,6 @@ const store: StateCreator<UserStore> = set => ({
   user: Cookies.get('user') || null,
   accessToken: Cookies.get('accessToken') || null,
   refreshToken: Cookies.get('refreshToken') || null,
-  setRouterQuery: query => {
-    set({ routerQuery: query })
-  },
   setRegisterUser: user => set({ registerUser: user }),
   setAccessToken: token => {
     Cookies.set('accessToken', token, {
