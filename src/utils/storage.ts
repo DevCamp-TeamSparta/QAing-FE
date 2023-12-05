@@ -1,9 +1,9 @@
-import Cookies, { CookieAttributes } from 'js-cookie'
+import Cookies from 'js-cookie'
 
 export const setCookieStorage = <T>(
   key: string,
   value: T,
-  option: CookieAttributes,
+  option: Cookies.CookieAttributes,
 ) => {
   if (typeof window === 'undefined') {
     return
