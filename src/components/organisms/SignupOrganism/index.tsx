@@ -18,7 +18,7 @@ function SignnupOrgansim() {
           우리 함께 QA 시간을 절약하러 가볼까요?
         </div>
         <div className="mt-[74px]">
-          <OAuthBoutton buttonProps={GoogleSignup} />
+          <OAuthBoutton />
         </div>
       </div>
       <div className="flex flex-col items-center mt-[307px] text-gray-600 text-[14px] ">
