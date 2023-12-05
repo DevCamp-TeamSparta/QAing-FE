@@ -1,7 +1,7 @@
 import React from 'react'
 import Signup from '@/components/templetes/Signup/Signup'
 
-function page() {
+function Page() {
   return (
     <Signup />
     // <div
@@ -74,4 +74,4 @@ function page() {
   )
 }
 
-export default page
+export default Page
