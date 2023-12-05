@@ -1,3 +1,4 @@
+'use client'
 import Logo from '@/components/atoms/Logo/index'
 import OAuthBoutton from '@/components/atoms/OAuthButton'
 import { GoogleSignup } from '@/services/auth/google.api'
