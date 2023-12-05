@@ -2,18 +2,15 @@ import Cookies from 'js-cookie'
 import { create } from 'zustand'
 import type { StateCreator } from 'zustand'
 // import { devtools } from 'zustand/middleware'
-import type { UserStore } from './types/userStore.types'
+import type { UserStore } from '../../types/userStore.types'
 // import { env } from '../../../env.mjs'
 import { setCookieStorage } from '../../utils/storage'
 
 const store: StateCreator<UserStore> = set => ({
-  signupduplicateError: null,
-  routerQuery: '/',
   registerUser: null,
   user: Cookies.get('user') || null,
   accessToken: Cookies.get('accessToken') || null,
   refreshToken: Cookies.get('refreshToken') || null,
-  setSignupDuplicateError: error => set({ signupduplicateError: error }),
   setRouterQuery: query => {
     set({ routerQuery: query })
   },

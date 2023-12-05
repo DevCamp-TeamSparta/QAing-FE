@@ -2,6 +2,78 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/public/fonts/Pretendard-Bold.woff') format('woff');
+  src: url('/public/fonts/Pretendard-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/public/fonts/Pretendard-SemiBold.woff') format('woff');
+  src: url('/public/fonts/Pretendard-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/public/fonts/Pretendard-Medium.woff') format('woff');
+  src: url('/public/fonts/Pretendard-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/public/fonts/Pretendard-Regular.woff') format('woff');
+  src: url('/public/fonts/Pretendard-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+.h1 {
+  @apply font-semibold text-[32px]  leading-[44px];
+}
+.h2 {
+  @apply font-semibold text-[28px]  leading-[36px];
+}
+h3 {
+  @apply font-bold text-[24px] leading-8;
+}
+h4 {
+  @apply font-medium text-[24px] leading-8;
+}
+.t1 {
+  @apply font-bold text-[20px] leading-[26px];
+}
+.t2 {
+  @apply font-medium text-[20px] leading-[26px];
+}
+.t3 {
+  @apply font-bold text-[18px] leading-5;
+}
+.b1 {
+  @apply font-bold text-[16px] leading-[20px];
+}
+.b2 {
+  @apply font-medium text-[16px] leading-[20px];
+}
+.b3 {
+  @apply font-bold text-[14px] leading-[20px];
+}
+.b4 {
+  @apply font-medium text-[14px] leading-[20px];
+}
+
+/* @layer base {
+  html {
+    font-family: 'pretendard', sans-serif;
+  }
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -18,10 +90,8 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  /* font-family:
+    [ 'Pretendard',
+    sans-serif];
 }
+ */
