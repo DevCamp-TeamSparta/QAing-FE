@@ -1,5 +1,6 @@
 import Logo from '@/components/atoms/Logo/index'
 import OAuthBoutton from '@/components/atoms/OAuthButton'
+import { GoogleSignup } from '@/services/auth/google.api'
 
 function SignnupOrgansim() {
   const logoSize = {
@@ -7,6 +8,7 @@ function SignnupOrgansim() {
     width: 302.22,
     height: 109,
   }
+
   return (
     <div className="bg-white w-[440px] h-[310px] mx-auto">
       <div className="flex flex-col items-center pt-[10px]">
@@ -15,7 +17,7 @@ function SignnupOrgansim() {
           우리 함께 QA 시간을 절약하러 가볼까요?
         </div>
         <div className="mt-[74px]">
-          <OAuthBoutton />
+          <OAuthBoutton buttonProps={GoogleSignup} />
         </div>
       </div>
       <div className="flex flex-col items-center mt-[307px] text-gray-600 text-[14px] ">

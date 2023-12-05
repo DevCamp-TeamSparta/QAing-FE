@@ -85,9 +85,9 @@ function GoogleSignup() {
   }
 
   const GoogleURL = process.env.NEXT_PUBLIC_GOOGLE_URL
-  const googleAuth = () => {
-    router.push(`${GoogleURL}/auth/google`)
-  }
+  // const googleAuth = () => {
+  //   router.push(`${GoogleURL}/auth/google`)
+  // }
 
   return (
     <div>
@@ -192,7 +192,7 @@ function GoogleSignup() {
             </p>
           </div>
           <div className="mt-4">
-            <CTAButton onClick={() => googleAuth()}>가입 완료하기</CTAButton>
+            <CTAButton>가입 완료하기</CTAButton>
           </div>
         </form>
       </div>
