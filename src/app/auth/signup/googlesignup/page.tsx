@@ -1,7 +1,7 @@
 import React from 'react'
 import GoogleSignup from '@/components/templetes/Signup/GoogleSignup'
 
-function page() {
+function Page() {
   return (
     <div className="h-[1342px]">
       <GoogleSignup />
@@ -9,4 +9,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

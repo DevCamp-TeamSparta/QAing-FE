@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import useUserStore from '@/states/user-store/userStore'
 
-function page() {
+function Page() {
   const router = useRouter()
   const { user } = useUserStore()
   useEffect(() => {
@@ -16,4 +16,4 @@ function page() {
   return <div>page</div>
 }
 
-export default page
+export default Page
