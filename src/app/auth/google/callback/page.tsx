@@ -12,8 +12,11 @@ function Page() {
       router.push('/')
     }
   })
-  const cookies = document.cookie
-  console.log(cookies)
+
+  useEffect(() => {
+    const cookies = document.cookie
+    console.log(cookies)
+  })
 
   return <div>page</div>
 }
