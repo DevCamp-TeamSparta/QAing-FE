@@ -22,11 +22,12 @@ function CTAButton({
           hover:bg-brand-hover 
           active:bg-brand-pressed 
           disabled:bg-gray-400 disabled:cursor-not-allowed 
+          t3
           `,
         {
           'w-[440px] h-[56px]': size === 'large',
           'w-[208px] h-[56px]': size === 'medium',
-          '': size === 'small',
+          'b3': size === 'small',
         },
       )}
       disabled={disabled}

@@ -16,7 +16,7 @@ export default function MainPageHeader() {
     <header
       className={'w-full h-[108px] p-[36px] flex items-center justify-between'}
     >
-      <h1>내 QA 폴더</h1>
+      <h1 className={'h3'}>내 QA 폴더</h1>
       <CTAButton size={'medium'} onClick={onClickStartButtonHandler}>
         QA 시작하기
       </CTAButton>

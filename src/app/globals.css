@@ -35,43 +35,37 @@
 }
 
 .h1 {
-  @apply text-[32px] leading-[44px] font-semibold;
+  @apply font-semibold text-[32px]  leading-[44px];
 }
 .h2 {
-  @apply text-[28px] leading-[44px] font-semibold;
+  @apply font-semibold text-[28px]  leading-[36px];
+}
+.h3 {
+  @apply font-bold text-[24px] leading-8;
+}
+.h4 {
+  @apply font-medium text-[24px] leading-8;
 }
 .t1 {
-  @apply text-[24px] leading-[32px] font-semibold;
+  @apply font-bold text-[20px] leading-[26px];
 }
 .t2 {
-  @apply text-[24px] leading-[32px] font-medium;
+  @apply font-medium text-[20px] leading-[26px];
 }
 .t3 {
-  @apply text-[20px] leading-[26px] font-semibold;
-}
-.t4 {
-  @apply text-[20px] leading-[26px] font-medium;
-}
-.t5 {
-  @apply text-[20px] leading-[26px] font-normal;
+  @apply font-bold text-[18px] leading-5;
 }
 .b1 {
-  @apply text-[18px] leading-[20px] font-bold;
+  @apply font-bold text-[16px] leading-[20px];
 }
 .b2 {
-  @apply text-[16px] leading-[20px] font-semibold;
+  @apply font-medium text-[16px] leading-[20px];
 }
 .b3 {
-  @apply text-[16px] leading-[20px] font-medium;
+  @apply font-bold text-[14px] leading-[20px];
 }
 .b4 {
-  @apply text-[16px] leading-[20px] font-normal;
-}
-.b5 {
-  @apply text-[14px] leading-[18px] font-medium;
-}
-.b6 {
-  @apply text-[14px] leading-[18px] font-normal;
+  @apply font-medium text-[14px] leading-[20px];
 }
 
 /* @layer base {

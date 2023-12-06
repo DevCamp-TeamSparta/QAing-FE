@@ -13,7 +13,7 @@ export default function VideoTable() {
       <div className="min-w-full border-collapse">
         <div
           className={
-            'grid grid-cols-[2fr_1fr_1fr_20px] p-[20px] bg-gray-100 rounded-[16px_16px_0_0] border-b border-gray-400'
+            'grid grid-cols-[2fr_1fr_1fr_20px] p-[20px] bg-gray-100 rounded-[16px_16px_0_0] border-b border-gray-400 b3 text-gray-700'
           }
         >
           <p className="flex items-center gap-[4px]">

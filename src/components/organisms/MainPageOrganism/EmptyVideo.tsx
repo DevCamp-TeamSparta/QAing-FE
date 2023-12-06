@@ -24,7 +24,7 @@ export default function EmptyVideo() {
         'w-full h-full flex flex-col justify-center items-center text-center'
       }
     >
-      <h2 className={''}>
+      <h2 className={'text-[32px] font-semibold'}>
         QAing과 함께
         <br />
         빠르게 QA를 하러 가볼까요?
@@ -37,12 +37,12 @@ export default function EmptyVideo() {
               'flex items-center gap-[12px] px-[28px] py-[12px] rounded-[16px] bg-gray-200'
             }
           >
-            <span className={''}>{icon}</span>
-            <span className={''}>{text}</span>
+            <span className={'text-[20px] font-semibold'} >{icon}</span>
+            <span className={'b4'}>{text}</span>
           </div>
         ))}
       </div>
-      <div className={'mt-[20px] text-[#5C5C5C]'}>
+      <div className={'mt-[20px] text-[#5C5C5C] b4'}>
         <p>* 이슈를 저장하지 않으면 전체 영상은 저장되지 않아요</p>
         <p>* 오디오는 녹음되지 않아요</p>
       </div>

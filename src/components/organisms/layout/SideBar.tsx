@@ -32,7 +32,7 @@ export default function SideBar() {
         <div className={'flex items-center gap-[12px]'}>
           {/* todo: 프로필 데이터로 대체 */}
           <div className={'w-[48px] h-[48px] rounded-[50%] bg-brand-default'} />
-          <div className={'t4'}>홍길동</div>
+          <p className={'t2'}>홍길동</p>
         </div>
         <div>
           <div className={'mt-[36px]'}>
@@ -49,22 +49,22 @@ export default function SideBar() {
                 )}
               >
                 {route.icon}
-                <div className={'b2'}>{route.text}</div>
+                <p className={'b3'}>{route.text}</p>
               </Link>
             ))}
           </div>
         </div>
       </div>
-      <div className={'mt-auto px-[16px]'}>
+      <div className={'mt-auto'}>
         <button
-          className={'flex py-[12px] gap-[12px]'}
+          className={'w-full flex items-center px-[16px] py-[12px] gap-[12px] b4 text-gray-800 hover:bg-gray-200 hover:rounded-[16px]'}
           onClick={onClickProfileHandler}
         >
           <SettingSvg />
           계정 설정
         </button>
         <Link
-          className={'flex py-[18px] gap-[12px] underline'}
+          className={'flex px-[16px] py-[18px] gap-[12px] underline'}
           href={'https://www.qaing.co/'}
           target={'_blank'}
           rel={'noopener noreferrer'}

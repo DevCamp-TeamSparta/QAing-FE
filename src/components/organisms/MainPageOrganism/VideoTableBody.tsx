@@ -39,16 +39,14 @@ export default function VideoTableBody({ name, issueNum, createdAt }: Video) {
           'grid grid-cols-[2fr_1fr_1fr_20px] px-[20px] py-[16px] border-b border-gray-300 hover:bg-gray-200 active:bg-brand-background cursor-pointer'
         }
       >
-        <p className="flex gap-[12px]">
+        <p className="flex gap-[12px] b3">
           <MyVideoSvg color={'#959797'} /> {name}
         </p>
-        <p>{issueNum}개</p>
-        <p>{createdAt.toDateString()}</p>
-        <div>
+        <p className={'b4'}>{issueNum}개</p>
+        <p  className={'b4'}>{createdAt.toDateString()}</p>
           <button onClick={onClickMoreButtonHandler}>
             <MoreSvg />
           </button>
-        </div>
       </div>
       {isMoreButtonClicked && (
         <div
@@ -58,14 +56,14 @@ export default function VideoTableBody({ name, issueNum, createdAt }: Video) {
           }
         >
           <button className={'w-full hover:bg-gray-200'}>
-            <EditSvg /> <p>폴더명 편집</p>
+            <EditSvg /> <p className={'b4'}>폴더명 편집</p>
           </button>
           <p className={'my-[4px] h-[1px] w-full bg-gray-400'} />
           <button
-            className={'w-full hover:bg-gray-200'}
+            className={'w-full hover:bg-gray-200 '}
             onClick={onClickDeleteButtonHandler}
           >
-            <TrashSvg /> <p>폴더 삭제</p>
+            <TrashSvg /> <p className={'b4'}>폴더 삭제</p>
           </button>
         </div>
       )}
