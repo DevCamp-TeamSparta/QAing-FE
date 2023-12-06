@@ -101,3 +101,7 @@ body {
     sans-serif];
 }
  */
+
+button {
+  cursor: pointer;
+}

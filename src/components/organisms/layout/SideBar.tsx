@@ -8,6 +8,8 @@ import Link from 'next/link'
 import clsx from 'clsx'
 import { SettingSvg } from '../../../../public/svg/SettingSvg'
 import { PAGE_URL } from '@/constants/url'
+import { useModalStore } from '@/states/modalStore'
+import ProfileModal from '@/components/organisms/layout/ProfileModal'
 
 const SideBarRoutes = [
   {
@@ -19,6 +21,10 @@ const SideBarRoutes = [
 
 export default function SideBar() {
   const pathname = usePathname()
+  const setModal = useModalStore(state => state.setModal)
+  function onClickProfileHandler() {
+    setModal(<ProfileModal />)
+  }
   return (
     <aside className={'w-[268px] flex flex-col px-[24px] py-[36px]'}>
       <Image src={MainLogo} alt={'로고'} width={100} height={36} />
@@ -50,10 +56,13 @@ export default function SideBar() {
         </div>
       </div>
       <div className={'mt-auto px-[16px]'}>
-        <div className={'flex py-[12px] gap-[12px]'}>
+        <button
+          className={'flex py-[12px] gap-[12px]'}
+          onClick={onClickProfileHandler}
+        >
           <SettingSvg />
           계정 설정
-        </div>
+        </button>
         <Link
           className={'flex py-[18px] gap-[12px] underline'}
           href={'https://www.qaing.co/'}

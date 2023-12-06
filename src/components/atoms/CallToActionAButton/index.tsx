@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 import clsx from 'clsx'
 
 type CTAButtonProps = {
-  size: 'medium' | 'large'
+  size: 'small' | 'medium' | 'large'
   children: ReactNode
 } & React.ButtonHTMLAttributes<HTMLButtonElement>
 
@@ -26,6 +26,7 @@ function CTAButton({
         {
           'w-[440px] h-[56px]': size === 'large',
           'w-[208px] h-[56px]': size === 'medium',
+          '': size === 'small',
         },
       )}
       disabled={disabled}
