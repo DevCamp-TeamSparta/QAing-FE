@@ -13,6 +13,11 @@ function Page() {
     }
   })
 
+  useEffect(() => {
+    const cookies = document.cookie
+    console.log(cookies)
+  })
+
   return <div>page</div>
 }
 
