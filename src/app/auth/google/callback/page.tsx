@@ -16,6 +16,7 @@ function Page() {
 
   useEffect(() => {
     const userDataString = Cookies.get('userData')
+    console.log('userDataString:', userDataString)
     if (userDataString) {
       const userData = JSON.parse(userDataString)
       console.log('유저 정보:', userData)
