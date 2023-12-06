@@ -3,19 +3,22 @@ import React from 'react'
 import GoogleIcon from '../Icon/GoogleIcon'
 import axios from 'axios'
 import useUserStore from '@/states/user-store/userStore'
+import { useRouter } from 'next/navigation'
 
 function OAuthBoutton() {
+  const router = useRouter()
   const GoogleURL = process.env.NEXT_PUBLIC_GOOGLE_URL
   const { setUser } = useUserStore()
   const GoogleSignup = () => {
-    try {
-      axios.get(`${GoogleURL}/auth/google`).then(res => {
-        const resData = res.data
-        setUser(resData)
-      })
-    } catch (err) {
-      console.log(err)
-    }
+    router.push(`${GoogleURL}/auth/google`)
+    // try {
+    //   axios.get(`${GoogleURL}/auth/google`).then(res => {
+    //     const resData = res.data
+    //     setUser(resData)
+    //   })
+    // } catch (err) {
+    //   console.log(err)
+    // }
   }
   return (
     <button
