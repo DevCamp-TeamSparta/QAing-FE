@@ -10,11 +10,12 @@ function OAuthBoutton() {
   const GoogleURL = process.env.NEXT_PUBLIC_GOOGLE_URL
   const { setUser } = useUserStore()
   const GoogleSignup = () => {
+    router.push(`${GoogleURL}/auth/google`)
     try {
       axios.get(`${GoogleURL}/auth/google`).then(res => {
-        const resData = res.data
-        setUser(resData)
-        router.push(`${GoogleURL}/auth/google`)
+        console.log('구글로그인 요청', res)
+        // const resData = res.data
+        // setUser(resData)
       })
     } catch (err) {
       console.log(err)
