@@ -11,7 +11,7 @@ function OAuthBoutton() {
   const { setUser } = useUserStore()
 
   const GoogleSignup = () => {
-    router.push(`${GoogleURL}/auth/google?redirect_uri=${GoogleURI}`)
+    router.push(`${GoogleURL}/auth/google`)
   }
 
   return (
