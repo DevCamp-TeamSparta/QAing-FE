@@ -1,7 +1,6 @@
 'use client'
 import React from 'react'
 import GoogleIcon from '../Icon/GoogleIcon'
-import axios from 'axios'
 import useUserStore from '@/states/user-store/userStore'
 import { useRouter } from 'next/navigation'
 
@@ -9,18 +8,11 @@ function OAuthBoutton() {
   const router = useRouter()
   const GoogleURL = process.env.NEXT_PUBLIC_GOOGLE_URL
   const { setUser } = useUserStore()
+
   const GoogleSignup = () => {
-    try {
-      axios.get(`${GoogleURL}/auth/google`).then(res => {
-        console.log('구글로그인 요청', res)
-        // const resData = res.data
-        // setUser(resData)
-        router.push(`${GoogleURL}/auth/google`)
-      })
-    } catch (err) {
-      console.log('소셜로그인 실패', err)
-    }
+    router.push(`${GoogleURL}/auth/google`)
   }
+
   return (
     <button
       onClick={GoogleSignup}
