@@ -18,11 +18,13 @@ function Page() {
 
   useEffect(() => {
     try {
-      axios.get(`${GoogleURL}/auth/google`).then(res => {
-        console.log('구글로그인 요청', res)
-        const resData = res.data
-        setUser(resData)
-      })
+      axios
+        .get(`${GoogleURL}/auth/google`, { withCredentials: true })
+        .then(res => {
+          console.log('구글로그인 요청', res)
+          const resData = res.data
+          setUser(resData)
+        })
     } catch (err) {
       console.log('소셜로그인 실패', err)
     }
