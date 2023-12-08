@@ -1,19 +1,41 @@
 'use client'
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import useUserStore from '@/states/user-store/userStore'
+// import { cookies } from 'next/headers'
+// import { getServerSideProps } from 'next/dist/build/templates/pages'
+import Cookies from 'js-cookie'
+import axios from 'axios'
 
 function Page() {
-  const router = useRouter()
-  const { user } = useUserStore()
-  useEffect(() => {
-    if (!user) return
-    if (user === null) {
-      router.push('/')
-    }
-  })
+  // const cookieStore = cookies()
+  // console.log('cookieStore', cookieStore)
+  const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
+  const accessToken = 'Token is here'
+  const tokenhandler = () => {
+    console.log('확인')
+    Cookies.set('accessToken', accessToken)
+  }
 
-  return <div>page</div>
+  const apiTest = async () => {
+    const data = await axios.get(`${baseURL}/users/api/test`).then(res => {
+      console.log('res', res)
+    })
+  }
+
+  return (
+    <div className="flex flex-col mb-2 items-center">
+      <button
+        className="bg-gray-200 w-[200px] h-[50px] rounded-lg mb-2"
+        onClick={tokenhandler}
+      >
+        set cookie
+      </button>
+      <button
+        className="bg-gray-200 w-[200px] h-[50px] rounded-lg"
+        onClick={apiTest}
+      >
+        api test Button
+      </button>
+    </div>
+  )
 }
 
 export default Page
