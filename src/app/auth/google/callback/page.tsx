@@ -15,7 +15,7 @@ function Page() {
   }
 
   const apiTest = async () => {
-    const data = await axios.get(`${baseURL}/users/api/test`).then(res => {
+    const data = await axios.get(`${baseURL}users/api/test`).then(res => {
       console.log('res', res)
     })
   }
