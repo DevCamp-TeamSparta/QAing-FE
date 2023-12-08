@@ -1,12 +1,5 @@
-import { NextResponse } from 'next/server'
-import Cookies from 'js-cookie'
+import { NextRequest, NextResponse } from 'next/server'
 
-export default function middleware(res: NextResponse) {
-  console.log('res', res)
-  const userdata = res.headers.get('authorization')
-  if (userdata) {
-    Cookies.set('authorization', userdata, { expires: 1 })
-  }
-
+export default function middleware(req: NextRequest, res: NextResponse) {
   return NextResponse.next()
 }
