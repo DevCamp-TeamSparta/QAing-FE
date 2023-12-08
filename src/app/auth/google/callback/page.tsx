@@ -7,7 +7,7 @@ import axios from 'axios'
 function Page() {
   // const cookieStore = cookies()
   // console.log('cookieStore', cookieStore)
-  const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
+  const baseURL = process.env.NEXT_PUBLIC_GOOGLE_URL
   const accessToken = 'Token is here'
   const tokenhandler = () => {
     console.log('확인')
@@ -15,7 +15,7 @@ function Page() {
   }
 
   const apiTest = async () => {
-    const data = await axios.get(`${baseURL}users/api/test`).then(res => {
+    const data = await axios.get(`${baseURL}/users/api/test`).then(res => {
       console.log('res', res)
     })
   }
