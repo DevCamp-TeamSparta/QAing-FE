@@ -16,7 +16,7 @@ const axiosInstance: AxiosInstance = axios.create({
 const retryCountMap = new Map<string, { count: number; timestamp: number }>()
 
 axiosInstance.interceptors.request.use(config => {
-  const token = Cookies.get('access-Token')
+  const token = Cookies.get('access-token')
   config.headers.Authorization = token ? `Bearer ${token}` : ''
 
   const reqId = uuidv4()
