@@ -20,7 +20,7 @@ function Page() {
   const apiTest = async () => {
     try {
       const data = await axios
-        .get(`${baseURL}/users/info`, { withCredentials: true })
+        .get(`${baseURL}/users/folders`, { withCredentials: true })
         .then(res => {
           console.log('res', res)
           console.log('res.data', res.data)
