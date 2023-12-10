@@ -10,6 +10,8 @@ function Page() {
   // console.log('cookieStore', cookieStore)
   const baseURL = process.env.NEXT_PUBLIC_GOOGLE_URL
   const accessToken = 'Token is here'
+  const getCookie = Cookies.get('access-token')
+  console.log('getCookie', getCookie)
   const tokenhandler = () => {
     console.log('확인')
     Cookies.set('access-token', accessToken)
@@ -27,6 +29,7 @@ function Page() {
 
   useEffect(() => {
     // window.location.href = 'https://qaing.co'
+    console.log('getCookie', getCookie)
   })
 
   return (
