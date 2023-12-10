@@ -10,6 +10,7 @@ import useUserStore from '@/states/user-store/userStore'
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  withCredentials: true,
   timeout: 5000,
 })
 

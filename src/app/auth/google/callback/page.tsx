@@ -3,6 +3,7 @@
 // import { getServerSideProps } from 'next/dist/build/templates/pages'
 import Cookies from 'js-cookie'
 import axios from 'axios'
+import { useEffect } from 'react'
 
 function Page() {
   // const cookieStore = cookies()
@@ -11,14 +12,22 @@ function Page() {
   const accessToken = 'Token is here'
   const tokenhandler = () => {
     console.log('확인')
-    Cookies.set('accessToken', accessToken)
+    Cookies.set('access-token', accessToken)
   }
 
   const apiTest = async () => {
-    const data = await axios.get(`${baseURL}/users/api/test`).then(res => {
-      console.log('res', res)
-    })
+    try {
+      const data = await axios.get(`${baseURL}/users/info`).then(res => {
+        console.log('res', res)
+      })
+    } catch (err) {
+      console.log('err', err)
+    }
   }
+
+  useEffect(() => {
+    // window.location.href = 'https://qaing.co'
+  })
 
   return (
     <div className="flex flex-col mb-2 items-center">
