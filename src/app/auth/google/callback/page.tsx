@@ -19,9 +19,11 @@ function Page() {
 
   const apiTest = async () => {
     try {
-      const data = await axios.get(`${baseURL}/users/info`).then(res => {
-        console.log('res', res)
-      })
+      const data = await axios
+        .get(`${baseURL}/users/info`, { withCredentials: true })
+        .then(res => {
+          console.log('res', res)
+        })
     } catch (err) {
       console.log('err', err)
     }
