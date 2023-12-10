@@ -10,17 +10,13 @@ import useUserStore from '@/states/user-store/userStore'
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-  withCredentials: true,
+  // withCredentials: true, 작동 X
   timeout: 5000,
 })
 
 const retryCountMap = new Map<string, { count: number; timestamp: number }>()
 
 axiosInstance.interceptors.request.use(config => {
-  const token = Cookies.get('access-token')
-  console.log('token', token)
-  config.headers.Authorization = token ? `Bearer ${token}` : ''
-
   const reqId = uuidv4()
   config.headers['X-Request-ID'] = reqId
 
