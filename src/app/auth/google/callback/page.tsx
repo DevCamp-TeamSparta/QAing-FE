@@ -22,8 +22,9 @@ function Page() {
       const data = await axios
         .get(`${baseURL}/users/info`, { withCredentials: true })
         .then(res => {
+          console.log('res', res)
           console.log('res.data', res.data)
-          console.log('res.data', JSON.parse(res.data))
+          console.log('res.data.userEmail', res.data.userEmail)
         })
     } catch (err) {
       console.log('err', err)
