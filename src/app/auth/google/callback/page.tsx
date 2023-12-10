@@ -19,12 +19,13 @@ function Page() {
 
   const apiTest = async () => {
     try {
+      const UpdateUserDto = { userName: 'IamGroot' }
       const data = await axios
-        .get(`${baseURL}/users/folders`, { withCredentials: true })
+        .put(`${baseURL}/users/profile`, UpdateUserDto, {
+          withCredentials: true,
+        })
         .then(res => {
-          console.log('res', res)
           console.log('res.data', res.data)
-          console.log('res.data.userEmail', res.data.userEmail)
         })
     } catch (err) {
       console.log('err', err)
