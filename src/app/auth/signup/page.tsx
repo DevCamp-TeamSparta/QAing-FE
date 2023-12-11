@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import Signup from '@/components/templetes/Signup/Signup'
+import Signup from '@/components/templetes/SignupTempletes/Signup'
 
 function Page() {
   return (
