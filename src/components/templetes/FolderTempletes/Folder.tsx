@@ -57,6 +57,7 @@ function Folder() {
   useEffect(() => {
     if (!folderId) return
     apiTest()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [folderId])
 
   useEffect(() => {
