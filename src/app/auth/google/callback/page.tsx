@@ -3,9 +3,10 @@
 // import { getServerSideProps } from 'next/dist/build/templates/pages'
 import Cookies from 'js-cookie'
 import axios from 'axios'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 function Page() {
+  const [folderList, setFolderList] = useState()
   // const cookieStore = cookies()
   // console.log('cookieStore', cookieStore)
   const baseURL = process.env.NEXT_PUBLIC_GOOGLE_URL
@@ -19,12 +20,14 @@ function Page() {
 
   const apiTest = async () => {
     try {
+      const UpdateUserDto = { userName: 'IamGroot' }
       const data = await axios
-        .get(`${baseURL}/users/folders`, { withCredentials: true })
+        .get(`${baseURL}/users/folders`, {
+          withCredentials: true,
+        })
         .then(res => {
-          console.log('res', res)
           console.log('res.data', res.data)
-          console.log('res.data.userEmail', res.data.userEmail)
+          setFolderList(res.data)
         })
     } catch (err) {
       console.log('err', err)
