@@ -21,8 +21,11 @@ function Page() {
   const apiTest = async () => {
     try {
       const UpdateUserDto = { userName: 'IamGroot' }
+      const UpdateFolderDto = {
+        folderName: '수정 완료',
+      }
       const data = await axios
-        .get(`${baseURL}/users/folders`, {
+        .delete(`${baseURL}/users/folders/65767ddc94654c6d157ebba1`, {
           withCredentials: true,
         })
         .then(res => {
