@@ -52,6 +52,7 @@ function Folder() {
         })
         .then(res => {
           console.log('res.data', res.data)
+          setLoading(false)
           setFolder(res.data)
         })
     } catch (err) {
@@ -66,15 +67,13 @@ function Folder() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [folderId])
 
-  useEffect(() => {
-    setLoading(false)
-  }, [folder])
+  // if (loading) {
+  //   return <div>로딩중...</div>
+  // }
 
-  if (loading) {
-    return <div>로딩중...</div>
-  }
-
-  return (
+  return loading ? (
+    <div>로딩중...</div>
+  ) : (
     <div>
       <header className="h-[108px]   flex flex-col justify-center bg-gray-500  ">
         {/* 헤더 */}
