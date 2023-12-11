@@ -8,7 +8,7 @@ import Edit from 'public/icons/edit.svg'
 import Table from '@/components/molcules/TableMolecules/index'
 import IssueCard from '@/components/organisms/issueCardOrganism/index'
 import axios from 'axios'
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 
 function Folder() {
   const baseURL = process.env.NEXT_PUBLIC_GOOGLE_URL
@@ -21,9 +21,15 @@ function Folder() {
   })
 
   // 라우팅 경로 가져오기
-  const router = useRouter()
-  const { params = [] } = router.query
-  const folderId = params[1]
+  const pathname = usePathname()
+  // const { params = [] } = router.query
+
+  const sections = pathname.split('/')
+  const folderId = sections[2]
+
+  useEffect(() => {
+    console.log('folderId', folderId)
+  }, [])
 
   //로고 사이즈 프롭스
   const logoSize = {
@@ -59,10 +65,6 @@ function Folder() {
     apiTest()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [folderId])
-
-  useEffect(() => {
-    console.log('folder', folder)
-  }, [folder])
 
   return (
     <div>
