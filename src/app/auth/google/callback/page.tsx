@@ -24,10 +24,17 @@ function Page() {
       const UpdateFolderDto = {
         folderName: '수정 완료',
       }
+      const UpdateIssueFileDto = {
+        newIssueName: '수정 완료',
+      }
       const data = await axios
-        .get(`${baseURL}/folders/65768208624c77c88d181ea5/issues`, {
-          withCredentials: true,
-        })
+        .put(
+          `${baseURL}/folders/65768208624c77c88d181ea5/issues/"65768214624c77c88d181ea9"`,
+          UpdateIssueFileDto,
+          {
+            withCredentials: true,
+          },
+        )
         .then(res => {
           console.log('res.data', res.data)
           setFolderList(res.data)
