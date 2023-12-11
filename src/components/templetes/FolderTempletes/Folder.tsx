@@ -57,12 +57,16 @@ function Folder() {
         })
     } catch (err) {
       console.log('err', err)
-      setLoading(false)
     }
   }
 
   useEffect(() => {
+    console.log('loading2', loading)
+  }, [loading])
+
+  useEffect(() => {
     if (!folderId) return
+    console.log('loading1', loading)
     apiTest()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [folderId])
