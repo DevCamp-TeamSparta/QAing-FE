@@ -44,6 +44,7 @@ const config: Config = {
       boxShadow: {
         modal: '0px 6px 22px 0px rgba(0, 0, 0, 0.20);',
         dropdown: '0px 6px 14px 0px rgba(0, 0, 0, 0.20)',
+        copybutton: ' 0px 4px 8px 0px rgba(0, 0, 0, 0.16)',
       },
     },
   },

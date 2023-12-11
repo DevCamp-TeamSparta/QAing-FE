@@ -40,10 +40,10 @@
 .h2 {
   @apply font-semibold text-[28px]  leading-[36px];
 }
-h3 {
+.h3 {
   @apply font-bold text-[24px] leading-8;
 }
-h4 {
+.h4 {
   @apply font-medium text-[24px] leading-8;
 }
 .t1 {
@@ -56,16 +56,20 @@ h4 {
   @apply font-bold text-[18px] leading-5;
 }
 .b1 {
-  @apply font-bold text-[16px] leading-[20px];
+  @apply font-bold text-[16px] leading-[24px];
 }
 .b2 {
-  @apply font-medium text-[16px] leading-[20px];
+  @apply font-medium text-[16px] leading-[24px];
 }
 .b3 {
   @apply font-bold text-[14px] leading-[20px];
 }
 .b4 {
   @apply font-medium text-[14px] leading-[20px];
+}
+
+.dimmed {
+  @apply bg-extra-black opacity-30;
 }
 
 /* @layer base {
