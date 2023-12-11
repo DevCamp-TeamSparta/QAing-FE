@@ -13,6 +13,7 @@ import { usePathname } from 'next/navigation'
 function Folder() {
   const baseURL = process.env.NEXT_PUBLIC_GOOGLE_URL
   const [folder, setFolder] = useState()
+  const [loading, setLoading] = useState(true)
 
   // useEffect(() => {
   //   if (folder) return
@@ -52,9 +53,11 @@ function Folder() {
         .then(res => {
           console.log('res.data', res.data)
           setFolder(res.data)
+          setLoading(false)
         })
     } catch (err) {
       console.log('err', err)
+      setLoading(false)
     }
   }
 
@@ -64,7 +67,7 @@ function Folder() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [folderId])
 
-  if (!folder) return <div>로딩중</div>
+  if (loading) return <div>로딩중</div>
 
   return (
     <div>
