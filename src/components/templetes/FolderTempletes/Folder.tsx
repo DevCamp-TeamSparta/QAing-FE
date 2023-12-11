@@ -14,6 +14,11 @@ function Folder() {
     width: 100,
     height: 36,
   }
+  const IssueCardProps = {
+    src: 'sss',
+    title: 'ddd',
+  }
+
   return (
     <div>
       <header className="h-[108px]   flex flex-col justify-center bg-gray-500  ">
@@ -41,9 +46,6 @@ function Folder() {
           </div>
           <div className="px-9 pt-9">
             <div className="bg-gray-400  grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
-              <IssueCard />
-              <IssueCard />
-              <IssueCard />
               <IssueCard />
               <IssueCard />
               <IssueCard />
