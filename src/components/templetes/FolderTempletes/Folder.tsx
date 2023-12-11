@@ -8,10 +8,23 @@ import Edit from 'public/icons/edit.svg'
 import Table from '@/components/molcules/TableMolecules/index'
 import IssueCard from '@/components/organisms/issueCardOrganism/index'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 
 function Folder() {
   const baseURL = process.env.NEXT_PUBLIC_GOOGLE_URL
-  const [folder, setFolder] = useState()
+  const [folder, setFolder] = useState({
+    imageUrl: 'sss',
+    videoUrl: 'videoUrl',
+    updatedAt: 'ddd',
+    issueName: 'fff',
+    _id: 'xxx',
+  })
+
+  // 라우팅 경로 가져오기
+  const router = useRouter()
+  const { params = [] } = router.query
+  const folderId = params[1]
+
   //로고 사이즈 프롭스
   const logoSize = {
     alt: 'Logo',
@@ -29,7 +42,7 @@ function Folder() {
   const apiTest = async () => {
     try {
       await axios
-        .get(`${baseURL}/users/folders`, {
+        .get(`${baseURL}/folders/${folderId}/issues`, {
           withCredentials: true,
         })
         .then(res => {
@@ -42,8 +55,9 @@ function Folder() {
   }
 
   useEffect(() => {
+    if (!folderId) return
     apiTest()
-  }, [])
+  }, [folderId])
 
   useEffect(() => {
     console.log('folder', folder)
