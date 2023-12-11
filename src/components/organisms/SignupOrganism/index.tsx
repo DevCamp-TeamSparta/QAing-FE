@@ -1,6 +1,6 @@
 'use client'
-import Logo from '@/components/atoms/Logo/index'
-import OAuthBoutton from '@/components/atoms/OAuthButton'
+import Logo from '@/components/atoms/LogoAtoms/index'
+import OAuthBoutton from '@/components/atoms/OAuthButtonAtoms'
 import { GoogleSignup } from '@/services/auth/google.api'
 
 function SignnupOrgansim() {

@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import GoogleIcon from '../Icon/GoogleIcon'
+import GoogleIcon from '../IconAtoms/GoogleIcon'
 import useUserStore from '@/states/user-store/userStore'
 import { useRouter } from 'next/navigation'
 

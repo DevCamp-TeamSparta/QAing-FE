@@ -1,9 +1,9 @@
 'use client'
 import React, { useState } from 'react'
-import Logo from '@/components/atoms/Logo/index'
+import Logo from '@/components/atoms/LogoAtoms/index'
 import InputMolecules from '@/components/molcules/InputMolecules/index'
 import DropdownMoleclue from '@/components/molcules/DropdownMolecule/index'
-import CTAButton from '@/components/atoms/CallToActionAButton'
+import CTAButton from '@/components/atoms/CallToActionAButtonAtoms'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
