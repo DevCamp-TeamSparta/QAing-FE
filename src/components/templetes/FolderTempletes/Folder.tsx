@@ -26,9 +26,9 @@ function Folder() {
   const sections = pathname.split('/')
   const folderId = sections[2]
 
-  useEffect(() => {
-    console.log('folderId', folderId)
-  }, [])
+  // useEffect(() => {
+  //   console.log('folderId', folderId)
+  // }, [])
 
   //로고 사이즈 프롭스
   const logoSize = {
@@ -53,7 +53,6 @@ function Folder() {
         .then(res => {
           console.log('res.data', res.data)
           setFolder(res.data)
-          setLoading(false)
         })
     } catch (err) {
       console.log('err', err)
@@ -67,7 +66,13 @@ function Folder() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [folderId])
 
-  if (loading) return <div>로딩중</div>
+  useEffect(() => {
+    setLoading(false)
+  }, [folder])
+
+  if (loading) {
+    return <div>로딩중...</div>
+  }
 
   return (
     <div>
