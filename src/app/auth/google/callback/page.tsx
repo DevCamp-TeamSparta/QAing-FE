@@ -28,9 +28,8 @@ function Page() {
         newIssueName: '수정 완료',
       }
       const data = await axios
-        .put(
+        .delete(
           `${baseURL}/folders/ 6576a4969a37040a46a4905e/issues/6576a49e9a37040a46a4905f`,
-          UpdateIssueFileDto,
           {
             withCredentials: true,
           },
