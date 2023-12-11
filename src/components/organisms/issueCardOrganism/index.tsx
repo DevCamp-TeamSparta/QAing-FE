@@ -8,12 +8,12 @@ function index() {
       <div className="flex flex-col">
         <div className=" relative">
           <IssueThumanil />
-          <div className=" absolute top-0 right-0">
+          <div className=" absolute top-0 right-0 z-30 mx-3 my-3">
             <CopyButton />
           </div>
         </div>
 
-        <div>제목</div>
+        <div className="t1">이슈 1</div>
       </div>
     </div>
   )
