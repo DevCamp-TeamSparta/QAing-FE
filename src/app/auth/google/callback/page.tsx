@@ -21,10 +21,17 @@ function Page() {
   const apiTest = async () => {
     try {
       const UpdateUserDto = { userName: 'IamGroot' }
+      const UpdateFolderDto = {
+        folderName: '수정 완료',
+      }
       const data = await axios
-        .get(`${baseURL}/users/folders`, {
-          withCredentials: true,
-        })
+        .put(
+          `${baseURL}/users/folders/65767ddc94654c6d157ebba1`,
+          UpdateFolderDto,
+          {
+            withCredentials: true,
+          },
+        )
         .then(res => {
           console.log('res.data', res.data)
           setFolderList(res.data)
