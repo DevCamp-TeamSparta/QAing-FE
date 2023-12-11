@@ -15,8 +15,11 @@ function Folder() {
     height: 36,
   }
   const IssueCardProps = {
-    src: 'sss',
-    title: 'ddd',
+    imageUrl: 'sss',
+    videoUrl: 'videoUrl',
+    updatedAt: 'ddd',
+    issueName: 'fff',
+    _id: 'xxx',
   }
 
   return (
