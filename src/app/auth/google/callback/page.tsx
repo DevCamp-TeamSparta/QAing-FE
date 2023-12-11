@@ -25,13 +25,9 @@ function Page() {
         folderName: '수정 완료',
       }
       const data = await axios
-        .put(
-          `${baseURL}/users/folders/65767ddc94654c6d157ebba1`,
-          UpdateFolderDto,
-          {
-            withCredentials: true,
-          },
-        )
+        .delete(`${baseURL}/users/folders/65767ddc94654c6d157ebba1`, {
+          withCredentials: true,
+        })
         .then(res => {
           console.log('res.data', res.data)
           setFolderList(res.data)
