@@ -29,7 +29,7 @@ function Page() {
       }
       const data = await axios
         .delete(
-          `${baseURL}/folders/ 6576a4969a37040a46a4905e/issues/6576a49e9a37040a46a4905f`,
+          `${baseURL}/folders/6576a4969a37040a46a4905e/issues/6576a49e9a37040a46a4905f`,
           {
             withCredentials: true,
           },
