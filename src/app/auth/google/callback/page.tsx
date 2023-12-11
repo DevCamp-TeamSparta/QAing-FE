@@ -29,7 +29,7 @@ function Page() {
       }
       const data = await axios
         .put(
-          `${baseURL}/folders/65768208624c77c88d181ea5/issues/"65768214624c77c88d181ea9"`,
+          `${baseURL}/folders/6576a102a914db4b2230c63b/issues/6576a10aa914db4b2230c63c`,
           UpdateIssueFileDto,
           {
             withCredentials: true,
