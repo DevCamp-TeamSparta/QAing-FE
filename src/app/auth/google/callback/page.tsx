@@ -25,7 +25,7 @@ function Page() {
         folderName: '수정 완료',
       }
       const data = await axios
-        .delete(`${baseURL}/users/folders/65767ddc94654c6d157ebba1`, {
+        .get(`${baseURL}/folders/65768208624c77c88d181ea5/issues`, {
           withCredentials: true,
         })
         .then(res => {
