@@ -18,30 +18,27 @@ function Page() {
     Cookies.set('access-token', accessToken)
   }
 
-  const apiTest = async () => {
-    try {
-      const UpdateUserDto = { userName: 'IamGroot' }
-      const UpdateFolderDto = {
-        folderName: '수정 완료',
-      }
-      const UpdateIssueFileDto = {
-        newIssueName: '수정 완료',
-      }
-      const data = await axios
-        .delete(
-          `${baseURL}/folders/6576a4969a37040a46a4905e/issues/6576a49e9a37040a46a4905f`,
-          {
-            withCredentials: true,
-          },
-        )
-        .then(res => {
-          console.log('res.data', res.data)
-          setFolderList(res.data)
-        })
-    } catch (err) {
-      console.log('err', err)
-    }
-  }
+  // const apiTest = async () => {
+  //   try {
+  //     const UpdateUserDto = { userName: 'IamGroot' }
+  //     const UpdateFolderDto = {
+  //       folderName: '수정 완료',
+  //     }
+  //     const UpdateIssueFileDto = {
+  //       newIssueName: '수정 완료',
+  //     }
+  //     const data = await axios
+  //       .delete(`${baseURL}/folders//issues/`, {
+  //         withCredentials: true,
+  //       })
+  //       .then(res => {
+  //         console.log('res.data', res.data)
+  //         setFolderList(res.data)
+  //       })
+  //   } catch (err) {
+  //     console.log('err', err)
+  //   }
+  // }
 
   useEffect(() => {
     // window.location.href = 'https://qaing.co'
@@ -58,7 +55,7 @@ function Page() {
       </button>
       <button
         className="bg-gray-200 w-[200px] h-[50px] rounded-lg"
-        onClick={apiTest}
+        // onClick={apiTest}
       >
         api test Button
       </button>

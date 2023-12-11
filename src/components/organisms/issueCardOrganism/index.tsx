@@ -3,7 +3,18 @@ import IssueThumanil from '@/components/atoms/issueThumbnailAtoms/index'
 import CopyButton from '@/components/atoms/CopyButtonAtoms/index'
 import MoreIcon from '../../../../public/icons/More'
 
-function index() {
+interface IssueCardProps {
+  IssueCardProps: {
+    imageUrl: string
+    videoUrl: string
+    updatedAt: string
+    issueName: string
+    _id: string
+  }
+}
+
+function index({ IssueCardProps }: IssueCardProps) {
+  const { imageUrl, videoUrl, updatedAt, issueName, _id } = IssueCardProps
   return (
     <div className="bg-gray-100 w-[440px] h-[417px]">
       <div className="flex flex-col">

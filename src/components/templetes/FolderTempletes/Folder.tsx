@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+import React, { useEffect, useState } from 'react'
 import Logo from '@/components/atoms/LogoAtoms/index'
 import Image from 'next/image'
 import ProgileImageDefault from '/public/images/profileImage.svg'
@@ -6,8 +7,11 @@ import Back from 'public/icons/back.svg'
 import Edit from 'public/icons/edit.svg'
 import Table from '@/components/molcules/TableMolecules/index'
 import IssueCard from '@/components/organisms/issueCardOrganism/index'
+import axios from 'axios'
 
 function Folder() {
+  const baseURL = process.env.NEXT_PUBLIC_GOOGLE_URL
+  const [folder, setFolder] = useState()
   //로고 사이즈 프롭스
   const logoSize = {
     alt: 'Logo',
@@ -21,6 +25,29 @@ function Folder() {
     issueName: 'fff',
     _id: 'xxx',
   }
+
+  const apiTest = async () => {
+    try {
+      await axios
+        .get(`${baseURL}/users/folders`, {
+          withCredentials: true,
+        })
+        .then(res => {
+          console.log('res.data', res.data)
+          setFolder(res.data)
+        })
+    } catch (err) {
+      console.log('err', err)
+    }
+  }
+
+  useEffect(() => {
+    apiTest()
+  }, [])
+
+  useEffect(() => {
+    console.log('folder', folder)
+  }, [folder])
 
   return (
     <div>
@@ -49,15 +76,10 @@ function Folder() {
           </div>
           <div className="px-9 pt-9">
             <div className="bg-gray-400  grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
-              <IssueCard />
-              <IssueCard />
-              <IssueCard />
-              <IssueCard />
-              <IssueCard />
-              <IssueCard />
-              <IssueCard />
-              <IssueCard />
-              <IssueCard />
+              <IssueCard IssueCardProps={IssueCardProps} />
+              <IssueCard IssueCardProps={IssueCardProps} />
+              <IssueCard IssueCardProps={IssueCardProps} />
+              <IssueCard IssueCardProps={IssueCardProps} />
             </div>
             <div className="h-[76px] bg-blue-200"></div>
           </div>
