@@ -4,6 +4,7 @@
 import Cookies from 'js-cookie'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 function Page() {
   const [folderList, setFolderList] = useState()
@@ -17,6 +18,7 @@ function Page() {
     console.log('확인')
     Cookies.set('access-token', accessToken)
   }
+  const router = useRouter()
 
   // const apiTest = async () => {
   //   try {
@@ -41,7 +43,8 @@ function Page() {
   // }
 
   useEffect(() => {
-    window.location.href = 'https://qaing.co'
+    // window.location.href = 'https://qaing.co'
+    router.push('/home')
     console.log('getCookie', getCookie)
   })
 

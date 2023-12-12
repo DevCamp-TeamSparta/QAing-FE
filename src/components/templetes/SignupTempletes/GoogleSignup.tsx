@@ -85,9 +85,9 @@ function GoogleSignup() {
   }
 
   const GoogleURL = process.env.NEXT_PUBLIC_API_BASE_URL
-  // const googleAuth = () => {
-  //   router.push(`${GoogleURL}/auth/google`)
-  // }
+  const googleAuth = () => {
+    router.push(`${GoogleURL}/auth/google`)
+  }
 
   return (
     <div>
