@@ -12,7 +12,7 @@ import { usePathname } from 'next/navigation'
 
 function Folder() {
   const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
-  const [folder, setFolder] = useState<object[] | undefined>()
+  const [folder, setFolder] = useState<object[]>([])
   const [loading, setLoading] = useState(true)
 
   // useEffect(() => {
@@ -65,6 +65,7 @@ function Folder() {
 
   useEffect(() => {
     if (!folderId) return
+    console.log('folder', folder)
     apiTest()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [folderId])
@@ -96,7 +97,7 @@ function Folder() {
           </div>
           <div className="px-9 pt-9">
             <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
-              {folder ? (
+              {folder.length !== 0 ? (
                 folder.map((item: any) => {
                   return (
                     <>
