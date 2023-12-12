@@ -8,7 +8,7 @@ function index() {
       <div>
         <Image src={MyVideo} alt="MyVideo" />
       </div>
-      <div className="ml-[14px] h3 "> 2023-11-15 16:24</div>
+      <div className="ml-[14px] h3 "> </div>
     </div>
   )
 }

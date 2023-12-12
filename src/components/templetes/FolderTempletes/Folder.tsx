@@ -11,7 +11,7 @@ import axios from 'axios'
 import { usePathname } from 'next/navigation'
 
 function Folder() {
-  const baseURL = process.env.NEXT_PUBLIC_GOOGLE_URL
+  const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
   const [folder, setFolder] = useState<object[] | undefined>()
   const [loading, setLoading] = useState(true)
 
@@ -90,20 +90,26 @@ function Folder() {
             <div className="ml-4">
               <Table />
             </div>
-            <div className="ml-[10px]">
+            {/* <div className="ml-[10px]">
               <Image src={Edit} alt="edit" />
-            </div>
+            </div> */}
           </div>
           <div className="px-9 pt-9">
             <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
-              {folder &&
+              {folder ? (
                 folder.map((item: any) => {
                   return (
                     <>
                       <IssueCard IssueCardProps={item} />
                     </>
                   )
-                })}
+                })
+              ) : (
+                <div className="absolute flex flex-col justify-center items-center bg-gray-200 w-[1440px] h-[640px] t1 ">
+                  <p className="mb-3"> 파일을 저장하고 있어요! </p>
+                  <p> 새로고침을 눌러보세요</p>
+                </div>
+              )}
             </div>
             <div className="h-[76px] "></div>
           </div>
