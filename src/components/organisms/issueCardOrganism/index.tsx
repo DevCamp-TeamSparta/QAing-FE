@@ -16,7 +16,7 @@ interface IssueCardProps {
 function index({ IssueCardProps }: IssueCardProps) {
   const { imageUrl, videoUrl, updatedAt, issueName, _id } = IssueCardProps
   return (
-    <div className="bg-gray-100 w-[440px] h-[417px]">
+    <div className="w-[440px] h-[417px]">
       <div className="flex flex-col">
         <div className=" relative">
           <IssueThumanil imageUrl={imageUrl} />
