@@ -1,0 +1,32 @@
+import React from 'react'
+
+export default function DefaultThumbnail() {
+  return (
+    <div>
+      <svg
+        width="440"
+        height="337"
+        viewBox="0 0 440 337"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          x="0.5"
+          y="0.5"
+          width="439"
+          height="336"
+          rx="15.5"
+          fill="#EEF0F0"
+        />
+        <rect
+          x="0.5"
+          y="0.5"
+          width="439"
+          height="336"
+          rx="15.5"
+          stroke="#C0C2C2"
+        />
+      </svg>
+    </div>
+  )
+}

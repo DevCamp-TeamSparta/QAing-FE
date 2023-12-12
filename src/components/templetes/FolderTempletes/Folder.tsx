@@ -12,7 +12,7 @@ import { usePathname } from 'next/navigation'
 
 function Folder() {
   const baseURL = process.env.NEXT_PUBLIC_GOOGLE_URL
-  const [folder, setFolder] = useState()
+  const [folder, setFolder] = useState<object[] | undefined>()
   const [loading, setLoading] = useState(true)
 
   // useEffect(() => {
@@ -37,10 +37,12 @@ function Folder() {
     height: 36,
   }
   const IssueCardProps = {
-    imageUrl: 'sss',
-    videoUrl: 'videoUrl',
-    updatedAt: 'ddd',
-    issueName: 'fff',
+    imageUrl:
+      'https://s3-qaing-test.s3.ap-northeast-2.amazonaws.com/image_1702302459868.jpg',
+    videoUrl:
+      'https://s3-qaing-test.s3.ap-northeast-2.amazonaws.com/video_1702302465430.mp4',
+    updatedAt: '2023-12-11T13:47:45.556Z',
+    issueName: '이슈 1',
     _id: 'xxx',
   }
 
@@ -57,29 +59,19 @@ function Folder() {
         })
     } catch (err) {
       console.log('err', err)
+      setLoading(false)
     }
   }
 
   useEffect(() => {
-    console.log('loading2', loading)
-  }, [loading])
-
-  useEffect(() => {
     if (!folderId) return
-    console.log('loading1', loading)
     apiTest()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [folderId])
 
-  // if (loading) {
-  //   return <div>로딩중...</div>
-  // }
-
-  return loading ? (
-    <div>로딩중...</div>
-  ) : (
+  return (
     <div>
-      <header className="h-[108px]   flex flex-col justify-center bg-gray-500  ">
+      <header className="h-[108px]   flex flex-col justify-center  ">
         {/* 헤더 */}
         <div className="ml-[35px] flex justify-between felx-row  ">
           <Logo logoSize={logoSize} />
@@ -90,7 +82,7 @@ function Folder() {
       </header>
       {/* 뒤로가기, 폴더이름, 수정버튼 */}
       <div>
-        <div className=" bg-gray-200">
+        <div className=" ">
           <div className="flex flex-row items-center h-[68px]  ml-9">
             <div>
               <Image src={Back} alt="back" />
@@ -103,13 +95,17 @@ function Folder() {
             </div>
           </div>
           <div className="px-9 pt-9">
-            <div className="bg-gray-400  grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
-              <IssueCard IssueCardProps={IssueCardProps} />
-              <IssueCard IssueCardProps={IssueCardProps} />
-              <IssueCard IssueCardProps={IssueCardProps} />
-              <IssueCard IssueCardProps={IssueCardProps} />
+            <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
+              {folder &&
+                folder.map((item: any) => {
+                  return (
+                    <>
+                      <IssueCard IssueCardProps={item} />
+                    </>
+                  )
+                })}
             </div>
-            <div className="h-[76px] bg-blue-200"></div>
+            <div className="h-[76px] "></div>
           </div>
         </div>
       </div>
