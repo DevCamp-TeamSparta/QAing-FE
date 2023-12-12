@@ -19,14 +19,14 @@ function index({ IssueCardProps }: IssueCardProps) {
     <div className="bg-gray-100 w-[440px] h-[417px]">
       <div className="flex flex-col">
         <div className=" relative">
-          <IssueThumanil />
+          <IssueThumanil imageUrl={imageUrl} />
           <div className=" absolute top-0 right-0 z-30 mx-4 my-4">
-            <CopyButton />
+            <CopyButton imageUrl={imageUrl} videoUrl={videoUrl} />
           </div>
         </div>
 
         <div className="t1 mt-4 flex flex-row justify-between">
-          이슈 1
+          {issueName}
           <div>
             <MoreIcon />
           </div>
