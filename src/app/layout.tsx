@@ -16,6 +16,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <meta
+          name="google-site-verification"
+          content="QjGJRnt3npfa1LMRUHNJTDp2TBTA-pWN-e01BwUxCT4"
+        />
+      </head>
       <body className={inter.className}>
         <div className="box-border max-w-[1440px] mx-auto font-pretendard">
           {children}

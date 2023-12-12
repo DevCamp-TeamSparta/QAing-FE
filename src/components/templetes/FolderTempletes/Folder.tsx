@@ -48,28 +48,23 @@ function Folder() {
 
   const apiTest = async () => {
     try {
-      await axios
-        .get(`${baseURL}/folders/${folderId}/issues`, {
-          withCredentials: true,
-        })
-        .then(res => {
-          console.log('res.data', res.data)
-          setLoading(false)
-          setFolder(res.data)
-        })
+      const res = await axios.get(`${baseURL}/folders/${folderId}/issues`, {
+        withCredentials: true,
+      })
+      console.log('res.data', res.data)
+      setFolder(res.data)
     } catch (err) {
       console.log('err', err)
-      setLoading(false)
     }
+    setLoading(false)
   }
 
   useEffect(() => {
     if (!folderId) return
-    console.log('folder', folder)
     apiTest()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [folderId])
-
+  console.log('folder', folder)
   return (
     <div>
       <header className="h-[108px]   flex flex-col justify-center  ">
@@ -97,13 +92,9 @@ function Folder() {
           </div>
           <div className="px-9 pt-9">
             <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
-              {folder.length !== 0 ? (
+              {folder.length > 0 ? (
                 folder.map((item: any) => {
-                  return (
-                    <>
-                      <IssueCard IssueCardProps={item} />
-                    </>
-                  )
+                  return <IssueCard key={item._id} IssueCardProps={item} />
                 })
               ) : (
                 <div className="absolute flex flex-col justify-center items-center bg-gray-200 w-[1440px] h-[640px] t1 ">
