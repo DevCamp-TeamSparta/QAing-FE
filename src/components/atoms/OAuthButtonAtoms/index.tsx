@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 
 function OAuthBoutton() {
   const router = useRouter()
-  const GoogleURL = process.env.NEXT_PUBLIC_GOOGLE_URL
+  const GoogleURL = process.env.NEXT_PUBLIC_API_BASE_URL
 
   const GoogleSignup = () => {
     router.push(`${GoogleURL}/auth/google`)

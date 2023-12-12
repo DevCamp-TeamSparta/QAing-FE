@@ -9,7 +9,7 @@ function Page() {
   const [folderList, setFolderList] = useState()
   // const cookieStore = cookies()
   // console.log('cookieStore', cookieStore)
-  const baseURL = process.env.NEXT_PUBLIC_GOOGLE_URL
+  const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
   const accessToken = 'Token is here'
   const getCookie = Cookies.get('access-token')
   console.log('getCookie', getCookie)
@@ -41,13 +41,13 @@ function Page() {
   // }
 
   useEffect(() => {
-    // window.location.href = 'https://qaing.co'
+    window.location.href = 'https://qaing.co'
     console.log('getCookie', getCookie)
   })
 
   return (
     <div className="flex flex-col mb-2 items-center">
-      <button
+      {/* <button
         className="bg-gray-200 w-[200px] h-[50px] rounded-lg mb-2"
         onClick={tokenhandler}
       >
@@ -58,7 +58,7 @@ function Page() {
         // onClick={apiTest}
       >
         api test Button
-      </button>
+      </button> */}
     </div>
   )
 }

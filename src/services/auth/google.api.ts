@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // const router = useRouter()
-// const GoogleURL = process.env.NEXT_PUBLIC_GOOGLE_URL
+// const GoogleURL = process.env.NEXT_PUBLIC_API_BASE_URL
 // const { setUser } = useUserStore()
 export const GoogleSignup = (GoogleURL: string, setUser: any) => {
   try {
