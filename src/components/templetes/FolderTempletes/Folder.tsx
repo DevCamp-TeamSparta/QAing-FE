@@ -69,19 +69,6 @@ function Folder() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [folderId])
 
-  // if (loading) {
-  //   return <div>로딩중...</div>
-  // }
-
-  folder &&
-    folder.map((item: any) => {
-      return (
-        <>
-          <IssueCard IssueCardProps={IssueCardProps} />
-        </>
-      )
-    })
-
   return (
     <div>
       <header className="h-[108px]   flex flex-col justify-center  ">
@@ -109,10 +96,14 @@ function Folder() {
           </div>
           <div className="px-9 pt-9">
             <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
-              <IssueCard IssueCardProps={IssueCardProps} />
-              <IssueCard IssueCardProps={IssueCardProps} />
-              <IssueCard IssueCardProps={IssueCardProps} />
-              <IssueCard IssueCardProps={IssueCardProps} />
+              {folder &&
+                folder.map((item: any) => {
+                  return (
+                    <>
+                      <IssueCard IssueCardProps={item} />
+                    </>
+                  )
+                })}
             </div>
             <div className="h-[76px] "></div>
           </div>
