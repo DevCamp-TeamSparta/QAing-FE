@@ -84,7 +84,7 @@ function GoogleSignup() {
     console.log('Button clicked!', data)
   }
 
-  const GoogleURL = process.env.NEXT_PUBLIC_GOOGLE_URL
+  const GoogleURL = process.env.NEXT_PUBLIC_API_BASE_URL
   // const googleAuth = () => {
   //   router.push(`${GoogleURL}/auth/google`)
   // }

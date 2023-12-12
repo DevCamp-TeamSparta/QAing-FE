@@ -9,7 +9,7 @@ function Page() {
   const [folderList, setFolderList] = useState()
   // const cookieStore = cookies()
   // console.log('cookieStore', cookieStore)
-  const baseURL = process.env.NEXT_PUBLIC_GOOGLE_URL
+  const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
   const accessToken = 'Token is here'
   const getCookie = Cookies.get('access-token')
   console.log('getCookie', getCookie)
@@ -18,40 +18,36 @@ function Page() {
     Cookies.set('access-token', accessToken)
   }
 
-  const apiTest = async () => {
-    try {
-      const UpdateUserDto = { userName: 'IamGroot' }
-      const UpdateFolderDto = {
-        folderName: '수정 완료',
-      }
-      const UpdateIssueFileDto = {
-        newIssueName: '수정 완료',
-      }
-      const data = await axios
-        .put(
-          `${baseURL}/folders/ 6576a4969a37040a46a4905e/issues/6576a49e9a37040a46a4905f`,
-          UpdateIssueFileDto,
-          {
-            withCredentials: true,
-          },
-        )
-        .then(res => {
-          console.log('res.data', res.data)
-          setFolderList(res.data)
-        })
-    } catch (err) {
-      console.log('err', err)
-    }
-  }
+  // const apiTest = async () => {
+  //   try {
+  //     const UpdateUserDto = { userName: 'IamGroot' }
+  //     const UpdateFolderDto = {
+  //       folderName: '수정 완료',
+  //     }
+  //     const UpdateIssueFileDto = {
+  //       newIssueName: '수정 완료',
+  //     }
+  //     const data = await axios
+  //       .delete(`${baseURL}/folders//issues/`, {
+  //         withCredentials: true,
+  //       })
+  //       .then(res => {
+  //         console.log('res.data', res.data)
+  //         setFolderList(res.data)
+  //       })
+  //   } catch (err) {
+  //     console.log('err', err)
+  //   }
+  // }
 
   useEffect(() => {
-    // window.location.href = 'https://qaing.co'
+    window.location.href = 'https://qaing.co'
     console.log('getCookie', getCookie)
   })
 
   return (
     <div className="flex flex-col mb-2 items-center">
-      <button
+      {/* <button
         className="bg-gray-200 w-[200px] h-[50px] rounded-lg mb-2"
         onClick={tokenhandler}
       >
@@ -59,10 +55,10 @@ function Page() {
       </button>
       <button
         className="bg-gray-200 w-[200px] h-[50px] rounded-lg"
-        onClick={apiTest}
+        // onClick={apiTest}
       >
         api test Button
-      </button>
+      </button> */}
     </div>
   )
 }
