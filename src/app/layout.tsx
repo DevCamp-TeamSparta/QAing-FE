@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import ModalPortal from '@/components/organisms/modal/ModalPortal'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="box-border max-w-[1440px] mx-auto font-pretendard">
           {children}
+          <ModalPortal />
         </div>
       </body>
     </html>

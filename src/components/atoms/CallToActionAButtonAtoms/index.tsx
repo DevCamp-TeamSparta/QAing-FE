@@ -1,28 +1,41 @@
-import React, { ReactNode, useState } from 'react'
+import React, { ReactNode } from 'react'
+import clsx from 'clsx'
 
 type CTAButtonProps = {
-  disabled?: boolean
-  onClick?: () => void
+  size: 'small' | 'medium' | 'large'
   children: ReactNode
-}
+  onClick?: () => void
+  disabled?: boolean
+} & React.ButtonHTMLAttributes<HTMLButtonElement>
 
-function CTAButton({ disabled, onClick, children }: CTAButtonProps) {
+export default function CTAButton({
+  size,
+  className,
+  disabled,
+  onClick,
+  children,
+}: CTAButtonProps) {
   return (
-    <div>
-      <button
-        type="submit"
-        className={`w-[440px] h-[56px]  px-4 py-2 border-none rounded-[99px]  text-white  focus:outline-none hover:bg-primary-hover ${
-          disabled
-            ? 'bg-sementic-disabled  hover:bg-sementic-disabled cursor-not-allowed'
-            : 'bg-primary-default   active:bg-primary-pressed'
-        }`}
-        disabled={disabled}
-        onClick={onClick}
-      >
-        {children}
-      </button>
-    </div>
+    <button
+      type="submit"
+      className={clsx(
+        `${className} rounded-[99px] bg-brand-default text-white 
+          focus:outline-none 
+          hover:bg-brand-hover 
+          active:bg-brand-pressed 
+          disabled:bg-gray-400 disabled:cursor-not-allowed 
+          t3
+          `,
+        {
+          'w-[440px] h-[56px]': size === 'large',
+          'w-[208px] h-[56px]': size === 'medium',
+          b3: size === 'small',
+        },
+      )}
+      disabled={disabled}
+      onClick={onClick}
+    >
+      {children}
+    </button>
   )
 }
-
-export default CTAButton
