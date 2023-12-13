@@ -23,8 +23,8 @@ export default function RootLayout({
           content="QjGJRnt3npfa1LMRUHNJTDp2TBTA-pWN-e01BwUxCT4"
         />
       </head>
-      <body className={inter.className}>
-        <div className="box-border max-w-[1440px] mx-auto font-pretendard">
+      <body className=" w-screen flex flex-col items-center  ">
+        <div className=" box-borders w-full max-w-[1440px] font-pretendard">
           {children}
           <ModalPortal />
         </div>

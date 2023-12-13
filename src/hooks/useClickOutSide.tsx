@@ -1,13 +1,13 @@
-import { MutableRefObject, useEffect } from 'react'
+import { MutableRefObject, RefObject, useEffect } from 'react'
 
 export const useClickOutSide = <T extends HTMLElement>(
-  ref: MutableRefObject<T>,
-  clickHandler,
-  deps = [],
+  ref: RefObject<T>,
+  clickHandler: (event: MouseEvent) => void,
+  deps: boolean[] = [],
 ) => {
   useEffect(() => {
-    const handleClickOutside = event => {
-      if (!ref.current || ref.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!ref.current || ref.current.contains(event.target as Node)) {
         return
       }
       clickHandler(event)
@@ -16,6 +16,5 @@ export const useClickOutSide = <T extends HTMLElement>(
     return () => {
       document.removeEventListener('click', handleClickOutside)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ref, ...deps])
 }

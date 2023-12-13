@@ -6,7 +6,8 @@ type CTAButtonProps = {
   children: ReactNode
   onClick?: () => void
   disabled?: boolean
-} & React.ButtonHTMLAttributes<HTMLButtonElement>
+  className?: string
+}
 
 export default function CTAButton({
   size,
@@ -19,12 +20,18 @@ export default function CTAButton({
     <button
       type="submit"
       className={clsx(
-        `${className} rounded-[99px] bg-brand-default text-white 
+        `${className} rounded-[99px] bg-brand-default 
           focus:outline-none 
           hover:bg-brand-hover 
           active:bg-brand-pressed 
           disabled:bg-gray-400 disabled:cursor-not-allowed 
+          text-white
           t3
+          ${
+            disabled
+              ? 'bg-sementic-disabled  hover:bg-sementic-disabled cursor-not-allowed'
+              : 'bg-primary-default   active:bg-primary-pressed'
+          }
           `,
         {
           'w-[440px] h-[56px]': size === 'large',
