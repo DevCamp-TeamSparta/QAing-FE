@@ -1,17 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Image from 'next/image'
-import DefaultThumbnail from '/public/images/Default.svg'
+import DefaultThumbnailImage from '/public/images/Default.svg'
 
 type ThumbnailProps = {
   imageUrl: string
 }
 
 function index({ imageUrl }: ThumbnailProps) {
+  const decodeUrl = (url: string) => decodeURIComponent(url)
+  const decodedImageUrl = decodeUrl(imageUrl)
   return (
     <div className="relative group">
       <div className="w-[440px] h-[337px] rounded-[16px] group-hover border border-gray-500 bg-gray-300 z-10 overflow-hidden">
         <Image
-          src={imageUrl}
+          src={decodedImageUrl ? decodedImageUrl : DefaultThumbnailImage}
           alt="thumbnail"
           className="w-full h-full object-cover"
           width={440}
