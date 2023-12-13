@@ -69,7 +69,7 @@ function Folder() {
     <div>
       <header className="h-[108px]   flex flex-col justify-center  ">
         {/* 헤더 */}
-        <div className="ml-[35px] flex justify-between felx-row  ">
+        <div className="ml-[35px] flex justify-between felx-row   ">
           <Logo logoSize={logoSize} />
           <div className="mr-[36px] w-[40px] h-[40px]">
             <Image src={ProgileImageDefault} alt="default" />
@@ -90,14 +90,16 @@ function Folder() {
               <Image src={Edit} alt="edit" />
             </div> */}
           </div>
-          <div className="px-9 pt-9">
-            <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
+          <div className="px-9 pt-9 gray-50">
+            <div className="">
               {folder.length > 0 ? (
-                folder.map((item: any) => {
-                  return <IssueCard key={item._id} IssueCardProps={item} />
-                })
+                <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
+                  {folder.map((item: any) => {
+                    return <IssueCard key={item._id} IssueCardProps={item} />
+                  })}
+                </div>
               ) : (
-                <div className="absolute flex flex-col justify-center items-center bg-gray-200 w-[1440px] h-[640px] t1 ">
+                <div className="flex flex-col justify-center items-center bg-gray-200 w-full h-[640px] t1 ">
                   <p className="mb-3"> 파일을 저장하고 있어요! </p>
                   <p> 새로고침을 눌러보세요</p>
                 </div>

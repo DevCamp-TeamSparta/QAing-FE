@@ -192,7 +192,7 @@ function GoogleSignup() {
             </p>
           </div>
           <div className="mt-4">
-            <CTAButton>가입 완료하기</CTAButton>
+            <CTAButton size={'large'}>가입 완료하기</CTAButton>
           </div>
         </form>
       </div>
