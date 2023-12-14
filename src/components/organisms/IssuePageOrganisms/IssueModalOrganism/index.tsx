@@ -15,7 +15,6 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
   function onClickThumbnailHandler(mode: 'image' | 'video') {
     setMode(mode)
   }
-  console.log(videoUrl)
 
   function closeModal() {
     setModal(null)
