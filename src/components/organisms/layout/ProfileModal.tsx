@@ -33,8 +33,9 @@ export default function ProfileModal() {
   }
 
   function onChangeFileHandler(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files[0]
-    if (!file) return
+    const files = e.target.files
+    if (!files) return
+    const file = files[0]
     setImageFile(file)
     setImageFile(file)
     const objectUrl = URL.createObjectURL(file)

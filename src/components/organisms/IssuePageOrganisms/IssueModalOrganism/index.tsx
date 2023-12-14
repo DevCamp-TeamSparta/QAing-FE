@@ -9,7 +9,7 @@ interface IssueModalProps {
   videoUrl: string
 }
 
-export default function IssueModal({ imageUrl, videoUrl }) {
+export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
   const setModal = useModalStore(state => state.setModal)
   const [mode, setMode] = useState<'image' | 'video'>('image')
   function onClickThumbnailHandler(mode: 'image' | 'video') {
