@@ -1,15 +1,16 @@
 export type User = {
-  userEmail: string | undefined
+  userEmail: string
   //사전 정보입력에서 받은 값
+  userName: string
+  userProfileImg: string
   userPhoneNumber: number | undefined
-  userName: string | undefined
   userJob: string | undefined
   userTeamSize: string | undefined
   userCompany: string | undefined
 }
 
 export type UserStore = {
-  user: User | null | string
+  user: User | null
   accessToken: string | null
   refreshToken: string | null
   registerUser: User | null
