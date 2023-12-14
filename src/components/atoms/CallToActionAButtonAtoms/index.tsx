@@ -25,6 +25,7 @@ export default function CTAButton({
           hover:bg-brand-hover 
           active:bg-brand-pressed 
           disabled:bg-gray-400 disabled:cursor-not-allowed 
+          cursor-pointer
           text-white
           t3
           ${
