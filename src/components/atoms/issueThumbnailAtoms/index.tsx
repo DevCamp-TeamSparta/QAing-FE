@@ -22,7 +22,7 @@ function IssueThumbnail({ imageUrl, videoUrl }: ThumbnailProps) {
         onClick={onClickThumbnailHandler}
       >
         <Image
-          src={imageUrl}
+          src={decodedImageUrl ? decodedImageUrl : DefaultThumbnailImage}
           alt="thumbnail"
           className="w-full h-full object-cover"
           width={440}

@@ -4,8 +4,6 @@ import axios from 'axios'
 export default function Test1Page() {
   async function onClick() {
     const data = await axios.get('http://localhost:8080/auth/check')
-
-    console.log(data)
   }
   return (
     <div>

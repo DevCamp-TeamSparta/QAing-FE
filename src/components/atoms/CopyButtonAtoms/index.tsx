@@ -7,9 +7,13 @@ type CopyButtonProps = {
 }
 
 function index({ imageUrl, videoUrl }: CopyButtonProps) {
+  const decodeUrl = (url: string) => decodeURIComponent(url)
+
   const handleCopyClipBoard = async (imageUrl: string) => {
     try {
-      await navigator.clipboard.writeText(imageUrl)
+      const decodedUrl = decodeUrl(imageUrl)
+      console.log('decodedUrl', decodedUrl)
+      await navigator.clipboard.writeText(decodedUrl)
       alert('클립보드에 링크가 복사되었어요.')
     } catch (err) {
       console.log(err)
