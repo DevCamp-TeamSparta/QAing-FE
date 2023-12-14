@@ -1,12 +1,5 @@
-import axios, {
-  AxiosError,
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse,
-} from 'axios'
-import Cookies from 'js-cookie'
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios'
 import { v4 as uuidv4 } from 'uuid'
-import useUserStore from '@/states/user-store/userStore'
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,

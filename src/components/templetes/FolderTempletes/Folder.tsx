@@ -6,7 +6,7 @@ import ProgileImageDefault from '/public/images/profileImage.svg'
 import Back from 'public/icons/back.svg'
 import Edit from 'public/icons/edit.svg'
 import Table from '@/components/molcules/TableMolecules/index'
-import IssueCard from '@/components/organisms/issueCardOrganism/index'
+import IssueCard from '@/components/organisms/IssuePageOrganisms/issueCardOrganism/index'
 import axios from 'axios'
 import { usePathname } from 'next/navigation'
 
@@ -64,7 +64,6 @@ function Folder() {
     apiTest()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [folderId])
-  console.log('folder', folder)
   return (
     <div>
       <header className="h-[108px]   flex flex-col justify-center  ">

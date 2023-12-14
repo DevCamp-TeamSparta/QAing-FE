@@ -82,6 +82,7 @@ function GoogleSignup() {
   const onSubmit = (data: advanceInformationSchemaType) => {
     alert('확인')
     console.log('Button clicked!', data)
+    router.push(`${GoogleURL}/auth/google`)
   }
 
   const GoogleURL = process.env.NEXT_PUBLIC_API_BASE_URL

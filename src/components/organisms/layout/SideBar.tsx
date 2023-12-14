@@ -13,6 +13,11 @@ import CTAButton from '@/components/atoms/CallToActionAButtonAtoms'
 import { useVideoStore } from '@/states/videoStore'
 import { RecodeSvg } from '../../../../public/svg/RecodeSvg'
 import { BlogSvg } from '../../../../public/svg/BlogSvg'
+import { useEffect } from 'react'
+import instance from '@/services/instance'
+import { useUserStore } from '@/states/user-store/userStore'
+import { User } from '@/types/userStore.types'
+import { ProfileImageSvg } from '../../../../public/svg/profileImageSvg'
 
 const SideBarRoutes = [
   {
@@ -26,8 +31,12 @@ export default function SideBar() {
   const pathname = usePathname()
   const setModal = useModalStore(state => state.setModal)
   const addVideo = useVideoStore(state => state.addVideo)
+  const { user, setUser } = useUserStore()
 
   function onClickProfileHandler() {
+    if (!user) {
+      return
+    }
     setModal(<ProfileModal />)
   }
 
@@ -38,6 +47,26 @@ export default function SideBar() {
       createdAt: new Date(),
     })
   }
+  async function fetchUser(): Promise<User> {
+    const response = await instance.get('/users/info')
+    return response.data
+  }
+
+  useEffect(() => {
+    fetchUser()
+      .then(data => {
+        setUser({
+          userEmail: data.userEmail,
+          userName: data.userName,
+          userProfileImg: data.userProfileImg,
+          userPhoneNumber: data.userPhoneNumber,
+          userJob: data.userJob,
+          userTeamSize: data.userTeamSize,
+          userCompany: data.userCompany,
+        })
+      })
+      .catch(e => console.error(e))
+  }, [])
   return (
     <aside className={'w-[268px] flex flex-col px-[24px] py-[36px] bg-gray-50'}>
       <Image src={MainLogo} alt={'로고'} width={100} height={36} />
@@ -81,19 +110,28 @@ export default function SideBar() {
           <p className={'b4 text-gray-800'}>QAing 블로그</p>
         </Link>
         <div className="w-full h-[1px] bg-gray-300 my-[16px]" />
-        <div
-          className={'flex items-center gap-[12px] cursor-pointer'}
-          onClick={onClickProfileHandler}
-        >
-          {/* todo: 프로필 데이터로 대체 */}
+        {user && (
           <div
-            className={'w-[48px] h-[48px] rounded-[50%] bg-primary-default'}
-          />
-          <div>
-            <p className={'b1 text-black'}>홍길동</p>
-            <p className={'b4 text-gray-500'}>qaing@gmail.com</p>
+            className={'flex items-center gap-[12px] cursor-pointer'}
+            onClick={onClickProfileHandler}
+          >
+            {user.userProfileImg ? (
+              <Image
+                src={user.userProfileImg}
+                alt={'user profile image'}
+                width={48}
+                height={48}
+                className={'rounded-[50%]'}
+              />
+            ) : (
+              <ProfileImageSvg />
+            )}
+            <div>
+              <p className={'b1 text-black'}>{user.userName}</p>
+              <p className={'b4 text-gray-500'}>{user.userEmail}</p>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </aside>
   )
