@@ -1,9 +1,9 @@
 import { useVideoStore } from '@/states/videoStore'
-import { MyVideoSvg } from '../../../../public/svg/MyVideoSvg'
-import { FolderSvg } from '../../../../public/svg/FolderSvg'
-import { SaveSvg } from '../../../../public/svg/SaveSvg'
-import { DateSvg } from '../../../../public/svg/DataSvg'
-import { MoreSvg } from '../../../../public/svg/MoreSvg'
+import { MyVideoSvg } from '../../../../public/icons/MyVideoSvg'
+import { FolderSvg } from '../../../../public/icons/FolderSvg'
+import { SaveSvg } from '../../../../public/icons/SaveSvg'
+import { DateSvg } from '../../../../public/icons/DataSvg'
+import { MoreSvg } from '../../../../public/icons/MoreSvg'
 import VideoTableBody from '@/components/organisms/MainPageOrganism/VideoTableBody'
 
 export default function VideoTable() {

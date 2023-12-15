@@ -3,6 +3,11 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { useModalStore } from '@/states/modalStore'
+import clsx from 'clsx'
+import CopyLinkIcon from '../../../../../public/icons/CopyLinkIcon'
+import { CloseIcon } from '../../../../../public/icons/CloseIcon'
+import { TypeImageIcon } from '../../../../../public/icons/TypeImageIcon'
+import { TypeVideoIcon } from '../../../../../public/icons/TypeVideoIcon'
 
 interface IssueModalProps {
   imageUrl: string
@@ -15,7 +20,12 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
   function onClickThumbnailHandler(mode: 'image' | 'video') {
     setMode(mode)
   }
-  console.log(videoUrl)
+
+  function onClickCopyLinkHandler() {
+    const url = mode === 'image' ? imageUrl : videoUrl
+    navigator.clipboard.writeText(url)
+    alert('링크가 복사되었습니다.')
+  }
 
   function closeModal() {
     setModal(null)
@@ -24,22 +34,59 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
   return (
     <div className={'w-screen h-screen max-h-screen p-12'}>
       <div className={'w-full h-full bg-white rounded-[8px] flex flex-col'}>
-        <div className={'flex h-[36px] gap-[12px] items-center'}>
-          <button onClick={closeModal}>닫기</button>
-          <div className={'flex gap-[8px]'}>
+        <div
+          className={
+            'relative px-[20px] py-[12px] flex items-center gap-[12px]  justify-between'
+          }
+        >
+          <button
+            className={'[&>svg]:w-[20px] [&>svg]:h-[20px]'}
+            onClick={closeModal}
+          >
+            <CloseIcon />
+          </button>
+          <div
+            className={`absolute left-[50%] translate-x-[-50%] flex 
+            [&>button]:flex [&>button]:items-center [&>button]:justify-center [&>button]:gap-[4px] [&>button]:w-[106px] [&>button]:h-[36px] [&>button]:b3
+            `}
+          >
             <button
-              className={'p-1 border-[1px] bg-gray-500'}
+              className={clsx(
+                'border rounded-l-[8px] [&>svg]:w-[20px] [&>svg]:h-[20px]',
+                {
+                  'bg-primary-default border-primary-default text-white ':
+                    mode === 'image',
+                  'bg-white border-gray-500 text-gray-700 border-r-primary-default':
+                    mode !== 'image',
+                },
+              )}
               onClick={() => onClickThumbnailHandler('image')}
             >
+              <TypeImageIcon color={mode === 'image' ? '#FFFFFF' : '#808181'} />{' '}
               이미지
             </button>
             <button
-              className={'border-[1px] bg-gray-500'}
+              className={clsx(
+                'border rounded-r-[8px] [&>svg]:w-[20px] [&>svg]:h-[20px]',
+                {
+                  'bg-primary-default border-primary-default text-white':
+                    mode === 'video',
+                  'bg-white border-gray-500 text-gray-700 border-l-primary-default':
+                    mode !== 'video',
+                },
+              )}
               onClick={() => onClickThumbnailHandler('video')}
             >
-              비디오
+              <TypeVideoIcon color={mode === 'video' ? '#FFFFFF' : '#808181'} />{' '}
+              20초 영상
             </button>
           </div>
+          <button
+            className={`flex gap-[8px] px-[20px] py-[8px] rounded-[99px] bg-primary-default b3 text-white [&>svg]:w-[20px] [&>svg]:h-[20px]`}
+            onClick={onClickCopyLinkHandler}
+          >
+            <CopyLinkIcon color={'#FFFFFF'} /> 링크 복사하기
+          </button>
         </div>
         <div className={'h-full px-[60px] py-[48px] bg-gray-200'}>
           <div className={'flex w-full h-full relative'}>

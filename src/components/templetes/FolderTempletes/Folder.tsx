@@ -4,7 +4,6 @@ import Logo from '@/components/atoms/LogoAtoms/index'
 import Image from 'next/image'
 import ProgileImageDefault from '/public/images/profileImage.svg'
 import Back from 'public/icons/back.svg'
-import Edit from 'public/icons/edit.svg'
 import Table from '@/components/molcules/TableMolecules/index'
 import IssueCard from '@/components/organisms/IssuePageOrganisms/issueCardOrganism/index'
 import axios from 'axios'
@@ -62,7 +61,6 @@ function Folder() {
   useEffect(() => {
     if (!folderId) return
     apiTest()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [folderId])
   return (
     <div>
