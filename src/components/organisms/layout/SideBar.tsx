@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import MainLogo from '/public/images/logo.png'
-import { MyVideoSvg } from '../../../../public/svg/MyVideoSvg'
+import { MyVideoSvg } from '../../../../public/icons/MyVideoSvg'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import clsx from 'clsx'
@@ -11,13 +11,13 @@ import { useModalStore } from '@/states/modalStore'
 import ProfileModal from '@/components/organisms/layout/ProfileModal'
 import CTAButton from '@/components/atoms/CallToActionAButtonAtoms'
 import { useVideoStore } from '@/states/videoStore'
-import { RecodeSvg } from '../../../../public/svg/RecodeSvg'
-import { BlogSvg } from '../../../../public/svg/BlogSvg'
+import { RecodeSvg } from '../../../../public/icons/RecodeSvg'
+import { BlogSvg } from '../../../../public/icons/BlogSvg'
 import { useEffect } from 'react'
 import instance from '@/services/instance'
 import { useUserStore } from '@/states/user-store/userStore'
 import { User } from '@/types/userStore.types'
-import { ProfileImageSvg } from '../../../../public/svg/profileImageSvg'
+import { ProfileImageSvg } from '../../../../public/icons/ProfileImageSvg'
 
 const SideBarRoutes = [
   {

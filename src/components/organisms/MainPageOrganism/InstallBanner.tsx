@@ -1,7 +1,7 @@
 'use client'
 
-import ChromeSvg from '../../../../public/svg/ChromeSvg'
-import NextSvg from '../../../../public/svg/NextSvg'
+import ChromeSvg from '../../../../public/icons/ChromeSvg'
+import NextSvg from '../../../../public/icons/NextSvg'
 
 export default function InstallBanner() {
   function onClickInstall() {
