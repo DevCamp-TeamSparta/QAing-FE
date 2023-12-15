@@ -56,6 +56,7 @@ export default function SideBar() {
   useEffect(() => {
     fetchUser()
       .then(data => {
+        console.log('data', data)
         setUser({
           userEmail: data.userEmail,
           userName: data.userName,
