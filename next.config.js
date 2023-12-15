@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['static.qaing.co'],
+    domains: ['static.qaing.co', 'https://googleusercontent.com'],
   },
 }
 

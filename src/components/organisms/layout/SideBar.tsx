@@ -49,6 +49,7 @@ export default function SideBar() {
   }
   async function fetchUser(): Promise<User> {
     const response = await instance.get('/users/info')
+    console.log('res', response)
     return response.data
   }
 
