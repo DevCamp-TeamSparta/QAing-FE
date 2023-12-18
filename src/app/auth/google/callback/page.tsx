@@ -44,7 +44,7 @@ function Page() {
 
   useEffect(() => {
     // window.location.href = 'https://qaing.co'
-    router.push('/home')
+    router.push('/')
     console.log('getCookie', getCookie)
   })
 
