@@ -5,10 +5,11 @@
 
 ### 링크를 노션에 붙여넣으면 손쉽게 공유하세요.
 
+
 # Getting Started
 
     - Prerequisites
     git clone https://github.com/DevCamp-TeamSparta/QAD-FE.git
     - Installation
     npm i
-    npm dev
+    npm run dev
