@@ -10,7 +10,7 @@ import axios from 'axios'
 import { usePathname } from 'next/navigation'
 
 function Folder() {
-  const backServer = process.env.PUBLIC_BACKEND_API_URL
+  const backServer = process.env.NEXT_PUBLIC_BACKEND_API_URL
   const [folder, setFolder] = useState<object[]>([])
   const [progress, setProgress] = useState(0)
   const [message, setMessage] = useState('')
@@ -78,6 +78,7 @@ function Folder() {
     if (!folderId) return
     const eventSource = new EventSource(
       `${backServer}/videos/subscribe/${folderId}`,
+      { withCredentials: true },
     )
     eventSource.onmessage = event => {
       const data = JSON.parse(event.data)
@@ -97,6 +98,7 @@ function Folder() {
 
   useEffect(() => {
     console.log('progress', progress)
+    console.log('backServer', backServer)
   }, [progress])
 
   useEffect(() => {
