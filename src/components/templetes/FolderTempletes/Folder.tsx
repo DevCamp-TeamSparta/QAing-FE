@@ -90,6 +90,7 @@ function Folder() {
       } else {
         setMessage(data.message)
         eventSource.close()
+        console.log('연결 해제')
       }
       // switch (data.type) {
       //   case 'progress':
