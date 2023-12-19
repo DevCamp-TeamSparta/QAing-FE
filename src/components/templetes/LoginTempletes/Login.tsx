@@ -17,7 +17,7 @@ function Login() {
   //   console.log('data', data)
   // }
   const router = useRouter()
-  const GoogleURL = process.env.NEXT_PUBLIC_API_BASE_URL
+  const GoogleURL = process.env.NEXT_PUBLIC_BACKEND_API_URL
   const googleAuth = () => {
     router.push(`${GoogleURL}/auth/google`)
   }

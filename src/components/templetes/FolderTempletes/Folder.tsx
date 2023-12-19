@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import Logo from '@/components/atoms/LogoAtoms/index'
 import Image from 'next/image'
 import ProgileImageDefault from '/public/images/profileImage.svg'
@@ -10,9 +10,10 @@ import axios from 'axios'
 import { usePathname } from 'next/navigation'
 
 function Folder() {
-  const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
+  const backServer = process.env.NEXT_PUBLIC_BACKEND_API_URL
   const [folder, setFolder] = useState<object[]>([])
-  const [loading, setLoading] = useState(true)
+  const [progress, setProgress] = useState(0)
+  const [message, setMessage] = useState('')
 
   // useEffect(() => {
   //   if (folder) return
@@ -26,7 +27,7 @@ function Folder() {
   const folderId = sections[2]
 
   // useEffect(() => {
-  //   console.log('folderId', folderId)
+
   // }, [])
 
   //로고 사이즈 프롭스
@@ -45,23 +46,76 @@ function Folder() {
     _id: 'xxx',
   }
 
-  const apiTest = async () => {
+  const getIssues = async () => {
     try {
-      const res = await axios.get(`${baseURL}/folders/${folderId}/issues`, {
+      const res = await axios.get(`${backServer}/folders/${folderId}/issues`, {
         withCredentials: true,
       })
-      console.log('res.data', res.data)
+
       setFolder(res.data)
-    } catch (err) {
-      console.log('err', err)
-    }
-    setLoading(false)
+    } catch (err) {}
+    // setLoading(false)
   }
 
   useEffect(() => {
     if (!folderId) return
-    apiTest()
+    try {
+    } catch {}
+    const eventSource = new EventSource(
+      `${backServer}/videos/subscribe/${folderId}`,
+      { withCredentials: true },
+    )
+    eventSource.onmessage = event => {
+      const data = JSON.parse(event.data)
+
+      if (!data.status) {
+        setProgress(data.progress)
+      } else {
+        setMessage(data.message)
+        eventSource.close()
+      }
+    }
+    //에러확인
+    eventSource.onerror = error => {
+      // 오류 처리
+      console.error('EventSource failed:', error)
+      eventSource.close()
+    }
+
+    if (eventSource.readyState === EventSource.CLOSED) {
+      console.log('연결이 닫혔습니다.')
+    } else {
+      console.log('연결이 아직 닫히지 않았습니다.')
+    }
+
+    return () => {
+      eventSource.close()
+      console.log('연결 해제')
+    }
   }, [folderId])
+
+  // useEffect(() => {
+  //   console.log('progress', progress)
+  // }, [progress])
+
+  useEffect(() => {
+    console.log('message', message)
+    const getIssues = async () => {
+      try {
+        const res = await axios.get(
+          `${backServer}/folders/${folderId}/issues`,
+          {
+            withCredentials: true,
+          },
+        )
+        console.log('이슈 수신 완료', res.data)
+        setFolder(res.data)
+      } catch (err) {}
+      // setLoading(false)
+    }
+    getIssues()
+  }, [message])
+
   return (
     <div>
       <header className="h-[108px]   flex flex-col justify-center  ">

@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios'
 import { v4 as uuidv4 } from 'uuid'
 
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_API_URL,
   // withCredentials: true, 작동 X
   timeout: 5000,
 })
