@@ -122,6 +122,15 @@ function Folder() {
 
   useEffect(() => {
     console.log('message', message)
+    const eventSource = new EventSource(
+      `${backServer}/videos/subscribe/${folderId}`,
+      { withCredentials: true },
+    )
+    if (eventSource.readyState === EventSource.CLOSED) {
+      console.log('연결이 닫혔습니다.')
+    } else {
+      console.log('연결이 아직 닫히지 않았습니다.')
+    }
   }, [message])
 
   return (
