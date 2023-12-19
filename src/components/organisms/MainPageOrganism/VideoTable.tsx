@@ -5,9 +5,42 @@ import { SaveSvg } from '../../../../public/icons/SaveSvg'
 import { DateSvg } from '../../../../public/icons/DataSvg'
 import { MoreSvg } from '../../../../public/icons/MoreSvg'
 import VideoTableBody from '@/components/organisms/MainPageOrganism/VideoTableBody'
+import { useEffect, useState } from 'react'
+import { fetchFolder } from '@/services/folder/folder.api'
+import { Folder } from '@/types/userFolder.types'
+import axios from 'axios'
 
 export default function VideoTable() {
-  const videos = useVideoStore(state => state.videos)
+  // const videos = useVideoStore(state => state.videos)
+  const [folders, setFolders] = useState<Folder[]>([])
+  const backServerUrl = process.env.BACK_SERVER_URL
+
+  useEffect(() => {
+    // fetchFolder().then(data => {
+    //   console.log('store에 저장합니다.', data)
+    //   setFolders(data)
+    // })
+    const getfolder = async () => {
+      const response = await axios
+        .get(`${backServerUrl}/folders`, {
+          withCredentials: true,
+        })
+        .then(res => {
+          console.log('store에 저장합니다.', res.data)
+          setFolders(res.data)
+        })
+      return response
+
+      // setFolders(data)
+    }
+    getfolder()
+  }, [])
+
+  useEffect(() => {
+    if (folders.length === 0) return
+    console.log('folder가 변경되었습니다.', folders)
+  }, [folders])
+
   return (
     <div className="py-[44px]">
       <div className="min-w-full border-collapse">
@@ -28,14 +61,14 @@ export default function VideoTable() {
             생성 날짜
           </p>
         </div>
-        {videos.length > 0 ? (
+        {folders.length > 0 ? (
           <div>
-            {videos.map((video, index) => (
+            {folders.map((folder, index) => (
               <VideoTableBody
                 key={`video table body ${index}`}
-                name={video.name}
-                issueNum={video.issueNum}
-                createdAt={video.createdAt}
+                createdAt={folder.createdAt}
+                issues={folder.issues}
+                folderId={folder.folderId}
               />
             ))}
           </div>
