@@ -1,5 +1,3 @@
-'use client'
-
 import { useVideoStore } from '@/states/videoStore'
 import { MyVideoSvg } from '../../../../public/icons/MyVideoSvg'
 import { FolderSvg } from '../../../../public/icons/FolderSvg'
@@ -33,7 +31,11 @@ export default function VideoTable() {
         })
       return response
     }
-    getfolder()
+    try {
+      getfolder()
+    } catch (err) {
+      console.log('err', err)
+    }
   }, [])
 
   useEffect(() => {
