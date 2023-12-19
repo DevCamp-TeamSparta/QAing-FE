@@ -76,12 +76,15 @@ function Folder() {
 
   useEffect(() => {
     if (!folderId) return
+    try {
+    } catch {}
     const eventSource = new EventSource(
       `${backServer}/videos/subscribe/${folderId}`,
       { withCredentials: true },
     )
     eventSource.onmessage = event => {
       const data = JSON.parse(event.data)
+      console.log('data', data)
       switch (data.type) {
         case 'progress':
           setProgress(data.progress)
@@ -91,6 +94,7 @@ function Folder() {
           break
       }
     }
+
     return () => {
       eventSource.close()
     }
