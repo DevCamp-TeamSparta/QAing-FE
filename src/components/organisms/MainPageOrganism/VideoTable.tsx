@@ -5,9 +5,52 @@ import { SaveSvg } from '../../../../public/icons/SaveSvg'
 import { DateSvg } from '../../../../public/icons/DataSvg'
 import { MoreSvg } from '../../../../public/icons/MoreSvg'
 import VideoTableBody from '@/components/organisms/MainPageOrganism/VideoTableBody'
+import { useEffect, useState } from 'react'
+import { fetchFolder } from '@/services/folder/folder.api'
+import { Folder } from '@/types/userFolder.types'
 
 export default function VideoTable() {
-  const videos = useVideoStore(state => state.videos)
+  // const videos = useVideoStore(state => state.videos)
+  const [folders, setFolders] = useState<Folder[]>([])
+
+  useEffect(() => {
+    fetchFolder().then(data => {
+      console.log('store에 저장합니다.', data)
+      setFolders(data)
+    })
+  }, [])
+
+  useEffect(() => {
+    if (folders.length === 0) return
+    console.log('folder가 변경되었습니다.', folders)
+  }, [folders])
+
+  const videos = [
+    {
+      key: '1',
+      name: 'rhs',
+      issueNum: 1,
+      createdAt: new Date(),
+    },
+    {
+      key: '1',
+      name: 'rhs',
+      issueNum: 2,
+      createdAt: new Date(),
+    },
+    {
+      key: '1',
+      name: 'rhs',
+      issueNum: 3,
+      createdAt: new Date(),
+    },
+    {
+      key: '1',
+      name: 'rhs',
+      issueNum: 4,
+      createdAt: new Date(),
+    },
+  ]
   return (
     <div className="py-[44px]">
       <div className="min-w-full border-collapse">

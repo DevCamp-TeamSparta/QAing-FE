@@ -23,7 +23,7 @@ const SideBarRoutes = [
   {
     path: PAGE_URL.HOME,
     icon: <MyVideoSvg />,
-    text: '내 QA폴더',
+    text: ' QA폴더',
   },
 ]
 

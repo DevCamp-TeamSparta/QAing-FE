@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: 'QAing',
   description: 'QA 화면 녹화부터 공유까지 한 큐에, QAing',
   icons: {
-    icon: '/favicon48.png',
+    icon: '/public/favicon48.png',
   },
 }
 
