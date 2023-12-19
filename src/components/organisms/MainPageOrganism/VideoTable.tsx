@@ -1,3 +1,5 @@
+'use client'
+
 import { useVideoStore } from '@/states/videoStore'
 import { MyVideoSvg } from '../../../../public/icons/MyVideoSvg'
 import { FolderSvg } from '../../../../public/icons/FolderSvg'
