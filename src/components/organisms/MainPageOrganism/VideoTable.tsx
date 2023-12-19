@@ -25,32 +25,6 @@ export default function VideoTable() {
     console.log('folder가 변경되었습니다.', folders)
   }, [folders])
 
-  const videos = [
-    {
-      key: '1',
-      name: 'rhs',
-      issueNum: 1,
-      createdAt: new Date(),
-    },
-    {
-      key: '1',
-      name: 'rhs',
-      issueNum: 2,
-      createdAt: new Date(),
-    },
-    {
-      key: '1',
-      name: 'rhs',
-      issueNum: 3,
-      createdAt: new Date(),
-    },
-    {
-      key: '1',
-      name: 'rhs',
-      issueNum: 4,
-      createdAt: new Date(),
-    },
-  ]
   return (
     <div className="py-[44px]">
       <div className="min-w-full border-collapse">
@@ -71,14 +45,14 @@ export default function VideoTable() {
             생성 날짜
           </p>
         </div>
-        {videos.length > 0 ? (
+        {folders.length > 0 ? (
           <div>
-            {videos.map((video, index) => (
+            {folders.map((folder, index) => (
               <VideoTableBody
                 key={`video table body ${index}`}
-                name={video.name}
-                issueNum={video.issueNum}
-                createdAt={video.createdAt}
+                createdAt={folder.createdAt}
+                issues={folder.issues}
+                folderId={folder.folderId}
               />
             ))}
           </div>

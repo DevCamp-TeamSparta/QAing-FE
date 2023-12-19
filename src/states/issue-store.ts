@@ -6,7 +6,7 @@ interface IssueStore {
 }
 
 type Folder = {
-  folderId: object
+  folderId: string
   issues: object[]
   createdAt: string
 }

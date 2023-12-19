@@ -1,10 +1,10 @@
 export type Folder = {
-  folderId: object
-  issues: object[]
+  folderId: string
+  issues: string[]
   createdAt: string
 }
 
-interface IssueStore {
+export interface IssueStore {
   folder: Folder[] | null
   setFolder: (folder: Folder[]) => void
 }
