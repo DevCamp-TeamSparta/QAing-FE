@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import Logo from '@/components/atoms/LogoAtoms/index'
 import Image from 'next/image'
 import ProgileImageDefault from '/public/images/profileImage.svg'
@@ -10,9 +10,10 @@ import axios from 'axios'
 import { usePathname } from 'next/navigation'
 
 function Folder() {
-  const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
+  const backServer = process.env.PUBLIC_BACKEND_API_URL
   const [folder, setFolder] = useState<object[]>([])
-  const [loading, setLoading] = useState(true)
+  const [progress, setProgress] = useState(0)
+  const [message, setMessage] = useState('')
 
   // useEffect(() => {
   //   if (folder) return
@@ -46,22 +47,62 @@ function Folder() {
   }
 
   const apiTest = async () => {
-    try {
-      const res = await axios.get(`${baseURL}/folders/${folderId}/issues`, {
-        withCredentials: true,
-      })
-      console.log('res.data', res.data)
-      setFolder(res.data)
-    } catch (err) {
-      console.log('err', err)
-    }
-    setLoading(false)
+    // try {
+    //   const res = await axios.get(`${baseURL}/folders/${folderId}/issues`, {
+    //     withCredentials: true,
+    //   })
+    //   console.log('res.data', res.data)
+    //   setFolder(res.data)
+    // } catch (err) {
+    //   console.log('err', err)
+    // }
+    // setLoading(false)
+    // SSE 연결 설정
+    // const eventSource = new EventSource(
+    //   `http://your-backend.com/videos/subscribe/${folderId}`,
+    // )
+    // eventSource.onmessage = event => {
+    //   const data = JSON.parse(event.data)
+    //   switch (data.type) {
+    //     case 'progress':
+    //       setProgress(data.progress)
+    //       break
+    //     case 'message':
+    //       setMessage(data.message)
+    //       break
+    //   }
+    // }
   }
 
   useEffect(() => {
     if (!folderId) return
-    apiTest()
+    const eventSource = new EventSource(
+      `${backServer}/videos/subscribe/${folderId}`,
+    )
+    eventSource.onmessage = event => {
+      const data = JSON.parse(event.data)
+      switch (data.type) {
+        case 'progress':
+          setProgress(data.progress)
+          break
+        case 'message':
+          setMessage(data.message)
+          break
+      }
+    }
+    return () => {
+      eventSource.close()
+    }
   }, [folderId])
+
+  useEffect(() => {
+    console.log('progress', progress)
+  }, [progress])
+
+  useEffect(() => {
+    console.log('message', message)
+  }, [message])
+
   return (
     <div>
       <header className="h-[108px]   flex flex-col justify-center  ">
