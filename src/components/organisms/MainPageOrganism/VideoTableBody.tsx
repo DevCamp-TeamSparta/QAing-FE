@@ -7,8 +7,13 @@ import { TrashSvg } from '../../../../public/icons/TrashSvg'
 import { useModalStore } from '@/states/modalStore'
 import DeleteFolderModal from '@/components/organisms/MainPageOrganism/DeleteFolderModal'
 import { useClickOutSide } from '@/hooks/useClickOutSide'
+import { Folder } from '@/types/userFolder.types'
 
-export default function VideoTableBody({ name, issueNum, createdAt }: Video) {
+export default function VideoTableBody({
+  createdAt,
+  issues,
+  folderId,
+}: Folder) {
   const ref = useRef<HTMLDivElement>(null)
   const [isMoreButtonClicked, setIsMoreButtonClicked] = React.useState(false)
   const setModal = useModalStore(state => state.setModal)
@@ -40,10 +45,10 @@ export default function VideoTableBody({ name, issueNum, createdAt }: Video) {
         }
       >
         <p className="flex gap-[12px] b3">
-          <MyVideoSvg color={'#959797'} /> {name}
+          <MyVideoSvg color={'#959797'} /> {createdAt}
         </p>
-        <p className={'b4'}>{issueNum}개</p>
-        <p className={'b4'}>{createdAt.toDateString()}</p>
+        <p className={'b4'}>{issues}개</p>
+        <p className={'b4'}>{createdAt}</p>
         <button onClick={onClickMoreButtonHandler}>
           <MoreSvg />
         </button>
