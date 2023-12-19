@@ -46,32 +46,17 @@ function Folder() {
     _id: 'xxx',
   }
 
-  const apiTest = async () => {
-    // try {
-    //   const res = await axios.get(`${baseURL}/folders/${folderId}/issues`, {
-    //     withCredentials: true,
-    //   })
-    //   console.log('res.data', res.data)
-    //   setFolder(res.data)
-    // } catch (err) {
-    //   console.log('err', err)
-    // }
+  const getIssues = async () => {
+    try {
+      const res = await axios.get(`${backServer}/folders/${folderId}/issues`, {
+        withCredentials: true,
+      })
+      console.log('res.data', res.data)
+      setFolder(res.data)
+    } catch (err) {
+      console.log('err', err)
+    }
     // setLoading(false)
-    // SSE 연결 설정
-    // const eventSource = new EventSource(
-    //   `http://your-backend.com/videos/subscribe/${folderId}`,
-    // )
-    // eventSource.onmessage = event => {
-    //   const data = JSON.parse(event.data)
-    //   switch (data.type) {
-    //     case 'progress':
-    //       setProgress(data.progress)
-    //       break
-    //     case 'message':
-    //       setMessage(data.message)
-    //       break
-    //   }
-    // }
   }
 
   useEffect(() => {
@@ -92,27 +77,24 @@ function Folder() {
         eventSource.close()
         console.log('연결 해제')
       }
-      // switch (data.type) {
-      //   case 'progress':
-      //     setProgress(data.progress)
-      //     break
-      //   case 'message':
-      //     setMessage(data.message)
-      //     break
-      // }
+    }
+    //에러확인
+    eventSource.onerror = error => {
+      // 오류 처리
+      console.error('EventSource failed:', error)
+      eventSource.close()
     }
 
-    //에러확인
-    // eventSource.onerror = error => {
-    //   // 오류 처리
-    //   console.error('EventSource failed:', error)
-    //   eventSource.close()
-    // }
+    if (eventSource.readyState === EventSource.CLOSED) {
+      console.log('연결이 닫혔습니다.')
+    } else {
+      console.log('연결이 아직 닫히지 않았습니다.')
+    }
 
-    // return () => {
-    //   eventSource.close()
-    //   console.log('연결 해제')
-    // }
+    return () => {
+      eventSource.close()
+      console.log('연결 해제')
+    }
   }, [folderId])
 
   useEffect(() => {
@@ -122,15 +104,23 @@ function Folder() {
 
   useEffect(() => {
     console.log('message', message)
-    const eventSource = new EventSource(
-      `${backServer}/videos/subscribe/${folderId}`,
-      { withCredentials: true },
-    )
-    if (eventSource.readyState === EventSource.CLOSED) {
-      console.log('연결이 닫혔습니다.')
-    } else {
-      console.log('연결이 아직 닫히지 않았습니다.')
+    if (message === '') return
+    const getIssues = async () => {
+      try {
+        const res = await axios.get(
+          `${backServer}/folders/${folderId}/issues`,
+          {
+            withCredentials: true,
+          },
+        )
+        console.log('이슈 수신 완료', res.data)
+        setFolder(res.data)
+      } catch (err) {
+        console.log('이슈 수신 실패', err)
+      }
+      // setLoading(false)
     }
+    getIssues()
   }, [message])
 
   return (
