@@ -8,16 +8,32 @@ import VideoTableBody from '@/components/organisms/MainPageOrganism/VideoTableBo
 import { useEffect, useState } from 'react'
 import { fetchFolder } from '@/services/folder/folder.api'
 import { Folder } from '@/types/userFolder.types'
+import axios from 'axios'
 
 export default function VideoTable() {
   // const videos = useVideoStore(state => state.videos)
   const [folders, setFolders] = useState<Folder[]>([])
+  const backServerUrl = process.env.BACK_SERVER_URL
 
   useEffect(() => {
-    fetchFolder().then(data => {
-      console.log('store에 저장합니다.', data)
-      setFolders(data)
-    })
+    // fetchFolder().then(data => {
+    //   console.log('store에 저장합니다.', data)
+    //   setFolders(data)
+    // })
+    const getfolder = async () => {
+      const response = await axios
+        .get(`${backServerUrl}/folders`, {
+          withCredentials: true,
+        })
+        .then(res => {
+          console.log('store에 저장합니다.', res.data)
+          setFolders(res.data)
+        })
+      return response
+
+      // setFolders(data)
+    }
+    getfolder()
   }, [])
 
   useEffect(() => {
