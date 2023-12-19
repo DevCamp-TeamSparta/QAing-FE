@@ -104,7 +104,7 @@ function Folder() {
 
   useEffect(() => {
     console.log('message', message)
-    if (message === '') return
+    // if (message === '') return
     const getIssues = async () => {
       try {
         const res = await axios.get(
