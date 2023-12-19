@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: 'https://test.qaing.co',
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_API_URL,
   withCredentials: true,
 })
 
