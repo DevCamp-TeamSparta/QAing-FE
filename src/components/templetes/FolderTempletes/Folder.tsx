@@ -95,8 +95,16 @@ function Folder() {
       }
     }
 
+    //에러확인
+    eventSource.onerror = error => {
+      // 오류 처리
+      console.error('EventSource failed:', error)
+      eventSource.close()
+    }
+
     return () => {
       eventSource.close()
+      console.log('연결 해제')
     }
   }, [folderId])
 
