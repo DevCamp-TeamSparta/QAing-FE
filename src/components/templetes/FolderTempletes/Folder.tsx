@@ -27,7 +27,7 @@ function Folder() {
   const folderId = sections[2]
 
   // useEffect(() => {
-  //   console.log('folderId', folderId)
+
   // }, [])
 
   //로고 사이즈 프롭스
@@ -51,11 +51,9 @@ function Folder() {
       const res = await axios.get(`${backServer}/folders/${folderId}/issues`, {
         withCredentials: true,
       })
-      console.log('res.data', res.data)
+
       setFolder(res.data)
-    } catch (err) {
-      console.log('err', err)
-    }
+    } catch (err) {}
     // setLoading(false)
   }
 
@@ -69,13 +67,12 @@ function Folder() {
     )
     eventSource.onmessage = event => {
       const data = JSON.parse(event.data)
-      console.log('data', data)
+
       if (!data.status) {
         setProgress(data.progress)
       } else {
         setMessage(data.message)
         eventSource.close()
-        console.log('연결 해제')
       }
     }
     //에러확인
@@ -97,14 +94,12 @@ function Folder() {
     }
   }, [folderId])
 
-  useEffect(() => {
-    console.log('progress', progress)
-    console.log('backServer', backServer)
-  }, [progress])
+  // useEffect(() => {
+  //   console.log('progress', progress)
+  // }, [progress])
 
   useEffect(() => {
     console.log('message', message)
-    // if (message === '') return
     const getIssues = async () => {
       try {
         const res = await axios.get(
@@ -115,9 +110,7 @@ function Folder() {
         )
         console.log('이슈 수신 완료', res.data)
         setFolder(res.data)
-      } catch (err) {
-        console.log('이슈 수신 실패', err)
-      }
+      } catch (err) {}
       // setLoading(false)
     }
     getIssues()
