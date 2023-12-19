@@ -85,27 +85,33 @@ function Folder() {
     eventSource.onmessage = event => {
       const data = JSON.parse(event.data)
       console.log('data', data)
-      switch (data.type) {
-        case 'progress':
-          setProgress(data.progress)
-          break
-        case 'message':
-          setMessage(data.message)
-          break
+      if (!data.status) {
+        setProgress(data.progress)
+      } else {
+        setMessage(data.message)
+        eventSource.close()
       }
+      // switch (data.type) {
+      //   case 'progress':
+      //     setProgress(data.progress)
+      //     break
+      //   case 'message':
+      //     setMessage(data.message)
+      //     break
+      // }
     }
 
     //에러확인
-    eventSource.onerror = error => {
-      // 오류 처리
-      console.error('EventSource failed:', error)
-      eventSource.close()
-    }
+    // eventSource.onerror = error => {
+    //   // 오류 처리
+    //   console.error('EventSource failed:', error)
+    //   eventSource.close()
+    // }
 
-    return () => {
-      eventSource.close()
-      console.log('연결 해제')
-    }
+    // return () => {
+    //   eventSource.close()
+    //   console.log('연결 해제')
+    // }
   }, [folderId])
 
   useEffect(() => {
