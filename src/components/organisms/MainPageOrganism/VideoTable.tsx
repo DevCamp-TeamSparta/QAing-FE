@@ -22,7 +22,7 @@ export default function VideoTable() {
     // })
     const getfolder = async () => {
       const response = await axios
-        .get(`${backServerUrl}/folders`, {
+        .get(`${backServerUrl}/folders/test`, {
           withCredentials: true,
         })
         .then(res => {
