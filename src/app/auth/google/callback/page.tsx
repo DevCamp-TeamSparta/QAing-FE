@@ -10,7 +10,7 @@ function Page() {
   const [folderList, setFolderList] = useState()
   // const cookieStore = cookies()
   // console.log('cookieStore', cookieStore)
-  const baseURL = process.env.PUBLIC_BACKEND_API_URL
+  const baseURL = process.env.NEXT_PUBLIC_BACKEND_API_URL
   const accessToken = 'Token is here'
   const getCookie = Cookies.get('access-token')
   console.log('getCookie', getCookie)
