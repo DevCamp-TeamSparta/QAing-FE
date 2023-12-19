@@ -35,6 +35,11 @@ export default function VideoTableBody({
     setIsMoreButtonClicked(false)
     setModal(<DeleteFolderModal />)
   }
+  const videoTableProps = {
+    name: createdAt.substring(0, 10) || 0,
+    count: issues.length || 0,
+  }
+
   return (
     //  TODO: Link tag로 변경
     <div className={'relative'}>
@@ -45,10 +50,10 @@ export default function VideoTableBody({
         }
       >
         <p className="flex gap-[12px] b3">
-          <MyVideoSvg color={'#959797'} /> {createdAt}
+          <MyVideoSvg color={'#959797'} /> {videoTableProps.name}
         </p>
-        <p className={'b4'}>{issues}개</p>
-        <p className={'b4'}>{createdAt}</p>
+        <p className={'b4'}>{videoTableProps.name}개</p>
+        <p className={'b4'}>{videoTableProps.count}</p>
         <button onClick={onClickMoreButtonHandler}>
           <MoreSvg />
         </button>

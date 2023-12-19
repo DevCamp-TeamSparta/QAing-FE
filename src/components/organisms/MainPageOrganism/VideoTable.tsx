@@ -15,35 +15,12 @@ export default function VideoTable() {
   const [folders, setFolders] = useState<Folder[]>([])
   const backServerUrl = process.env.NEXT_PUBLIC_BACKEND_API_URL
 
-  // useEffect(() => {
-  //   // fetchFolder().then(data => {
-  //   //   console.log('store에 저장합니다1', data)
-  //   //   setFolders(data)
-  //   // })
-  //   const getfolder = async () => {
-  //     const response = await axios
-  //       .get(`${backServerUrl}/folders/test`, {
-  //         withCredentials: true,
-  //       })
-  //       .then(res => {
-  //         console.log('store에 저장합니다2', res.data)
-  //         setFolders(res.data)
-  //       })
-  //     return response
-  //   }
-  //   try {
-  //     getfolder()
-  //   } catch (err) {
-  //     console.log('err', err)
-  //   }
-  // }, [])
-
-  const getfolder = async () => {
+  useEffect(() => {
     fetchFolder().then(data => {
       console.log('store에 저장합니다1', data)
       setFolders(data)
     })
-  }
+  }, [])
 
   useEffect(() => {
     if (folders.length === 0) return
@@ -70,7 +47,6 @@ export default function VideoTable() {
             생성 날짜
           </p>
         </div>
-        <button onClick={getfolder}>폴더 요청</button>
         {folders.length > 0 ? (
           <div>
             {folders.map((folder, index) => (
