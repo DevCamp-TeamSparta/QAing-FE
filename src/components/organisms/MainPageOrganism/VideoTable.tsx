@@ -12,36 +12,36 @@ import axios from 'axios'
 
 export default function VideoTable() {
   // const videos = useVideoStore(state => state.videos)
-  const [folders, setFolders] = useState<Folder[]>([])
-  const backServerUrl = process.env.NEXT_PUBLIC_BACKEND_API_URL
+  // const [folders, setFolders] = useState<Folder[]>([])
+  // const backServerUrl = process.env.NEXT_PUBLIC_BACKEND_API_URL
 
-  useEffect(() => {
-    // fetchFolder().then(data => {
-    //   console.log('store에 저장합니다1', data)
-    //   setFolders(data)
-    // })
-    const getfolder = async () => {
-      const response = await axios
-        .get(`${backServerUrl}/folders/test`, {
-          withCredentials: true,
-        })
-        .then(res => {
-          console.log('store에 저장합니다2', res.data)
-          setFolders(res.data)
-        })
-      return response
-    }
-    try {
-      getfolder()
-    } catch (err) {
-      console.log('err', err)
-    }
-  }, [])
+  // useEffect(() => {
+  //   // fetchFolder().then(data => {
+  //   //   console.log('store에 저장합니다1', data)
+  //   //   setFolders(data)
+  //   // })
+  //   const getfolder = async () => {
+  //     const response = await axios
+  //       .get(`${backServerUrl}/folders/test`, {
+  //         withCredentials: true,
+  //       })
+  //       .then(res => {
+  //         console.log('store에 저장합니다2', res.data)
+  //         setFolders(res.data)
+  //       })
+  //     return response
+  //   }
+  //   try {
+  //     getfolder()
+  //   } catch (err) {
+  //     console.log('err', err)
+  //   }
+  // }, [])
 
-  useEffect(() => {
-    if (folders.length === 0) return
-    console.log('folder가 변경되었습니다.', folders)
-  }, [folders])
+  // useEffect(() => {
+  //   if (folders.length === 0) return
+  //   console.log('folder가 변경되었습니다.', folders)
+  // }, [folders])
 
   return (
     <div className="py-[44px]">
@@ -63,25 +63,6 @@ export default function VideoTable() {
             생성 날짜
           </p>
         </div>
-        {folders.length > 0 ? (
-          <div>
-            {folders.map((folder, index) => (
-              <VideoTableBody
-                key={`video table body ${index}`}
-                createdAt={folder.createdAt}
-                issues={folder.issues}
-                folderId={folder.folderId}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="mt-[40px] text-center">
-            <p className="h3 text-black">아직 진행한 QA가 없어요</p>
-            <p className="b2 text-black mt-[8px]">
-              우리 함께 QA를 빠르게 끝내볼까요?
-            </p>
-          </div>
-        )}
       </div>
     </div>
   )
