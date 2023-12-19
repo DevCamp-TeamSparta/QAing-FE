@@ -17,23 +17,21 @@ export default function VideoTable() {
 
   useEffect(() => {
     fetchFolder().then(data => {
-      console.log('store에 저장합니다.', data)
+      console.log('store에 저장합니다1', data)
       setFolders(data)
     })
-    // const getfolder = async () => {
-    //   const response = await axios
-    //     .get(`${backServerUrl}/folders`, {
-    //       withCredentials: true,
-    //     })
-    //     .then(res => {
-    //       console.log('store에 저장합니다.', res.data)
-    //       setFolders(res.data)
-    //     })
-    //   return response
-
-    // setFolders(data)
-    // }
-    // getfolder()
+    const getfolder = async () => {
+      const response = await axios
+        .get(`${backServerUrl}/folders`, {
+          withCredentials: true,
+        })
+        .then(res => {
+          console.log('store에 저장합니다2', res.data)
+          setFolders(res.data)
+        })
+      return response
+    }
+    getfolder()
   }, [])
 
   useEffect(() => {
