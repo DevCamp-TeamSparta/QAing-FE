@@ -16,13 +16,13 @@ export default function VideoTable() {
   const backServerUrl = process.env.NEXT_PUBLIC_BACKEND_API_URL
 
   useEffect(() => {
-    fetchFolder().then(data => {
-      console.log('store에 저장합니다1', data)
-      setFolders(data)
-    })
+    // fetchFolder().then(data => {
+    //   console.log('store에 저장합니다1', data)
+    //   setFolders(data)
+    // })
     const getfolder = async () => {
       const response = await axios
-        .get(`${backServerUrl}/folders`, {
+        .get(`${backServerUrl}/folders/test`, {
           withCredentials: true,
         })
         .then(res => {
