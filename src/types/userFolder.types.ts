@@ -1,5 +1,5 @@
 export type Folder = {
-  folderId: string
+  _id: string
   issues: string[]
   createdAt: string
 }

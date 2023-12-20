@@ -1,5 +1,6 @@
 import { useModalStore } from '@/states/modalStore'
 import { deleteFolder } from '@/services/folder/folder.api'
+import { useEffect } from 'react'
 
 type Props = {
   folderId: string
@@ -15,6 +16,10 @@ export default function DeleteFolderModal({ folderId }: Props) {
     })
     setModal(null)
   }
+
+  useEffect(() => {
+    console.log('folderId', folderId)
+  }, [folderId])
   return (
     <div
       className={
