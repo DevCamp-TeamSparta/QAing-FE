@@ -10,6 +10,7 @@ import { useClickOutSide } from '@/hooks/useClickOutSide'
 import { TypeImageIcon } from '../../../../../public/icons/TypeImageIcon'
 import { TypeVideoIcon } from '../../../../../public/icons/TypeVideoIcon'
 import CopyLinkIcon from '../../../../../public/icons/CopyLinkIcon'
+import useClipboard from '@/hooks/useClipboard'
 
 interface IssueCardProps {
   IssueCardProps: {
@@ -39,6 +40,7 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
 
   useClickOutSide(ref, onClickOutsideHandler, [isMoreButtonClicked])
   useClickOutSide(copyRef, onClickOutsideHandler, [isCopyButtonClicked])
+  const { handleCopyClipBoard } = useClipboard()
 
   function onClickOutsideHandler() {
     if (isMoreButtonClicked) {
@@ -96,7 +98,10 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
             <div ref={copyRef} className={`relative `}>
               <div className="absolute bottom-[76px] right-[16px] bg-white py-5 px-[15px] rounded-2xl shadow-[0_6px_22px_0_rgba(0,0,0,0.20)] ">
                 <div className="flex flex-col gap-3">
-                  <div className="rounded-2xl px-4 py-[10px] bg-gray-200 ">
+                  <div
+                    className="rounded-2xl px-4 py-[10px] bg-gray-200 hover:bg-primary-light "
+                    onClick={() => handleCopyClipBoard(imageUrl)}
+                  >
                     <div className="flex flex-row ">
                       <div className="py-1 mr-3">
                         <div className="bg-white rounded-[99px]  p-2 ">
@@ -109,7 +114,10 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
                       </div>
                     </div>
                   </div>
-                  <div className="rounded-2xl px-4 py-[10px] bg-gray-200 ">
+                  <div
+                    className="rounded-2xl px-4 py-[10px] bg-gray-200 hover:bg-primary-light "
+                    onClick={() => handleCopyClipBoard(videoUrl)}
+                  >
                     <div className="flex flex-row ">
                       <div className="py-1 mr-3">
                         <div className="bg-white rounded-[99px] p-2">
@@ -143,7 +151,7 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
                 className={'w-full hover:bg-gray-200'}
                 onClick={onClickEditButtonHandler}
               >
-                <EditSvg color={'#5F6060'} />{' '}
+                <EditSvg color={'#5F6060'} />
                 <p className={'b4'}>이슈명 편집</p>
               </button>
 

@@ -21,7 +21,7 @@ const config: Config = {
           default: '#00CCCC',
           hover: '#6DDBD9',
           pressed: '#00C1C4',
-          ligth: '#EDFBFB',
+          light: '#EDFBFB',
         },
         gray: {
           900: '#3B3C3C',
