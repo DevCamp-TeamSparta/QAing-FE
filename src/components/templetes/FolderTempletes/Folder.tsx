@@ -38,10 +38,8 @@ function Folder() {
     height: 36,
   }
   const IssueCardProps = {
-    imageUrl:
-      'https://s3-qaing-test.s3.ap-northeast-2.amazonaws.com/image_1702302459868.jpg',
-    videoUrl:
-      'https://s3-qaing-test.s3.ap-northeast-2.amazonaws.com/video_1702302465430.mp4',
+    imageUrl: '',
+    videoUrl: '',
     updatedAt: '2023-12-11T13:47:45.556Z',
     issueName: '이슈 1',
     _id: 'xxx',
@@ -146,7 +144,21 @@ function Folder() {
           </div>
           <div className="px-9 pt-9 gray-50">
             <div className="">
-              {folder.length > 0 ? (
+              <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />
+              </div>
+              {/* {folder.length > 0 ? (
                 <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
                   {folder.map((item: any) => {
                     return <IssueCard key={item._id} IssueCardProps={item} />
@@ -157,7 +169,7 @@ function Folder() {
                   <p className="mb-3"> 파일을 저장하고 있어요! </p>
                   <p> 새로고침을 눌러보세요</p>
                 </div>
-              )}
+              )} */}
             </div>
             <div className="h-[76px] "></div>
           </div>
