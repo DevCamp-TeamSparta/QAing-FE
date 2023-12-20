@@ -41,11 +41,11 @@ export default function SideBar() {
   }
 
   function onClickStartButtonHandler() {
-    addVideo({
-      name: '2023-11-15 16:24',
-      issueNum: 8,
-      createdAt: new Date(),
-    })
+    // addVideo({
+    //   name: '2023-11-15 16:24',
+    //   issueNum: 8,
+    //   createdAt: new Date(),
+    // })
   }
   async function fetchUser(): Promise<User> {
     const response = await instance.get('/users/info')
@@ -79,7 +79,7 @@ export default function SideBar() {
         }
         size={'medium'}
         onClick={onClickStartButtonHandler}
-        disabled={true}
+        disabled={false}
       >
         <RecodeSvg color={'white'} /> QA 시작하기
       </CTAButton>
@@ -104,7 +104,7 @@ export default function SideBar() {
       <div className={'mt-auto'}>
         <Link
           className={'flex px-[16px] py-[12px] gap-[12px] items-center'}
-          href={'https://www.qaing.co/'}
+          href={'https://qaing.oopy.io/'}
           target={'_blank'}
           rel={'noopener noreferrer'}
         >

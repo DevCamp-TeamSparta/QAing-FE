@@ -11,9 +11,7 @@ export default function DeleteFolderModal({ folderId }: Props) {
 
   const onClickDeleteButtonHandler = (folderId: string) => {
     if (!folderId) return alert('폴더아이디가 없습니다.')
-    deleteFolder(folderId).then(() => {
-      alert('삭제완료')
-    })
+    deleteFolder(folderId).then(() => {})
     setModal(null)
   }
 
