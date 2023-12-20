@@ -54,7 +54,7 @@ export default function VideoTable() {
                 key={`video table body ${index}`}
                 createdAt={folder.createdAt}
                 issues={folder.issues}
-                folderId={folder.folderId}
+                _id={folder._id}
               />
             ))}
           </div>

@@ -8,12 +8,9 @@ import { useModalStore } from '@/states/modalStore'
 import DeleteFolderModal from '@/components/organisms/MainPageOrganism/DeleteFolderModal'
 import { useClickOutSide } from '@/hooks/useClickOutSide'
 import { Folder } from '@/types/userFolder.types'
+import { editFolder } from '@/services/folder/folder.api'
 
-export default function VideoTableBody({
-  createdAt,
-  issues,
-  folderId,
-}: Folder) {
+export default function VideoTableBody({ createdAt, issues, _id }: Folder) {
   const ref = useRef<HTMLDivElement>(null)
   const [isMoreButtonClicked, setIsMoreButtonClicked] = React.useState(false)
   const setModal = useModalStore(state => state.setModal)
@@ -33,7 +30,13 @@ export default function VideoTableBody({
 
   function onClickDeleteButtonHandler() {
     setIsMoreButtonClicked(false)
-    setModal(<DeleteFolderModal folderId={folderId} />)
+    setModal(<DeleteFolderModal folderId={_id} />)
+  }
+
+  function onClickEditButtonHandler(folderId: string) {
+    // editFolder(folderId).then(res => {
+    //   console.log('res', res)
+    // })
   }
 
   const dateObject = new Date(createdAt)
@@ -43,7 +46,7 @@ export default function VideoTableBody({
     createdAt: `${dateObject.getFullYear()}.${(dateObject.getMonth() + 1)
       .toString()
       .padStart(2, '0')}.${dateObject.getDate().toString().padStart(2, '0')}`,
-    folderId,
+    _id,
   }
 
   return (
