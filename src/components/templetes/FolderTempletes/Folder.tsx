@@ -146,7 +146,7 @@ function Folder() {
           </div>
           <div className="px-9 pt-9 gray-50">
             <div className="">
-              <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
+              {/* <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
                 <IssueCard
                   key={IssueCardProps._id}
                   IssueCardProps={IssueCardProps}
@@ -183,8 +183,8 @@ function Folder() {
                   folderName={folderName}
                   folderId={IssueCardProps._id}
                 />
-              </div>
-              {/* {folder.length > 0 ? (
+              </div> */}
+              {folder.length > 0 ? (
                 <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
                   {folder.map((item: any) => {
                     return (
@@ -192,6 +192,7 @@ function Folder() {
                         key={item._id}
                         IssueCardProps={item}
                         folderId={folderId}
+                        folderName={folderName}
                       />
                     )
                   })}
@@ -201,7 +202,7 @@ function Folder() {
                   <p className="mb-3"> 파일을 저장하고 있어요! </p>
                   <p> 새로고침을 눌러보세요</p>
                 </div>
-              )} */}
+              )}
             </div>
             <div className="h-[76px] "></div>
           </div>
