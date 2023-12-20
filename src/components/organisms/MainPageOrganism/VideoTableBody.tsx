@@ -23,7 +23,7 @@ export default function VideoTableBody({
   const ref = useRef<HTMLDivElement>(null)
   const [isMoreButtonClicked, setIsMoreButtonClicked] = React.useState(false)
   const [isEditButtonClicked, setIsEditButtonClicked] = React.useState(false)
-  const [values, setValues] = useState<Values>({ newFolderName: '2023-12-20' })
+  const [values, setValues] = useState<Values>({ newFolderName: folderName })
   const setModal = useModalStore(state => state.setModal)
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -123,7 +123,7 @@ export default function VideoTableBody({
                   value={values.newFolderName}
                   onBlur={() => setIsEditButtonClicked(false)}
                   maxLength={40}
-                  className="  overflow-hidden truncate placeholder:text-black bg-white w-[428px]"
+                  className="  overflow-hidden truncate  bg-white w-[428px]"
                 />
               </div>
             </form>
