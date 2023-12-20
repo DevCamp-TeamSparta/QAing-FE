@@ -12,9 +12,14 @@ export default function DeleteFolderModal({ folderId }: Props) {
   const onClickDeleteButtonHandler = (folderId: string, e?: any) => {
     e.preventDefault()
     if (!folderId) return alert('폴더아이디가 없습니다.')
-    deleteFolder(folderId).then(() => {
-      setModal(null)
-    })
+    deleteFolder(folderId)
+      .then(() => {
+        alert('폴더가 삭제되었습니다.')
+        setModal(null)
+      })
+      .catch(e => {
+        console.error('삭제 실패', e)
+      })
   }
 
   useEffect(() => {
@@ -43,7 +48,7 @@ export default function DeleteFolderModal({ folderId }: Props) {
         </button>
         <button
           className={'bg-sementic-danger text-white cursor-pointer b3'}
-          onSubmit={() => onClickDeleteButtonHandler(folderId)}
+          onClick={() => onClickDeleteButtonHandler(folderId)}
         >
           삭제
         </button>
