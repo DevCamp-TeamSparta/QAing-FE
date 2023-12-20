@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Video } from '@/states/videoStore'
 import { MoreSvg } from '../../../../public/icons/MoreSvg'
 import { MyVideoSvg } from '../../../../public/icons/MyVideoSvg'
@@ -27,6 +27,10 @@ export default function VideoTableBody({ createdAt, issues, _id }: Folder) {
     e.stopPropagation()
     setIsMoreButtonClicked(!isMoreButtonClicked)
   }
+
+  useEffect(() => {
+    console.log('_id', _id)
+  })
 
   function onClickDeleteButtonHandler() {
     setIsMoreButtonClicked(false)
