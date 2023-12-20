@@ -9,13 +9,11 @@ import { useEffect, useState } from 'react'
 import { fetchFolder } from '@/services/folder/folder.api'
 import { Folder } from '@/types/userFolder.types'
 import axios from 'axios'
-import { useRouter } from 'next/navigation'
 
 export default function VideoTable() {
   // const videos = useVideoStore(state => state.videos)
   const [folders, setFolders] = useState<Folder[]>([])
   const backServerUrl = process.env.NEXT_PUBLIC_BACKEND_API_URL
-  const router = useRouter()
 
   useEffect(() => {
     fetchFolder().then(data => {
@@ -86,20 +84,13 @@ export default function VideoTable() {
         {folders.length > 0 ? (
           <div>
             {folders.map((folder, index) => (
-              <div
-                key={folder._id}
-                onClick={() => {
-                  router.push(`folders/${folder._id}/issues`)
-                }}
-              >
-                <VideoTableBody
-                  key={`video table body ${index}`}
-                  folderName={folder.folderName}
-                  createdAt={folder.createdAt}
-                  issues={folder.issues}
-                  _id={folder._id}
-                />
-              </div>
+              <VideoTableBody
+                key={`video table body ${index}`}
+                folderName={folder.folderName}
+                createdAt={folder.createdAt}
+                issues={folder.issues}
+                _id={folder._id}
+              />
             ))}
           </div>
         ) : (

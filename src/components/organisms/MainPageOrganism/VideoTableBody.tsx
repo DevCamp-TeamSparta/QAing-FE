@@ -9,6 +9,7 @@ import DeleteFolderModal from '@/components/organisms/MainPageOrganism/DeleteFol
 import { useClickOutSide } from '@/hooks/useClickOutSide'
 import { Folder } from '@/types/userFolder.types'
 import { editFolder } from '@/services/folder/folder.api'
+import { useRouter } from 'next/navigation'
 
 type Values = {
   newFolderName: string
@@ -26,6 +27,7 @@ export default function VideoTableBody({
   const [values, setValues] = useState<Values>({ newFolderName: folderName })
   const setModal = useModalStore(state => state.setModal)
   const inputRef = useRef<HTMLInputElement>(null)
+  const router = useRouter()
 
   useClickOutSide(ref, onClickOutsideHandler, [isMoreButtonClicked])
 
@@ -100,7 +102,7 @@ export default function VideoTableBody({
       <div
         onClick={() => {
           if (isEditButtonClicked) return
-          alert('클릭')
+          router.push(`folders/${_id}/issues`)
         }}
         className={
           'grid grid-cols-[2fr_1fr_1fr_20px] px-[20px] py-[16px] border-b border-gray-300 hover:bg-gray-200 active:bg-brand-background cursor-pointer'
