@@ -27,6 +27,37 @@ export default function VideoTable() {
     console.log('folder가 변경되었습니다.', folders)
   }, [folders])
 
+  // const folders = [
+  //   {
+  //     name: '0',
+  //     count: 0,
+  //     createdAt: '0',
+  //     issues: ['1', '2', '3'],
+  //     _id: '0',
+  //   },
+  //   {
+  //     name: '1',
+  //     count: 1,
+  //     createdAt: '1',
+  //     issues: ['1', '2', '3'],
+  //     _id: '1',
+  //   },
+  //   {
+  //     name: '2',
+  //     count: 2,
+  //     createdAt: '2',
+  //     issues: ['1', '2', '3'],
+  //     _id: '2',
+  //   },
+  //   {
+  //     name: '3',
+  //     count: 3,
+  //     createdAt: '3',
+  //     issues: ['1', '2', '3'],
+  //     _id: '3',
+  //   },
+  // ]
+
   return (
     <div className="py-[44px]">
       <div className="min-w-full border-collapse">
@@ -52,6 +83,7 @@ export default function VideoTable() {
             {folders.map((folder, index) => (
               <VideoTableBody
                 key={`video table body ${index}`}
+                folderName={folder.folderName}
                 createdAt={folder.createdAt}
                 issues={folder.issues}
                 _id={folder._id}
