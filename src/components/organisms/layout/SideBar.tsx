@@ -79,7 +79,7 @@ export default function SideBar() {
       {/* todo: install 감지 후 diabled에 넣기 */}
       <CTAButton
         className={
-          'flex items-center justify-center mt-[48px] gap-[8px] disabled:bg-primary-default disabled:opacity-30'
+          'bg-primary-default flex items-center justify-center mt-[48px] gap-[8px] disabled:bg-primary-default disabled:opacity-30'
         }
         size={'medium'}
         onClick={onClickStartButtonHandler}
