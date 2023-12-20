@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import IssueThumbnail from '@/components/atoms/issueThumbnailAtoms'
 import CopyButton from '@/components/atoms/CopyButtonAtoms'
 import MoreIcon from '../../../../../public/icons/More'
+import { EditSvg } from '../../../../../public/icons/EditSvg'
+import DeleteFolderModal from '../../MainPageOrganism/DeleteFolderModal'
+import { TrashSvg } from '../../../../../public/icons/TrashSvg'
+import { useModalStore } from '@/states/modalStore'
+import { useClickOutSide } from '@/hooks/useClickOutSide'
 
 interface IssueCardProps {
   IssueCardProps: {
@@ -13,10 +18,51 @@ interface IssueCardProps {
   }
 }
 
-function index({ IssueCardProps }: IssueCardProps) {
+type Values = {
+  newFolderName: string
+}
+
+function Index({ IssueCardProps }: IssueCardProps) {
+  const ref = useRef<HTMLDivElement>(null)
   const { imageUrl, videoUrl, updatedAt, issueName, _id } = IssueCardProps
+  const [isMoreButtonClicked, setIsMoreButtonClicked] = React.useState(false)
+  const [isEditButtonClicked, setIsEditButtonClicked] = React.useState(false)
+  const setModal = useModalStore(state => state.setModal)
+  const [values, setValues] = useState<Values>({ newFolderName: issueName })
+
+  useClickOutSide(ref, onClickOutsideHandler, [isMoreButtonClicked])
+
+  function onClickOutsideHandler() {
+    if (isMoreButtonClicked) {
+      setIsMoreButtonClicked(false)
+    }
+  }
+
+  function onClickEditButtonHandler(
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) {
+    event.stopPropagation()
+    setIsEditButtonClicked(prev => !prev)
+  }
+  function onClickDeleteButtonHandler() {
+    setIsMoreButtonClicked(false)
+    setModal(<DeleteFolderModal folderId={_id} />)
+  }
+  function onClickMoreButtonHandler(e: React.MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation()
+    setIsMoreButtonClicked(!isMoreButtonClicked)
+  }
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setValues({
+      ...values,
+      [name]: value,
+    })
+  }
+
   return (
-    <div className="w-[440px] h-[417px]">
+    <div className="w-[440px] h-[417px] relative">
       <div className="flex flex-col">
         <div className=" relative">
           <IssueThumbnail imageUrl={imageUrl} videoUrl={videoUrl} />
@@ -26,13 +72,36 @@ function index({ IssueCardProps }: IssueCardProps) {
         </div>
         <div className="t1 mt-4 flex flex-row justify-between">
           {issueName}
-          <div>
+          <button onClick={onClickMoreButtonHandler}>
             <MoreIcon />
-          </div>
+          </button>
+          {isMoreButtonClicked && (
+            <div
+              ref={ref}
+              className={
+                'absolute w-[136px] px-[8px] py-[12px] bottom-[-90px] right-[12px] bg-white rounded-[12px] shadow-[0_6px_14px_0_rgba(0,0,0,0.20)] [&>button]:p-[12px] [&>button]:flex [&>button]:items-center [&>button]:gap-[12px] [&>button]:rounded-[8px] z-40'
+              }
+            >
+              <button
+                className={'w-full hover:bg-gray-200'}
+                onClick={onClickEditButtonHandler}
+              >
+                <EditSvg color={'#5F6060'} />{' '}
+                <p className={'b4'}>이슈명 편집</p>
+              </button>
+
+              <button
+                className={'w-full hover:bg-gray-200 '}
+                onClick={onClickDeleteButtonHandler}
+              >
+                <TrashSvg color={'#5F6060'} /> <p className={'b4'}>이슈 삭제</p>
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
   )
 }
 
-export default index
+export default Index

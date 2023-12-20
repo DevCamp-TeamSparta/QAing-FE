@@ -38,10 +38,8 @@ function Folder() {
     height: 36,
   }
   const IssueCardProps = {
-    imageUrl:
-      'https://s3-qaing-test.s3.ap-northeast-2.amazonaws.com/image_1702302459868.jpg',
-    videoUrl:
-      'https://s3-qaing-test.s3.ap-northeast-2.amazonaws.com/video_1702302465430.mp4',
+    imageUrl: '',
+    videoUrl: '',
     updatedAt: '2023-12-11T13:47:45.556Z',
     issueName: '이슈 1',
     _id: 'xxx',
@@ -146,6 +144,56 @@ function Folder() {
           </div>
           <div className="px-9 pt-9 gray-50">
             <div className="">
+              {/* <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />{' '}
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />
+              </div> */}
               {folder.length > 0 ? (
                 <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
                   {folder.map((item: any) => {
