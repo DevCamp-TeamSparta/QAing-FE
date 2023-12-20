@@ -144,7 +144,19 @@ function Folder() {
           </div>
           <div className="px-9 pt-9 gray-50">
             <div className="">
-              <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
+              {/* <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />{' '}
                 <IssueCard
                   key={IssueCardProps._id}
                   IssueCardProps={IssueCardProps}
@@ -157,8 +169,32 @@ function Folder() {
                   key={IssueCardProps._id}
                   IssueCardProps={IssueCardProps}
                 />
-              </div>
-              {/* {folder.length > 0 ? (
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                />
+              </div> */}
+              {folder.length > 0 ? (
                 <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
                   {folder.map((item: any) => {
                     return <IssueCard key={item._id} IssueCardProps={item} />
@@ -169,7 +205,7 @@ function Folder() {
                   <p className="mb-3"> 파일을 저장하고 있어요! </p>
                   <p> 새로고침을 눌러보세요</p>
                 </div>
-              )} */}
+              )}
             </div>
             <div className="h-[76px] "></div>
           </div>

@@ -18,12 +18,17 @@ interface IssueCardProps {
   }
 }
 
+type Values = {
+  newFolderName: string
+}
+
 function Index({ IssueCardProps }: IssueCardProps) {
   const ref = useRef<HTMLDivElement>(null)
   const { imageUrl, videoUrl, updatedAt, issueName, _id } = IssueCardProps
   const [isMoreButtonClicked, setIsMoreButtonClicked] = React.useState(false)
   const [isEditButtonClicked, setIsEditButtonClicked] = React.useState(false)
   const setModal = useModalStore(state => state.setModal)
+  const [values, setValues] = useState<Values>({ newFolderName: issueName })
 
   useClickOutSide(ref, onClickOutsideHandler, [isMoreButtonClicked])
 
@@ -47,6 +52,15 @@ function Index({ IssueCardProps }: IssueCardProps) {
     e.stopPropagation()
     setIsMoreButtonClicked(!isMoreButtonClicked)
   }
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setValues({
+      ...values,
+      [name]: value,
+    })
+  }
+
   return (
     <div className="w-[440px] h-[417px] relative">
       <div className="flex flex-col">
@@ -65,7 +79,7 @@ function Index({ IssueCardProps }: IssueCardProps) {
             <div
               ref={ref}
               className={
-                'absolute w-[136px] px-[8px] py-[12px] bottom-[-90px] right-[12px] bg-white rounded-[12px] shadow-[0_6px_14px_0_rgba(0,0,0,0.20)] [&>button]:p-[12px] [&>button]:flex [&>button]:items-center [&>button]:gap-[12px] [&>button]:rounded-[8px] z-10'
+                'absolute w-[136px] px-[8px] py-[12px] bottom-[-90px] right-[12px] bg-white rounded-[12px] shadow-[0_6px_14px_0_rgba(0,0,0,0.20)] [&>button]:p-[12px] [&>button]:flex [&>button]:items-center [&>button]:gap-[12px] [&>button]:rounded-[8px] z-40'
               }
             >
               <button
