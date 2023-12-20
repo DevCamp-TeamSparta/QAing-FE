@@ -2,30 +2,34 @@ import { useModalStore } from '@/states/modalStore'
 import { deleteIssue } from '@/services/issue/issue.api'
 import { useEffect } from 'react'
 
-type Props = {
+type DeleteIssueProps = {
   folderId: string
-  folderName: string
+  issueID: string
 }
 
-export default function DeleteIssueModal({ folderId, folderName }: Props) {
+export default function DeleteIssueModal({
+  folderId,
+  issueID,
+}: DeleteIssueProps) {
   const setModal = useModalStore(state => state.setModal)
 
-  const onClickDeleteButtonHandler = (folderId: string) => {
+  const onClickDeleteButtonHandler = (folderId: string, issueID: string) => {
     if (!folderId) return alert('폴더아이디가 없습니다.')
-    // deleteIssue(folderId)
-    //   .then(() => {
-    //     alert('폴더가 삭제되었습니다.')
-    //     setModal(null)
-    //   })
-    //   .catch(e => {
-    //     console.error('삭제 실패', e)
-    //   })
+    if (!issueID) return alert('이슈아이디가 없습니다.')
+    deleteIssue(folderId, issueID)
+      .then(() => {
+        alert('이슈가 삭제되었습니다.')
+        setModal(null)
+      })
+      .catch(e => {
+        console.error('이슈 삭제 실패', e)
+      })
   }
 
   useEffect(() => {
     console.log('folderId', folderId)
-    console.log('folderName', folderName)
-  }, [folderId, folderName])
+    console.log('issueID', issueID)
+  }, [folderId, issueID])
   return (
     <div
       className={
@@ -49,7 +53,7 @@ export default function DeleteIssueModal({ folderId, folderName }: Props) {
         </button>
         <button
           className={'bg-sementic-danger text-white cursor-pointer b3'}
-          onClick={() => onClickDeleteButtonHandler(folderId)}
+          onClick={() => onClickDeleteButtonHandler(folderId, issueID)}
         >
           삭제
         </button>
