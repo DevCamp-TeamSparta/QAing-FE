@@ -46,6 +46,10 @@ export default function SideBar() {
     //   issueNum: 8,
     //   createdAt: new Date(),
     // })
+    window.open(
+      'https://chromewebstore.google.com/detail/qaing-qa-%ED%99%94%EB%A9%B4-%EC%BA%A1%EC%B3%90-%EB%B0%8F-%EB%85%B9%ED%99%94/meoehebomhebdjdbcbeehbjnljdblocn',
+      '_blank',
+    )
   }
   async function fetchUser(): Promise<User> {
     const response = await instance.get('/users/info')
@@ -79,7 +83,6 @@ export default function SideBar() {
         }
         size={'medium'}
         onClick={onClickStartButtonHandler}
-        disabled={false}
       >
         <RecodeSvg color={'white'} /> QA 시작하기
       </CTAButton>
