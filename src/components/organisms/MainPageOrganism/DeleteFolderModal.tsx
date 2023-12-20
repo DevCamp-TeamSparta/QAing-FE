@@ -43,7 +43,7 @@ export default function DeleteFolderModal({ folderId }: Props) {
         </button>
         <button
           className={'bg-sementic-danger text-white cursor-pointer b3'}
-          onClick={() => onClickDeleteButtonHandler}
+          onClick={() => onClickDeleteButtonHandler(folderId)}
         >
           삭제
         </button>
