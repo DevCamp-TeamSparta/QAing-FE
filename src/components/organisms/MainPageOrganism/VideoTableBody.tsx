@@ -22,11 +22,11 @@ export default function VideoTableBody({
   folderName,
 }: Folder) {
   const ref = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
   const [isMoreButtonClicked, setIsMoreButtonClicked] = React.useState(false)
   const [isEditButtonClicked, setIsEditButtonClicked] = React.useState(false)
   const [values, setValues] = useState<Values>({ newFolderName: folderName })
   const setModal = useModalStore(state => state.setModal)
-  const inputRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
 
   useClickOutSide(ref, onClickOutsideHandler, [isMoreButtonClicked])
