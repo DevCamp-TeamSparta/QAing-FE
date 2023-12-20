@@ -13,6 +13,7 @@ function Folder() {
   const backServer = process.env.NEXT_PUBLIC_BACKEND_API_URL
   const [folder, setFolder] = useState<object[]>([])
   const [progress, setProgress] = useState(0)
+  const [totalProgress, setTotalProgress] = useState(0)
   const [message, setMessage] = useState('')
 
   // useEffect(() => {
@@ -69,6 +70,7 @@ function Folder() {
       const data = JSON.parse(event.data)
 
       if (!data.status) {
+        setTotalProgress(data.totalTasks)
         setProgress(data.progress)
       } else {
         setMessage(data.message)
@@ -93,9 +95,10 @@ function Folder() {
     }
   }, [folderId])
 
-  // useEffect(() => {
-  //   console.log('progress', progress)
-  // }, [progress])
+  useEffect(() => {
+    console.log('progress', progress)
+    console.log('totalProgress', totalProgress)
+  }, [progress, totalProgress])
 
   useEffect(() => {
     console.log('message', message)
