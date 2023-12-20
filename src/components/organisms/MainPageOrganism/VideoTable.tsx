@@ -83,6 +83,7 @@ export default function VideoTable() {
             {folders.map((folder, index) => (
               <VideoTableBody
                 key={`video table body ${index}`}
+                folderName={folder.folderName}
                 createdAt={folder.createdAt}
                 issues={folder.issues}
                 _id={folder._id}

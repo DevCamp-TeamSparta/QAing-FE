@@ -14,7 +14,12 @@ type Values = {
   newFolderName: string
 }
 
-export default function VideoTableBody({ createdAt, issues, _id }: Folder) {
+export default function VideoTableBody({
+  createdAt,
+  issues,
+  _id,
+  folderName,
+}: Folder) {
   const ref = useRef<HTMLDivElement>(null)
   const [isMoreButtonClicked, setIsMoreButtonClicked] = React.useState(false)
   const [isEditButtonClicked, setIsEditButtonClicked] = React.useState(false)
@@ -53,7 +58,7 @@ export default function VideoTableBody({ createdAt, issues, _id }: Folder) {
 
   const dateObject = new Date(createdAt)
   const videoTableProps = {
-    name: createdAt.substring(0, 10) || '0',
+    name: folderName || '폴더 이름을 변경해 주세요',
     count: issues.length || 0,
     createdAt: `${dateObject.getFullYear()}.${(dateObject.getMonth() + 1)
       .toString()
