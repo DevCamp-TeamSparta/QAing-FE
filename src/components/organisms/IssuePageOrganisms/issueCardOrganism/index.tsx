@@ -7,6 +7,9 @@ import DeleteIssueModal from '../DeleteIssueModal'
 import { TrashSvg } from '../../../../../public/icons/TrashSvg'
 import { useModalStore } from '@/states/modalStore'
 import { useClickOutSide } from '@/hooks/useClickOutSide'
+import { TypeImageIcon } from '../../../../../public/icons/TypeImageIcon'
+import { TypeVideoIcon } from '../../../../../public/icons/TypeVideoIcon'
+import CopyLinkIcon from '../../../../../public/icons/CopyLinkIcon'
 
 interface IssueCardProps {
   IssueCardProps: {
@@ -26,17 +29,23 @@ type Values = {
 
 function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
   const ref = useRef<HTMLDivElement>(null)
+  const copyRef = useRef<HTMLDivElement>(null)
   const { imageUrl, videoUrl, updatedAt, issueName, _id } = IssueCardProps
   const [isMoreButtonClicked, setIsMoreButtonClicked] = React.useState(false)
+  const [isCopyButtonClicked, setIsCopyButtonClicked] = React.useState(false)
   const [isEditButtonClicked, setIsEditButtonClicked] = React.useState(false)
   const setModal = useModalStore(state => state.setModal)
   const [values, setValues] = useState<Values>({ newFolderName: issueName })
 
   useClickOutSide(ref, onClickOutsideHandler, [isMoreButtonClicked])
+  useClickOutSide(copyRef, onClickOutsideHandler, [isCopyButtonClicked])
 
   function onClickOutsideHandler() {
     if (isMoreButtonClicked) {
       setIsMoreButtonClicked(false)
+    }
+    if (isCopyButtonClicked) {
+      setIsCopyButtonClicked(false)
     }
   }
 
@@ -53,6 +62,10 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
   function onClickMoreButtonHandler(e: React.MouseEvent<HTMLButtonElement>) {
     e.stopPropagation()
     setIsMoreButtonClicked(!isMoreButtonClicked)
+  }
+  function onClickCopyButtonHandler(e: React.MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation()
+    setIsCopyButtonClicked(!isCopyButtonClicked)
   }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -72,9 +85,47 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
       <div className="flex flex-col">
         <div className=" relative">
           <IssueThumbnail imageUrl={imageUrl} videoUrl={videoUrl} />
-          <div className="absolute top-0 right-0 z-30 mx-4 my-4">
-            <CopyButton imageUrl={imageUrl} videoUrl={videoUrl} />
-          </div>
+          <button
+            onClick={onClickCopyButtonHandler}
+            className="absolute top-0 right-0 z-30 mx-4 my-4 bg-primary-default w-[44px] h-[44px] rounded-[99px] flex flex-row justify-center items-center shadow-copybutton"
+          >
+            <CopyLinkIcon color={'#FFFFFF'} />
+            {/* <CopyButton /> */}
+          </button>
+          {isCopyButtonClicked && (
+            <div ref={copyRef} className={`relative `}>
+              <div className="absolute bottom-[76px] right-[16px] bg-white py-5 px-[15px] rounded-2xl shadow-[0_6px_22px_0_rgba(0,0,0,0.20)] ">
+                <div className="flex flex-col gap-3">
+                  <div className="rounded-2xl px-4 py-[10px] bg-gray-200 ">
+                    <div className="flex flex-row ">
+                      <div className="py-1 mr-3">
+                        <div className="bg-white rounded-[99px]  p-2 ">
+                          <TypeImageIcon color={'#00CCCC'} />
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-1 mr-[30px]">
+                        <p className="b2">이미지</p>
+                        <p className="b4 text-gray-600">로 공유하기</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="rounded-2xl px-4 py-[10px] bg-gray-200 ">
+                    <div className="flex flex-row ">
+                      <div className="py-1 mr-3">
+                        <div className="bg-white rounded-[99px] p-2">
+                          <TypeVideoIcon color={'#00CCCC'} />
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-1 mr-[30px]">
+                        <p className="b2">앞뒤 10초 영상</p>
+                        <p className="b4 text-gray-600">로 공유하기</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
         <div className="t1 mt-4 flex flex-row justify-between">
           {issueName}
