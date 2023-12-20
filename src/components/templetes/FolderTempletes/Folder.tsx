@@ -149,7 +149,7 @@ function Folder() {
           <div className="px-9 pt-9 gray-50">
             <div className="">
               <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
-                <IssueCard
+                {/* <IssueCard
                   key={IssueCardProps._id}
                   IssueCardProps={IssueCardProps}
                   folderName={folderName}
@@ -184,11 +184,11 @@ function Folder() {
                   IssueCardProps={IssueCardProps}
                   folderName={folderName}
                   folderId={IssueCardProps._id}
-                />
+                /> */}
               </div>
               {folder.length > 0 ? (
                 <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
-                  {/* {folder.map((item: any) => {
+                  {folder.map((item: any) => {
                     return (
                       <IssueCard
                         key={item._id}
@@ -197,7 +197,7 @@ function Folder() {
                         folderName={folderName}
                       />
                     )
-                  })} */}
+                  })}
                 </div>
               ) : (
                 <div className="flex flex-col justify-center items-center bg-gray-200 w-full h-[640px] t1 ">
