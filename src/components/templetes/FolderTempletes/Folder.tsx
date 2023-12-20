@@ -104,7 +104,6 @@ function Folder() {
 
     return () => {
       eventSource.close()
-      console.log('연결 해제')
     }
   }, [folderId])
 
