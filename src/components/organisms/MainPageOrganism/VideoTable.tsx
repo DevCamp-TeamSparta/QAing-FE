@@ -13,27 +13,13 @@ import axios from 'axios'
 export default function VideoTable() {
   // const videos = useVideoStore(state => state.videos)
   const [folders, setFolders] = useState<Folder[]>([])
-  const backServerUrl = process.env.BACK_SERVER_URL
+  const backServerUrl = process.env.NEXT_PUBLIC_BACKEND_API_URL
 
   useEffect(() => {
-    // fetchFolder().then(data => {
-    //   console.log('store에 저장합니다.', data)
-    //   setFolders(data)
-    // })
-    const getfolder = async () => {
-      const response = await axios
-        .get(`${backServerUrl}/folders`, {
-          withCredentials: true,
-        })
-        .then(res => {
-          console.log('store에 저장합니다.', res.data)
-          setFolders(res.data)
-        })
-      return response
-
-      // setFolders(data)
-    }
-    getfolder()
+    fetchFolder().then(data => {
+      console.log('store에 저장합니다1', data)
+      setFolders(data)
+    })
   }, [])
 
   useEffect(() => {
@@ -68,7 +54,7 @@ export default function VideoTable() {
                 key={`video table body ${index}`}
                 createdAt={folder.createdAt}
                 issues={folder.issues}
-                folderId={folder.folderId}
+                _id={folder._id}
               />
             ))}
           </div>

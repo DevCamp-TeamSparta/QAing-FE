@@ -1,14 +1,14 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BACKEND_API_URL,
+  baseURL: 'https://test.qaing.co',
   withCredentials: true,
 })
 
 instance.interceptors.request.use(
   function (config) {
     // Do something before request is sent
-    console.log('request interceptor')
+    console.log('request interceptor', config)
     return config
   },
   function (error) {

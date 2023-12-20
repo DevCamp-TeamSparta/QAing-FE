@@ -9,13 +9,13 @@ export const fetchFolder = async (): Promise<Folder[]> => {
 }
 
 export const editFolder = async (folderId: string, UpdateFolderDto: object) => {
-  const response = await instance.put(`/folder/${folderId}`, UpdateFolderDto)
+  const response = await instance.put(`/folders/${folderId}`, UpdateFolderDto)
   console.log('폴더명 수정 성공:', response)
   return response.data
 }
 
 export const deleteFolder = async (folderId: string) => {
-  const response = await instance.delete(`/folder/${folderId}`)
+  const response = await instance.delete(`/folders/${folderId}`)
   console.log('폴더명 삭제:', response)
   return response.data
 }

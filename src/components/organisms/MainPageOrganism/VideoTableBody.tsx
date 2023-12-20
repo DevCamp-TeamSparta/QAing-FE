@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Video } from '@/states/videoStore'
 import { MoreSvg } from '../../../../public/icons/MoreSvg'
 import { MyVideoSvg } from '../../../../public/icons/MyVideoSvg'
@@ -8,12 +8,9 @@ import { useModalStore } from '@/states/modalStore'
 import DeleteFolderModal from '@/components/organisms/MainPageOrganism/DeleteFolderModal'
 import { useClickOutSide } from '@/hooks/useClickOutSide'
 import { Folder } from '@/types/userFolder.types'
+import { editFolder } from '@/services/folder/folder.api'
 
-export default function VideoTableBody({
-  createdAt,
-  issues,
-  folderId,
-}: Folder) {
+export default function VideoTableBody({ createdAt, issues, _id }: Folder) {
   const ref = useRef<HTMLDivElement>(null)
   const [isMoreButtonClicked, setIsMoreButtonClicked] = React.useState(false)
   const setModal = useModalStore(state => state.setModal)
@@ -31,10 +28,31 @@ export default function VideoTableBody({
     setIsMoreButtonClicked(!isMoreButtonClicked)
   }
 
+  useEffect(() => {
+    console.log('_id', _id)
+  })
+
   function onClickDeleteButtonHandler() {
     setIsMoreButtonClicked(false)
-    setModal(<DeleteFolderModal />)
+    setModal(<DeleteFolderModal folderId={_id} />)
   }
+
+  function onClickEditButtonHandler(folderId: string) {
+    // editFolder(folderId).then(res => {
+    //   console.log('res', res)
+    // })
+  }
+
+  const dateObject = new Date(createdAt)
+  const videoTableProps = {
+    name: createdAt.substring(0, 10) || 0,
+    count: issues.length || 0,
+    createdAt: `${dateObject.getFullYear()}.${(dateObject.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}.${dateObject.getDate().toString().padStart(2, '0')}`,
+    _id,
+  }
+
   return (
     //  TODO: Link tag로 변경
     <div className={'relative'}>
@@ -45,10 +63,10 @@ export default function VideoTableBody({
         }
       >
         <p className="flex gap-[12px] b3">
-          <MyVideoSvg color={'#959797'} /> {createdAt}
+          <MyVideoSvg color={'#959797'} /> {videoTableProps.name}
         </p>
-        <p className={'b4'}>{issues}개</p>
-        <p className={'b4'}>{createdAt}</p>
+        <p className={'b4'}>{videoTableProps.count}개</p>
+        <p className={'b4'}>{videoTableProps.createdAt}</p>
         <button onClick={onClickMoreButtonHandler}>
           <MoreSvg />
         </button>
