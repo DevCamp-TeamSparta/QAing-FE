@@ -9,8 +9,7 @@ type Props = {
 export default function DeleteFolderModal({ folderId }: Props) {
   const setModal = useModalStore(state => state.setModal)
 
-  const onClickDeleteButtonHandler = (folderId: string, e?: any) => {
-    e.preventDefault()
+  const onClickDeleteButtonHandler = (folderId: string) => {
     if (!folderId) return alert('폴더아이디가 없습니다.')
     deleteFolder(folderId)
       .then(() => {
