@@ -35,7 +35,7 @@ export default function DeleteFolderModal({ folderId }: Props) {
       <p className={'mt-[12px] text-gray-800 b4'}>
         삭제된 영상과 이슈들은 복구가 어려워요
       </p>
-      <form
+      <div
         className={
           'flex gap-[12px] ml-auto mt-auto [&>button]:px-[28px] [&>button]:py-[12px] [&>button]:rounded-[99px]'
         }
@@ -52,7 +52,7 @@ export default function DeleteFolderModal({ folderId }: Props) {
         >
           삭제
         </button>
-      </form>
+      </div>
     </div>
   )
 }
