@@ -12,6 +12,7 @@ import { usePathname } from 'next/navigation'
 function Folder() {
   const backServer = process.env.NEXT_PUBLIC_BACKEND_API_URL
   const [folder, setFolder] = useState<object[]>([])
+  const [folderName, setFolderName] = useState<string>('')
   const [progress, setProgress] = useState(0)
   const [totalProgress, setTotalProgress] = useState(0)
   const [message, setMessage] = useState('')
@@ -110,7 +111,8 @@ function Folder() {
           },
         )
         console.log('이슈 수신 완료', res.data)
-        setFolder(res.data)
+        setFolder(res.data.issuesWithContents)
+        setFolderName(res.data.folderName)
       } catch (err) {}
       // setLoading(false)
     }
@@ -148,56 +150,51 @@ function Folder() {
                 <IssueCard
                   key={IssueCardProps._id}
                   IssueCardProps={IssueCardProps}
+                  folderName={folderName}
+                  folderId={IssueCardProps._id}
                 />
                 <IssueCard
                   key={IssueCardProps._id}
                   IssueCardProps={IssueCardProps}
+                  folderName={folderName}
+                  folderId={IssueCardProps._id}
                 />
                 <IssueCard
                   key={IssueCardProps._id}
                   IssueCardProps={IssueCardProps}
-                />{' '}
-                <IssueCard
-                  key={IssueCardProps._id}
-                  IssueCardProps={IssueCardProps}
+                  folderName={folderName}
+                  folderId={IssueCardProps._id}
                 />
                 <IssueCard
                   key={IssueCardProps._id}
                   IssueCardProps={IssueCardProps}
+                  folderName={folderName}
+                  folderId={IssueCardProps._id}
                 />
                 <IssueCard
                   key={IssueCardProps._id}
                   IssueCardProps={IssueCardProps}
+                  folderName={folderName}
+                  folderId={IssueCardProps._id}
                 />
                 <IssueCard
                   key={IssueCardProps._id}
                   IssueCardProps={IssueCardProps}
-                />
-                <IssueCard
-                  key={IssueCardProps._id}
-                  IssueCardProps={IssueCardProps}
-                />
-                <IssueCard
-                  key={IssueCardProps._id}
-                  IssueCardProps={IssueCardProps}
-                />
-                <IssueCard
-                  key={IssueCardProps._id}
-                  IssueCardProps={IssueCardProps}
-                />
-                <IssueCard
-                  key={IssueCardProps._id}
-                  IssueCardProps={IssueCardProps}
-                />
-                <IssueCard
-                  key={IssueCardProps._id}
-                  IssueCardProps={IssueCardProps}
+                  folderName={folderName}
+                  folderId={IssueCardProps._id}
                 />
               </div> */}
               {folder.length > 0 ? (
                 <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
                   {folder.map((item: any) => {
-                    return <IssueCard key={item._id} IssueCardProps={item} />
+                    return (
+                      <IssueCard
+                        key={item._id}
+                        IssueCardProps={item}
+                        folderId={folderId}
+                        folderName={folderName}
+                      />
+                    )
                   })}
                 </div>
               ) : (

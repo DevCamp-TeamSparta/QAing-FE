@@ -3,7 +3,7 @@ import IssueThumbnail from '@/components/atoms/issueThumbnailAtoms'
 import CopyButton from '@/components/atoms/CopyButtonAtoms'
 import MoreIcon from '../../../../../public/icons/More'
 import { EditSvg } from '../../../../../public/icons/EditSvg'
-import DeleteFolderModal from '../../MainPageOrganism/DeleteFolderModal'
+import DeleteIssueModal from '../DeleteIssueModal'
 import { TrashSvg } from '../../../../../public/icons/TrashSvg'
 import { useModalStore } from '@/states/modalStore'
 import { useClickOutSide } from '@/hooks/useClickOutSide'
@@ -16,13 +16,15 @@ interface IssueCardProps {
     issueName: string
     _id: string
   }
+  folderId: string
+  folderName: string
 }
 
 type Values = {
   newFolderName: string
 }
 
-function Index({ IssueCardProps }: IssueCardProps) {
+function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
   const ref = useRef<HTMLDivElement>(null)
   const { imageUrl, videoUrl, updatedAt, issueName, _id } = IssueCardProps
   const [isMoreButtonClicked, setIsMoreButtonClicked] = React.useState(false)
@@ -46,7 +48,7 @@ function Index({ IssueCardProps }: IssueCardProps) {
   }
   function onClickDeleteButtonHandler() {
     setIsMoreButtonClicked(false)
-    setModal(<DeleteFolderModal folderId={_id} />)
+    setModal(<DeleteIssueModal folderId={_id} folderName={folderName} />)
   }
   function onClickMoreButtonHandler(e: React.MouseEvent<HTMLButtonElement>) {
     e.stopPropagation()
@@ -60,6 +62,10 @@ function Index({ IssueCardProps }: IssueCardProps) {
       [name]: value,
     })
   }
+
+  useEffect(() => {
+    console.log('folderId', folderId)
+  }, [])
 
   return (
     <div className="w-[440px] h-[417px] relative">
