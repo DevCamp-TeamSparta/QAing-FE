@@ -48,7 +48,7 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
   }
   function onClickDeleteButtonHandler() {
     setIsMoreButtonClicked(false)
-    setModal(<DeleteIssueModal folderId={_id} folderName={folderName} />)
+    setModal(<DeleteIssueModal issueID={_id} folderId={folderId} />)
   }
   function onClickMoreButtonHandler(e: React.MouseEvent<HTMLButtonElement>) {
     e.stopPropagation()
