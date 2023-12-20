@@ -11,6 +11,7 @@ import { TypeImageIcon } from '../../../../../public/icons/TypeImageIcon'
 import { TypeVideoIcon } from '../../../../../public/icons/TypeVideoIcon'
 import CopyLinkIcon from '../../../../../public/icons/CopyLinkIcon'
 import useClipboard from '@/hooks/useClipboard'
+import { editIssue } from '@/services/issue/issue.api'
 
 interface IssueCardProps {
   IssueCardProps: {
@@ -25,18 +26,19 @@ interface IssueCardProps {
 }
 
 type Values = {
-  newFolderName: string
+  newIssueName: string
 }
 
 function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
   const ref = useRef<HTMLDivElement>(null)
   const copyRef = useRef<HTMLDivElement>(null)
-  const { imageUrl, videoUrl, updatedAt, issueName, _id } = IssueCardProps
+  const inputRef = useRef<HTMLInputElement>(null)
   const [isMoreButtonClicked, setIsMoreButtonClicked] = React.useState(false)
   const [isCopyButtonClicked, setIsCopyButtonClicked] = React.useState(false)
   const [isEditButtonClicked, setIsEditButtonClicked] = React.useState(false)
+  const { imageUrl, videoUrl, updatedAt, issueName, _id } = IssueCardProps
   const setModal = useModalStore(state => state.setModal)
-  const [values, setValues] = useState<Values>({ newFolderName: issueName })
+  const [values, setValues] = useState<Values>({ newIssueName: issueName })
 
   useClickOutSide(ref, onClickOutsideHandler, [isMoreButtonClicked])
   useClickOutSide(copyRef, onClickOutsideHandler, [isCopyButtonClicked])
@@ -81,6 +83,24 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
   useEffect(() => {
     console.log('folderId', folderId)
   }, [])
+
+  //이슈 이름 변경
+  const handleEditFolderSubmit = (
+    folderId: string,
+    _id: string,
+    values: object,
+  ) => {
+    editIssue(folderId, _id, values).then(() => {
+      console.log('이슈 이름 변경 완료')
+    })
+  }
+
+  useEffect(() => {
+    if (isEditButtonClicked && inputRef.current) {
+      inputRef.current.focus() // input에 포커스
+      inputRef.current.select() // 텍스트 선택
+    }
+  }, [isEditButtonClicked])
 
   return (
     <div className="w-[440px] h-[417px] relative">
@@ -136,7 +156,29 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
           )}
         </div>
         <div className="t1 mt-4 flex flex-row justify-between">
-          {issueName}
+          {isEditButtonClicked ? (
+            <form
+              className="flex gap-[10px]"
+              onSubmit={() => handleEditFolderSubmit(folderId, _id, values)}
+            >
+              <div className="">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  placeholder={issueName}
+                  onChange={handleChange}
+                  name="newIssueName"
+                  value={values.newIssueName}
+                  onBlur={() => setIsEditButtonClicked(false)}
+                  maxLength={40}
+                  className="  overflow-hidden truncate  bg-white w-[428px]"
+                />
+              </div>
+            </form>
+          ) : (
+            <p>{issueName}</p>
+          )}
+
           <button onClick={onClickMoreButtonHandler}>
             <MoreIcon />
           </button>
