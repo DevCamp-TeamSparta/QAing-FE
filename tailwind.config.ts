@@ -40,6 +40,7 @@ const config: Config = {
           white: '#FFFFFF',
           record: '#FF5847',
         },
+        inputfocus: 'rgba(47, 180, 255, 0.41)',
       },
       boxShadow: {
         modal: '0px 6px 22px 0px rgba(0, 0, 0, 0.20);',
