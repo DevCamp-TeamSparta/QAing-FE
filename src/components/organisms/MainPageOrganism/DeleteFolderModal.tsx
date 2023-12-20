@@ -1,10 +1,18 @@
 import { useModalStore } from '@/states/modalStore'
+import { deleteFolder } from '@/services/folder/folder.api'
 
-export default function DeleteFolderModal() {
+type Props = {
+  folderId: string
+}
+
+export default function DeleteFolderModal({ folderId }: Props) {
   const setModal = useModalStore(state => state.setModal)
 
-  const onClickDeleteButtonHandler = () => {
-    alert('삭제')
+  const onClickDeleteButtonHandler = (folderId: string) => {
+    if (!folderId) return alert('폴더아이디가 없습니다.')
+    deleteFolder(folderId).then(() => {
+      alert('삭제완료')
+    })
     setModal(null)
   }
   return (
@@ -30,7 +38,7 @@ export default function DeleteFolderModal() {
         </button>
         <button
           className={'bg-sementic-danger text-white cursor-pointer b3'}
-          onClick={onClickDeleteButtonHandler}
+          onClick={() => onClickDeleteButtonHandler}
         >
           삭제
         </button>

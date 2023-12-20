@@ -33,11 +33,17 @@ export default function VideoTableBody({
 
   function onClickDeleteButtonHandler() {
     setIsMoreButtonClicked(false)
-    setModal(<DeleteFolderModal />)
+    setModal(<DeleteFolderModal folderId={folderId} />)
   }
+
+  const dateObject = new Date(createdAt)
   const videoTableProps = {
     name: createdAt.substring(0, 10) || 0,
     count: issues.length || 0,
+    createdAt: `${dateObject.getFullYear()}.${(dateObject.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}.${dateObject.getDate().toString().padStart(2, '0')}`,
+    folderId,
   }
 
   return (
@@ -52,8 +58,8 @@ export default function VideoTableBody({
         <p className="flex gap-[12px] b3">
           <MyVideoSvg color={'#959797'} /> {videoTableProps.name}
         </p>
-        <p className={'b4'}>{videoTableProps.name}개</p>
-        <p className={'b4'}>{videoTableProps.count}</p>
+        <p className={'b4'}>{videoTableProps.count}개</p>
+        <p className={'b4'}>{videoTableProps.createdAt}</p>
         <button onClick={onClickMoreButtonHandler}>
           <MoreSvg />
         </button>
