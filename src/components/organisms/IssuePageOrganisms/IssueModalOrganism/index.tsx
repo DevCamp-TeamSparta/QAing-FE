@@ -91,7 +91,7 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
           </button>
         </div>
         <div className={'h-full px-[30px] py-[48px] bg-gray-200'}>
-          <div className={'flex w-full h-full relative items-center'}>
+          <div className={'flex w-full h-full relative'}>
             {mode === 'image' ? (
               <Image
                 className={'rounded-[8px] overflow-hidden'}
