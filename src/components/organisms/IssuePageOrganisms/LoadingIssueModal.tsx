@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react'
 import ProgressBar from '@/components/atoms/common/ProgressBar'
+import { useVideoUploadStore } from '@/states/videoStore'
 
-interface Props {
-  progress: number
-  totalProgress: number
-}
-
-export default function LoadingIssueModal({ progress, totalProgress }: Props) {
+export default function LoadingIssueModal() {
   const [dots, setDots] = useState('...')
+  const { progress, totalProgress } = useVideoUploadStore()
 
   useEffect(() => {
     const interval = setInterval(() => {

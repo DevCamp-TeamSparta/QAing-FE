@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { useModalStore } from '@/states/modalStore'
 import LoadingIssueModal from '@/components/organisms/IssuePageOrganisms/LoadingIssueModal'
+import { useVideoUploadStore } from '@/states/videoStore'
 
 interface PageProps {
   folderId: string
@@ -12,22 +13,8 @@ export default function IssueEmptyOrganism({
   folderId,
   setMessage,
 }: PageProps) {
-  const { setModal, setBackGroundClose } = useModalStore()
-  const [progress, setProgress] = useState(0)
-  const [totalProgress, setTotalProgress] = useState(0)
-
-  useEffect(() => {
-    if (totalProgress > progress) {
-      setBackGroundClose(false)
-      setModal(
-        <LoadingIssueModal progress={progress} totalProgress={totalProgress} />,
-      )
-    }
-
-    return () => {
-      setModal(null)
-    }
-  }, [progress, totalProgress])
+  const { modal, setModal, setBackGroundClose } = useModalStore()
+  const { setProgress } = useVideoUploadStore()
 
   useEffect(() => {
     if (!folderId) return
@@ -35,15 +22,15 @@ export default function IssueEmptyOrganism({
       `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/videos/subscribe/${folderId}`,
       { withCredentials: true },
     )
-    eventSource.onopen = () => {
-      console.log('eventSource start')
-    }
+
     eventSource.onmessage = event => {
-      console.log(event)
       const data = JSON.parse(event.data)
       if (!data.status) {
-        setTotalProgress(data.totalTasks)
-        setProgress(data.progress)
+        if (!modal) {
+          setBackGroundClose(false)
+          setModal(<LoadingIssueModal />)
+        }
+        setProgress(data.progress, data.totalTasks)
       } else {
         setModal(null)
         setMessage(data.message)
