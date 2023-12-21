@@ -51,7 +51,7 @@ function Folder() {
     const getIssues = async () => {
       try {
         const res = await axios.get(
-          `${backServer}/issuess/${folderId}/issues`,
+          `${backServer}/folders/${folderId}/issues`,
           {
             withCredentials: true,
           },
@@ -168,14 +168,6 @@ function Folder() {
                   setMessage={setMessage}
                 />
               )}
-            </div>
-            <div className="flex flex-row items-center h-[68px] ml-9">
-              <div>
-                <Image src={Back} alt="back" />
-              </div>
-            </div>
-            <div className="px-9 py-9 gray-50">
-              <IssueEmptyOrganism folderId={folderId} setMessage={setMessage} />
             </div>
           </div>
         </div>
