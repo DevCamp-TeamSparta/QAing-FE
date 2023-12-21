@@ -1,4 +1,5 @@
 'use client'
+
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import Logo from '@/components/atoms/LogoAtoms/index'
 import Image from 'next/image'
@@ -13,7 +14,7 @@ import { editFolder } from '@/services/folder/folder.api'
 import IssueEmptyOrganism from '@/components/organisms/IssuePageOrganisms/IssueEmptyOrganism'
 type Values = {
   newFolderName: string
-}
+import IssueEmptyOrganism from '@/components/organisms/IssuePageOrganisms/IssueEmptyOrganism'
 
 function Folder() {
   const backServer = process.env.NEXT_PUBLIC_BACKEND_API_URL
@@ -23,7 +24,6 @@ function Folder() {
   const [isEditButtonClicked, setIsEditButtonClicked] = React.useState(false)
   const [values, setValues] = useState<Values>({ newFolderName: folderName })
   const router = useRouter()
-
   //폴더명 변경
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -169,7 +169,29 @@ function Folder() {
                 />
               )}
             </div>
+        <div className="flex flex-row items-center h-[68px] ml-9">
+          <div>
+            <Image src={Back} alt="back" />
+
           </div>
+        </div>
+        <div className="px-9 py-9 gray-50">
+          {/*{folder.length > 0 ? (*/}
+          {/*  <div className="grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">*/}
+          {/*    {folder.map((item: any) => {*/}
+          {/*      return (*/}
+          {/*        <IssueCard*/}
+          {/*          key={item._id}*/}
+          {/*          IssueCardProps={item}*/}
+          {/*          folderId={folderId}*/}
+          {/*          folderName={folderName}*/}
+          {/*        />*/}
+          {/*      )*/}
+          {/*    })}*/}
+          {/*  </div>*/}
+          {/*) : (*/}
+          <IssueEmptyOrganism folderId={folderId} setMessage={setMessage} />
+          {/*)}*/}
         </div>
       </div>
     </div>

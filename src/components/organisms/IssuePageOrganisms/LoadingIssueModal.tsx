@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
 import ProgressBar from '@/components/atoms/common/ProgressBar'
 
-interface Props {
-  progress: number
-  totalProgress: number
-}
+import { useVideoUploadStore } from '@/states/videoStore'
 
-export default function LoadingIssueModal({ progress, totalProgress }: Props) {
+export default function LoadingIssueModal() {
   const [dots, setDots] = useState('...')
+  const { progress, totalProgress } = useVideoUploadStore()
+  const percentage = (progress / totalProgress) * 100
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -33,7 +32,7 @@ export default function LoadingIssueModal({ progress, totalProgress }: Props) {
         {totalProgress}
       </p>
       <div className={'mt-[8px]'}>
-        <ProgressBar percentage={progress / totalProgress} />
+        <ProgressBar percentage={percentage} />
       </div>
     </div>
   )
