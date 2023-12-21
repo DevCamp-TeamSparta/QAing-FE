@@ -19,7 +19,7 @@ type Values = {
 function Folder() {
   const backServer = process.env.NEXT_PUBLIC_BACKEND_API_URL
   const [folder, setFolder] = useState<object[]>([])
-  const [folderName, setFolderName] = useState<string>('2023-11-15 16:24')
+  const [folderName, setFolderName] = useState<string>('')
   const [message, setMessage] = useState('')
   const [isEditButtonClicked, setIsEditButtonClicked] = React.useState(false)
   const [values, setValues] = useState<Values>({ newFolderName: folderName })
@@ -141,14 +141,17 @@ function Folder() {
                   onClick={onClickEditButtonHandler}
                   className="ml-[10px]"
                 >
-                  <EditSvg color={'#C0C2C2'} />
+                  {folder && <EditSvg color={'#C0C2C2'} />}
                 </button>
               </div>
             )}
           </div>
           <div className="px-9 pt-9 gray-50">
             <div className="">
-              <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]"></div>
+              <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
+                <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]"></div>
+              </div>
+
               {folder.length > 0 ? (
                 <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
                   {folder.map((item: any) => {
