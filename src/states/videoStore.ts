@@ -14,3 +14,15 @@ export const useVideoStore = create<UserVideoStore>(set => ({
   videos: [],
   addVideo: video => set(state => ({ videos: [...state.videos, video] })),
 }))
+
+interface VideoUploadStore {
+  progress: number
+  totalProgress: number
+  setProgress: (progress: number, totalProgress: number) => void
+}
+
+export const useVideoUploadStore = create<VideoUploadStore>(set => ({
+  progress: 0,
+  totalProgress: 0,
+  setProgress: (progress, totalProgress) => set({ progress, totalProgress }),
+}))

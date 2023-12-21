@@ -1,5 +1,7 @@
 'use client'
+
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Logo from '@/components/atoms/LogoAtoms/index'
 import Image from 'next/image'
 import ProgileImageDefault from '/public/images/profileImage.svg'
@@ -15,18 +17,22 @@ type Values = {
   newFolderName: string
 }
 
+import { usePathname } from 'next/navigation'
+import IssueEmptyOrganism from '@/components/organisms/IssuePageOrganisms/IssueEmptyOrganism'
+
 function Folder() {
   const backServer = process.env.NEXT_PUBLIC_BACKEND_API_URL
   const [folder, setFolder] = useState<object[]>([])
+
   const [folderName, setFolderName] = useState<string>('2023-11-15 16:24')
   const [message, setMessage] = useState('')
   const [isEditButtonClicked, setIsEditButtonClicked] = React.useState(false)
   const [values, setValues] = useState<Values>({ newFolderName: folderName })
   const router = useRouter()
 
+
   //폴더명 변경
   const inputRef = useRef<HTMLInputElement>(null)
-
   // 라우팅 경로 가져오기
   const pathname = usePathname()
 

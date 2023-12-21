@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from 'react'
 import { useModalStore } from '@/states/modalStore'
 import LoadingIssueModal from '@/components/organisms/IssuePageOrganisms/LoadingIssueModal'
+import { useVideoUploadStore } from '@/states/videoStore'
+
 
 interface PageProps {
   folderId: string
@@ -27,6 +29,11 @@ export default function IssueEmptyOrganism({
     if (!folderId) return
     try {
     } catch {}
+  const { modal, setModal, setBackGroundClose } = useModalStore()
+  const { setProgress } = useVideoUploadStore()
+
+  useEffect(() => {
+    if (!folderId) return
     const eventSource = new EventSource(
       `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/videos/subscribe/${folderId}`,
       { withCredentials: true },
@@ -38,6 +45,18 @@ export default function IssueEmptyOrganism({
         setTotalProgress(data.totalTasks)
         setProgress(data.progress)
       } else {
+
+    eventSource.onmessage = event => {
+      const data = JSON.parse(event.data)
+      if (!data.status) {
+        if (!modal) {
+          setBackGroundClose(false)
+          setModal(<LoadingIssueModal />)
+        }
+        setProgress(data.progress, data.totalTasks)
+      } else {
+        setModal(null)
+
         setMessage(data.message)
         eventSource.close()
       }
@@ -54,7 +73,6 @@ export default function IssueEmptyOrganism({
     // } else {
     //   console.log('연결이 아직 닫히지 않았습니다.')
     // }
-
     return () => {
       eventSource.close()
     }
@@ -76,6 +94,8 @@ function IssueSkeleton() {
     <div className={'flex flex-col gap-[16px]'}>
       <div className={'w-full h-[417px] bg-gray-300 rounded-[16px]'} />
       <div className={'w-full flex justify-between h-[36px]'}>
+      <div className={'w-full h-[337px] bg-gray-300 rounded-[16px]'} />
+      <div className={'w-full flex justify-between h-[32px]'}>
         <div className={'w-[291px] h-full bg-gray-300 rounded-[8px]'} />
         <div className={'w-[36px] h-full bg-gray-300 rounded-[8px]'} />
       </div>
