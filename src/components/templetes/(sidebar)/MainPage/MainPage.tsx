@@ -10,7 +10,7 @@ export default function MainPageTemplate() {
     <main className="flex flex-col w-[1172px] px-[36px]">
       <header
         className={
-          'w-full h-[108px] py-[36px] flex items-center justify-between'
+          'w-full h-[108px] py-[37px] flex items-center justify-between'
         }
       >
         <h1 className={'h3'}>QA 폴더</h1>
