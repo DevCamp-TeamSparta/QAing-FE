@@ -6,11 +6,13 @@ import LoadingIssueModal from '@/components/organisms/IssuePageOrganisms/Loading
 import { useVideoUploadStore } from '@/states/videoStore'
 interface PageProps {
   folderId: string
+  folderName: string
   setMessage: React.Dispatch<React.SetStateAction<string>>
 }
 export default function IssueEmptyOrganism({
   folderId,
   setMessage,
+  folderName,
 }: PageProps) {
   const { modal, setModal, setBackGroundClose } = useModalStore()
   const { setProgress } = useVideoUploadStore()
@@ -23,6 +25,7 @@ export default function IssueEmptyOrganism({
       `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/videos/subscribe/${folderId}`,
       { withCredentials: true },
     )
+    if (folderName) return
     setBackGroundClose(false)
     setModal(<LoadingIssueModal />)
     eventSource.onmessage = event => {
