@@ -39,7 +39,7 @@ function Folder() {
     const getIssues = async () => {
       try {
         const res = await axios.get(
-          `${backServer}/issuess/${folderId}/issues`,
+          `${backServer}/folders/${folderId}/issues`,
           {
             withCredentials: true,
           },
