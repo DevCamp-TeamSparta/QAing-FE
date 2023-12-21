@@ -50,6 +50,7 @@ export default function ProfileModal() {
     const response = await instance.put('/users/profile', {
       ...user,
       userName: updateUser.userName,
+      userProfileImg: updateUser.userProfileImg,
     })
     if (response.status === 200) {
       alert('프로필이 수정되었습니다.')
