@@ -141,7 +141,7 @@ function Folder() {
                   onClick={onClickEditButtonHandler}
                   className="ml-[10px]"
                 >
-                  {folder && <EditSvg color={'#C0C2C2'} />}
+                  {folderName !== '' ? <EditSvg color={'#C0C2C2'} /> : ''}
                 </button>
               </div>
             )}

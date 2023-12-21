@@ -179,12 +179,14 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
               </div>
             </form>
           ) : (
-            <p>{issueName}</p>
+            <div>
+              <p>{issueName}</p>
+              <button onClick={onClickMoreButtonHandler}>
+                <MoreIcon />
+              </button>
+            </div>
           )}
 
-          <button onClick={onClickMoreButtonHandler}>
-            <MoreIcon />
-          </button>
           {isMoreButtonClicked && (
             <div
               ref={ref}
