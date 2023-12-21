@@ -24,9 +24,6 @@ export default function LoadingIssueModal() {
         <p>저장 이슈 불러오는 중</p>
         <p className={'w-[12px] text-left'}>{dots}</p>
       </div>
-      <p className={'b4 text-gray-600 mt-[4px]'}>
-        앞으로 더 빠르게 불러올 수 있도록 노력중이에요!
-      </p>
       <p className={'b3 mt-[32px] text-gray-800'}>
         <span className={'text-primary-default'}>{progress}</span> /{' '}
         {totalProgress}
