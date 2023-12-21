@@ -179,7 +179,7 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
               </div>
             </form>
           ) : (
-            <div>
+            <div className="flex flex-row justify-between">
               <p>{issueName}</p>
               <button onClick={onClickMoreButtonHandler}>
                 <MoreIcon />
