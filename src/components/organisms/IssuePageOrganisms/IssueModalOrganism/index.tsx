@@ -90,14 +90,14 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
             <CopyLinkIcon color={'#FFFFFF'} /> 링크 복사하기
           </button>
         </div>
-        <div className={'h-full px-[60px] py-[48px] bg-gray-200'}>
-          <div className={'flex w-full h-full relative'}>
+        <div className={'h-full px-[30px] py-[48px] bg-gray-200'}>
+          <div className={'flex w-full h-full relative justify-center'}>
             {mode === 'image' ? (
               <Image
                 className={'rounded-[8px] overflow-hidden'}
                 src={imageUrl}
                 alt="issue"
-                layout="fill"
+                fill
               />
             ) : (
               <div className={'h-full w-full flex justify-center'}>
