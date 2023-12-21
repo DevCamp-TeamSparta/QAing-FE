@@ -23,10 +23,10 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
   }
   const { handleCopyClipBoard } = useClipboard()
 
-  function onClickCopyLinkHandler() {
+  async function onClickCopyLinkHandler() {
     const url = mode === 'image' ? imageUrl : videoUrl
     // navigator.clipboard.writeText(url)
-    handleCopyClipBoard(url)
+    await handleCopyClipBoard(url)
     alert('링크가 복사되었습니다.')
   }
 
