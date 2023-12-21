@@ -60,7 +60,9 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
   ) {
     event.stopPropagation()
     setIsEditButtonClicked(prev => !prev)
+    setIsMoreButtonClicked(false)
   }
+
   function onClickDeleteButtonHandler() {
     setIsMoreButtonClicked(false)
     setModal(<DeleteIssueModal issueID={_id} folderId={folderId} />)
