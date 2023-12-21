@@ -14,7 +14,7 @@ import { editFolder } from '@/services/folder/folder.api'
 import IssueEmptyOrganism from '@/components/organisms/IssuePageOrganisms/IssueEmptyOrganism'
 type Values = {
   newFolderName: string
-import IssueEmptyOrganism from '@/components/organisms/IssuePageOrganisms/IssueEmptyOrganism'
+}
 
 function Folder() {
   const backServer = process.env.NEXT_PUBLIC_BACKEND_API_URL
@@ -169,29 +169,15 @@ function Folder() {
                 />
               )}
             </div>
-        <div className="flex flex-row items-center h-[68px] ml-9">
-          <div>
-            <Image src={Back} alt="back" />
-
+            <div className="flex flex-row items-center h-[68px] ml-9">
+              <div>
+                <Image src={Back} alt="back" />
+              </div>
+            </div>
+            <div className="px-9 py-9 gray-50">
+              <IssueEmptyOrganism folderId={folderId} setMessage={setMessage} />
+            </div>
           </div>
-        </div>
-        <div className="px-9 py-9 gray-50">
-          {/*{folder.length > 0 ? (*/}
-          {/*  <div className="grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">*/}
-          {/*    {folder.map((item: any) => {*/}
-          {/*      return (*/}
-          {/*        <IssueCard*/}
-          {/*          key={item._id}*/}
-          {/*          IssueCardProps={item}*/}
-          {/*          folderId={folderId}*/}
-          {/*          folderName={folderName}*/}
-          {/*        />*/}
-          {/*      )*/}
-          {/*    })}*/}
-          {/*  </div>*/}
-          {/*) : (*/}
-          <IssueEmptyOrganism folderId={folderId} setMessage={setMessage} />
-          {/*)}*/}
         </div>
       </div>
     </div>
