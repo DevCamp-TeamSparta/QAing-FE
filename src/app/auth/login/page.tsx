@@ -1,9 +1,9 @@
-'use client'
-import React from 'react'
-import Login from '@/components/templetes/LoginTempletes/Login'
+import SignnupOrgansim from '@/components/organisms/SignupOrganism/index'
 
-function Page() {
-  return <Login />
+export default function Signup() {
+  return (
+    <div className="h-[1024px] pt-[252px]">
+      <SignnupOrgansim />
+    </div>
+  )
 }
-
-export default Page
