@@ -151,12 +151,12 @@ function Folder() {
               <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
                 <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]"></div>
               </div>
-              <IssueCard
+              {/* <IssueCard
                 key={IssueCardProps._id}
                 IssueCardProps={IssueCardProps}
                 folderId={folderId}
                 folderName={folderName}
-              />
+              /> */}
 
               {folder.length > 0 ? (
                 <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
