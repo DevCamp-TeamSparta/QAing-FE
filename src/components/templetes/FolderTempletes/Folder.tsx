@@ -39,13 +39,15 @@ function Folder() {
     width: 100,
     height: 36,
   }
-  const IssueCardProps = {
-    imageUrl: '',
-    videoUrl: '',
-    updatedAt: '2023-12-11T13:47:45.556Z',
-    issueName: '이슈 1',
-    _id: 'xxx',
-  }
+  // const IssueCardProps = {
+  //   imageUrl:
+  //     'https://static.qaing.co/35254e30e1fbffd775c6d1974bbe9a500da22d699a0c14b5d65c4bd6b333494c.jpg',
+  //   videoUrl:
+  //     'https://static.qaing.co/40d3ac9e49bf97172435d1ae0a7ab9a8751e1f97d85d731d4d6bf72b4f98a770.mp4',
+  //   updatedAt: '2023-12-21T15:38:58.391Z',
+  //   issueName: '이슈 1',
+  //   _id: '65845c123f1d1a6684bf16ba',
+  // }
 
   useEffect(() => {
     const getIssues = async () => {
@@ -63,6 +65,8 @@ function Folder() {
     }
     getIssues()
   }, [message])
+
+  useEffect(() => {}, [])
 
   //폴더명변경
 
