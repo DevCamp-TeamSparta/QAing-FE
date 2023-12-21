@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import ProgressBar from '@/components/atoms/common/ProgressBar'
+
 import { useVideoUploadStore } from '@/states/videoStore'
 
 export default function LoadingIssueModal() {

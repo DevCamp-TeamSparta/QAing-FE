@@ -11,7 +11,7 @@ import { Folder } from '@/types/userFolder.types'
 import axios from 'axios'
 
 export default function VideoTable() {
-  // const videos = useVideoStore(state => state.videos)
+  const videos = useVideoStore(state => state.videos)
   const [folders, setFolders] = useState<Folder[]>([])
   const backServerUrl = process.env.NEXT_PUBLIC_BACKEND_API_URL
 
@@ -31,30 +31,106 @@ export default function VideoTable() {
   //   {
   //     name: '0',
   //     count: 0,
+  //     folderName: '0',
   //     createdAt: '0',
   //     issues: ['1', '2', '3'],
   //     _id: '0',
   //   },
   //   {
-  //     name: '1',
-  //     count: 1,
-  //     createdAt: '1',
+  //     name: '0',
+  //     count: 0,
+  //     folderName: '0',
+  //     createdAt: '0',
   //     issues: ['1', '2', '3'],
-  //     _id: '1',
+  //     _id: '0',
   //   },
   //   {
-  //     name: '2',
-  //     count: 2,
-  //     createdAt: '2',
+  //     name: '0',
+  //     count: 0,
+  //     folderName: '0',
+  //     createdAt: '0',
   //     issues: ['1', '2', '3'],
-  //     _id: '2',
+  //     _id: '0',
   //   },
   //   {
-  //     name: '3',
-  //     count: 3,
-  //     createdAt: '3',
+  //     name: '0',
+  //     count: 0,
+  //     folderName: '0',
+  //     createdAt: '0',
   //     issues: ['1', '2', '3'],
-  //     _id: '3',
+  //     _id: '0',
+  //   },
+  //   {
+  //     name: '0',
+  //     count: 0,
+  //     folderName: '0',
+  //     createdAt: '0',
+  //     issues: ['1', '2', '3'],
+  //     _id: '0',
+  //   },
+  //   {
+  //     name: '0',
+  //     count: 0,
+  //     folderName: '0',
+  //     createdAt: '0',
+  //     issues: ['1', '2', '3'],
+  //     _id: '0',
+  //   },
+  //   {
+  //     name: '0',
+  //     count: 0,
+  //     folderName: '0',
+  //     createdAt: '0',
+  //     issues: ['1', '2', '3'],
+  //     _id: '0',
+  //   },
+  //   {
+  //     name: '0',
+  //     count: 0,
+  //     folderName: '0',
+  //     createdAt: '0',
+  //     issues: ['1', '2', '3'],
+  //     _id: '0',
+  //   },
+  //   {
+  //     name: '0',
+  //     count: 0,
+  //     folderName: '0',
+  //     createdAt: '0',
+  //     issues: ['1', '2', '3'],
+  //     _id: '0',
+  //   },
+  //   {
+  //     name: '0',
+  //     count: 0,
+  //     folderName: '0',
+  //     createdAt: '0',
+  //     issues: ['1', '2', '3'],
+  //     _id: '0',
+  //   },
+  //   {
+  //     name: '0',
+  //     count: 0,
+  //     folderName: '0',
+  //     createdAt: '0',
+  //     issues: ['1', '2', '3'],
+  //     _id: '0',
+  //   },
+  //   {
+  //     name: '0',
+  //     count: 0,
+  //     folderName: '0',
+  //     createdAt: '0',
+  //     issues: ['1', '2', '3'],
+  //     _id: '0',
+  //   },
+  //   {
+  //     name: '0',
+  //     count: 0,
+  //     folderName: '0',
+  //     createdAt: '0',
+  //     issues: ['1', '2', '3'],
+  //     _id: '0',
   //   },
   // ]
   // const navigateToFoldersPage =(folders._id:string) =>{

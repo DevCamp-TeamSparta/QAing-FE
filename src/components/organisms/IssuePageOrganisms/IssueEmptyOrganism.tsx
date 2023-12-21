@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react'
 import { useModalStore } from '@/states/modalStore'
 import LoadingIssueModal from '@/components/organisms/IssuePageOrganisms/LoadingIssueModal'
 import { useVideoUploadStore } from '@/states/videoStore'
-
 interface PageProps {
   folderId: string
   setMessage: React.Dispatch<React.SetStateAction<string>>
@@ -23,6 +22,8 @@ export default function IssueEmptyOrganism({
 
   useEffect(() => {
     if (!folderId) return
+    try {
+    } catch {}
     const eventSource = new EventSource(
       `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/videos/subscribe/${folderId}`,
       { withCredentials: true },
@@ -48,7 +49,6 @@ export default function IssueEmptyOrganism({
       console.error('EventSource failed:', error)
       eventSource.close()
     }
-
     return () => {
       eventSource.close()
     }

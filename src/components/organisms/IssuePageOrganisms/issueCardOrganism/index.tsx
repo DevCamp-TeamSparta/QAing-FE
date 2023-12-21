@@ -36,9 +36,11 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
   const [isMoreButtonClicked, setIsMoreButtonClicked] = React.useState(false)
   const [isCopyButtonClicked, setIsCopyButtonClicked] = React.useState(false)
   const [isEditButtonClicked, setIsEditButtonClicked] = React.useState(false)
+
   const { imageUrl, videoUrl, updatedAt, issueName, _id } = IssueCardProps
   const setModal = useModalStore(state => state.setModal)
   const [values, setValues] = useState<Values>({ newIssueName: issueName })
+  const hiddenRef = useRef(null)
 
   useClickOutSide(ref, onClickOutsideHandler, [isMoreButtonClicked])
   useClickOutSide(copyRef, onClickOutsideHandler, [isCopyButtonClicked])
@@ -119,7 +121,7 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
               <div className="absolute bottom-[76px] right-[16px] bg-white py-5 px-[15px] rounded-2xl shadow-[0_6px_22px_0_rgba(0,0,0,0.20)] ">
                 <div className="flex flex-col gap-3">
                   <div
-                    className="rounded-2xl px-4 py-[10px] bg-gray-200 hover:bg-primary-light "
+                    className="rounded-2xl px-4 py-[10px] bg-gray-200 cursor-pointer hover:bg-primary-light "
                     onClick={() => handleCopyClipBoard(imageUrl)}
                   >
                     <div className="flex flex-row ">
@@ -135,7 +137,7 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
                     </div>
                   </div>
                   <div
-                    className="rounded-2xl px-4 py-[10px] bg-gray-200 hover:bg-primary-light "
+                    className="rounded-2xl px-4 py-[10px] bg-gray-200 cursor-pointer hover:bg-primary-light "
                     onClick={() => handleCopyClipBoard(videoUrl)}
                   >
                     <div className="flex flex-row ">
@@ -161,7 +163,7 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
               className="flex gap-[10px]"
               onSubmit={() => handleEditFolderSubmit(folderId, _id, values)}
             >
-              <div className="">
+              <div className=" bg-gray-200">
                 <input
                   ref={inputRef}
                   type="text"
@@ -171,7 +173,8 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
                   value={values.newIssueName}
                   onBlur={() => setIsEditButtonClicked(false)}
                   maxLength={40}
-                  className="  overflow-hidden truncate  bg-white w-[428px]"
+                  style={{ minWidth: '50px' }}
+                  className="  overflow-hidden truncate inline-block w-[428px] bg-white  "
                 />
               </div>
             </form>
