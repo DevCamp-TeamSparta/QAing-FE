@@ -219,12 +219,6 @@ function Folder() {
           <div className="px-9 pt-9 gray-50">
             <div className="">
               <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
-                {/* <IssueCard
-                  key={IssueCardProps._id}
-                  IssueCardProps={IssueCardProps}
-                  folderName={folderName}
-                  folderId={IssueCardProps._id}
-                />
                 <IssueCard
                   key={IssueCardProps._id}
                   IssueCardProps={IssueCardProps}
@@ -254,7 +248,13 @@ function Folder() {
                   IssueCardProps={IssueCardProps}
                   folderName={folderName}
                   folderId={IssueCardProps._id}
-                /> */}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                  folderName={folderName}
+                  folderId={IssueCardProps._id}
+                />
               </div>
               {folder.length > 0 ? (
                 <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">

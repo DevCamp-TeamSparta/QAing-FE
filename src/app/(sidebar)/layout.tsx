@@ -9,6 +9,7 @@ export default async function Layout({
   return (
     <div className="flex w-[1440px] h-screen  ">
       <SideBar />
+      <div className=" h-full  w-[268px]"></div>
       {children}
     </div>
   )

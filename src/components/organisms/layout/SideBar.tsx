@@ -75,7 +75,11 @@ export default function SideBar() {
   }, [])
 
   return (
-    <aside className={'w-[268px] flex flex-col px-[24px] py-[36px] bg-gray-50'}>
+    <aside
+      className={
+        'fixed h-full  w-[268px] flex flex-col px-[24px] py-[36px] bg-gray-50'
+      }
+    >
       <Image src={MainLogo} alt={'로고'} width={100} height={36} />
       {/* todo: install 감지 후 diabled에 넣기 */}
       <CTAButton
