@@ -132,7 +132,7 @@ export default function SideBar() {
                 alt={'user profile image'}
                 width={48}
                 height={48}
-                className={'rounded-[50%]'}
+                className={'rounded-[50%] object-cover'}
               />
             ) : (
               <ProfileImageSvg />

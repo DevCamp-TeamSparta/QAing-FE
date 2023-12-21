@@ -34,7 +34,7 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
   }
 
   return (
-    <div className={'w-[1440px] h-[854px] max-h-screen py-24 px-40'}>
+    <div className={'w-screen h-screen max-h-screen py-24 px-44'}>
       <div className={'w-full h-full bg-white rounded-[8px] flex flex-col'}>
         <div
           className={
@@ -90,11 +90,11 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
             <CopyLinkIcon color={'#FFFFFF'} /> 링크 복사하기
           </button>
         </div>
-        <div className={'h-full px-[15px] py-[48px] bg-gray-200'}>
+        <div className={'h-full px-[30px] py-[48px] bg-gray-200'}>
           <div className={'flex w-full h-full relative'}>
             {mode === 'image' ? (
               <Image
-                className={'rounded-[8px] overflow-hidden mx-auto'}
+                className={'rounded-[8px] overflow-hidden mx-auto object-cover'}
                 src={imageUrl}
                 alt="issue"
               />
