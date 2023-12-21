@@ -7,7 +7,7 @@ import InstallBanner from '@/components/organisms/MainPageOrganism/InstallBanner
 export default function MainPageTemplate() {
   const videos = useVideoStore(state => state.videos)
   return (
-    <main className="flex flex-col w-full px-[36px]">
+    <main className="flex flex-col w-[1172px] px-[36px]">
       <header
         className={
           'w-full h-[108px] py-[36px] flex items-center justify-between'

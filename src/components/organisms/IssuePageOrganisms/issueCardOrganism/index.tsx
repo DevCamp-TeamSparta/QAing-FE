@@ -121,7 +121,7 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
               <div className="absolute bottom-[76px] right-[16px] bg-white py-5 px-[15px] rounded-2xl shadow-[0_6px_22px_0_rgba(0,0,0,0.20)] ">
                 <div className="flex flex-col gap-3">
                   <div
-                    className="rounded-2xl px-4 py-[10px] bg-gray-200 hover:bg-primary-light "
+                    className="rounded-2xl px-4 py-[10px] bg-gray-200 cursor-pointer hover:bg-primary-light "
                     onClick={() => handleCopyClipBoard(imageUrl)}
                   >
                     <div className="flex flex-row ">
@@ -137,7 +137,7 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
                     </div>
                   </div>
                   <div
-                    className="rounded-2xl px-4 py-[10px] bg-gray-200 hover:bg-primary-light "
+                    className="rounded-2xl px-4 py-[10px] bg-gray-200 cursor-pointer hover:bg-primary-light "
                     onClick={() => handleCopyClipBoard(videoUrl)}
                   >
                     <div className="flex flex-row ">
