@@ -97,6 +97,9 @@ function Folder() {
         console.error('err', err)
       })
   }
+  useEffect(() => {
+    console.log('folder', folder)
+  }, [])
 
   return (
     <div>
