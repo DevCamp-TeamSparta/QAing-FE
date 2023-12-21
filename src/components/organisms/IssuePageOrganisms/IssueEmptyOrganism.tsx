@@ -34,9 +34,8 @@ export default function IssueEmptyOrganism({
         console.log('1')
       }
       if (data.type === 'progress') {
+        console.log('2')
         if (!modal) {
-          console.log('2')
-
           // setBackGroundClose(false)
           // setModal(<LoadingIssueModal />)
         }
