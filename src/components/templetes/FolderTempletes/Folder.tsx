@@ -99,7 +99,7 @@ function Folder() {
   }
   useEffect(() => {
     console.log('folder', folder)
-  }, [])
+  }, [folder])
 
   return (
     <div>
