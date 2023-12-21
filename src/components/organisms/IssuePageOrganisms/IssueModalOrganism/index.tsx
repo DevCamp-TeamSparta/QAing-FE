@@ -8,6 +8,7 @@ import CopyLinkIcon from '../../../../../public/icons/CopyLinkIcon'
 import { CloseIcon } from '../../../../../public/icons/CloseIcon'
 import { TypeImageIcon } from '../../../../../public/icons/TypeImageIcon'
 import { TypeVideoIcon } from '../../../../../public/icons/TypeVideoIcon'
+import useClipboard from '@/hooks/useClipboard'
 
 interface IssueModalProps {
   imageUrl: string
@@ -20,10 +21,12 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
   function onClickThumbnailHandler(mode: 'image' | 'video') {
     setMode(mode)
   }
+  const { handleCopyClipBoard } = useClipboard()
 
   function onClickCopyLinkHandler() {
     const url = mode === 'image' ? imageUrl : videoUrl
-    navigator.clipboard.writeText(url)
+    // navigator.clipboard.writeText(url)
+    handleCopyClipBoard(url)
     alert('링크가 복사되었습니다.')
   }
 
