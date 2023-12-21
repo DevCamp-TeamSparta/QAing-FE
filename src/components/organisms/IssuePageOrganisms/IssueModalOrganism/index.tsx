@@ -27,7 +27,6 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
     const url = mode === 'image' ? imageUrl : videoUrl
     // navigator.clipboard.writeText(url)
     await handleCopyClipBoard(url)
-    alert('링크가 복사되었습니다.')
   }
 
   function closeModal() {
@@ -35,7 +34,7 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
   }
 
   return (
-    <div className={'w-screen h-screen max-h-screen p-12'}>
+    <div className={'w-screen h-screen max-h-screen p-28'}>
       <div className={'w-full h-full bg-white rounded-[8px] flex flex-col'}>
         <div
           className={
