@@ -1,5 +1,5 @@
 'use client'
-import React, { use, useEffect, useState } from 'react'
+import React, { ChangeEvent, use, useEffect, useRef, useState } from 'react'
 import Logo from '@/components/atoms/LogoAtoms/index'
 import Image from 'next/image'
 import ProgileImageDefault from '/public/images/profileImage.svg'
@@ -7,15 +7,28 @@ import Back from 'public/icons/back.svg'
 import Table from '@/components/molcules/TableMolecules/index'
 import IssueCard from '@/components/organisms/IssuePageOrganisms/issueCardOrganism/index'
 import axios from 'axios'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { EditSvg } from '../../../../public/icons/EditSvg'
+import { editFolder } from '@/services/folder/folder.api'
+
+type Values = {
+  newFolderName: string
+}
 
 function Folder() {
   const backServer = process.env.NEXT_PUBLIC_BACKEND_API_URL
   const [folder, setFolder] = useState<object[]>([])
-  const [folderName, setFolderName] = useState<string>('')
+  const [folderName, setFolderName] = useState<string>('2023-11-15 16:24')
   const [progress, setProgress] = useState(0)
   const [totalProgress, setTotalProgress] = useState(0)
   const [message, setMessage] = useState('')
+  const [isEditButtonClicked, setIsEditButtonClicked] = React.useState(false)
+  const [values, setValues] = useState<Values>({ newFolderName: folderName })
+  const router = useRouter()
+
+  //폴더명 변경
+  const inputRef = useRef<HTMLInputElement>(null)
 
   // useEffect(() => {
   //   if (folder) return
@@ -119,14 +132,48 @@ function Folder() {
     getIssues()
   }, [message])
 
-  //이슈명 수정
+  //폴더명변경
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setValues({
+      ...values,
+      [name]: value,
+    })
+  }
+  function onClickEditButtonHandler(
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) {
+    event.stopPropagation()
+    setIsEditButtonClicked(prev => !prev)
+  }
+
+  useEffect(() => {
+    if (isEditButtonClicked && inputRef.current) {
+      inputRef.current.focus() // input에 포커스
+      inputRef.current.select() // 텍스트 선택
+    }
+  }, [isEditButtonClicked])
+
+  const handleEditFolderSubmit = (folderId: string, values: object) => {
+    editFolder(folderId, values)
+      .then(res => {
+        console.log('res', res)
+        alert('폴더명이 변경되었습니다.')
+      })
+      .catch(err => {
+        console.error('err', err)
+      })
+  }
 
   return (
     <div>
       <header className="h-[108px]   flex flex-col justify-center  ">
         {/* 헤더 */}
         <div className="ml-[35px] flex justify-between felx-row   ">
-          <Logo logoSize={logoSize} />
+          <Link href={'/'}>
+            <Logo logoSize={logoSize} />
+          </Link>
           <div className="mr-[36px] w-[40px] h-[40px]">
             <Image src={ProgileImageDefault} alt="default" />
           </div>
@@ -135,16 +182,39 @@ function Folder() {
       {/* 뒤로가기, 폴더이름, 수정버튼 */}
       <div>
         <div className=" ">
-          <div className="flex flex-row items-center h-[68px]  ml-9">
-            <div>
+          <div className="flex flex-row items-center h-[68px]  ml-9  ">
+            <Link href={'/'}>
               <Image src={Back} alt="back" />
-            </div>
+            </Link>
+
             <div className="ml-4">
               <Table />
             </div>
-            {/* <div className="ml-[10px]">
-              <Image src={Edit} alt="edit" />
-            </div> */}
+            {isEditButtonClicked ? (
+              <form onSubmit={() => handleEditFolderSubmit(folderId, values)}>
+                <input
+                  ref={inputRef}
+                  type="text"
+                  placeholder={folderName}
+                  onChange={handleChange}
+                  name="newFolderName"
+                  value={values.newFolderName}
+                  onBlur={() => setIsEditButtonClicked(false)}
+                  maxLength={40}
+                  className="h3  overflow-hidden truncate  bg-white w-[428px]"
+                />
+              </form>
+            ) : (
+              <div className="flex flex-row">
+                <p className="h3">{folderName}</p>
+                <button
+                  onClick={onClickEditButtonHandler}
+                  className="ml-[10px]"
+                >
+                  <EditSvg color={'#C0C2C2'} />
+                </button>
+              </div>
+            )}
           </div>
           <div className="px-9 pt-9 gray-50">
             <div className="">

@@ -18,21 +18,15 @@ export default function CTAButton({
 }: CTAButtonProps) {
   return (
     <button
-      type="submit"
       className={clsx(
-        `${className} rounded-[99px] bg-brand-default 
+        `${className} rounded-[99px] bg-primary-default 
           focus:outline-none 
-          hover:bg-brand-hover 
-          active:bg-brand-pressed 
+          hover:bg-primary-hover 
+          active:bg-primary-pressed 
           disabled:bg-gray-400 disabled:cursor-not-allowed 
           cursor-pointer
           text-white
           t3
-          ${
-            disabled
-              ? 'bg-sementic-disabled  hover:bg-sementic-disabled cursor-not-allowed'
-              : 'bg-primary-default   active:bg-primary-pressed'
-          }
           `,
         {
           'w-[440px] h-[56px]': size === 'large',
@@ -40,7 +34,7 @@ export default function CTAButton({
           b3: size === 'small',
         },
       )}
-      disabled={disabled}
+      disabled={false}
       onClick={onClick}
     >
       {children}
