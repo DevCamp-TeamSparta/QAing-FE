@@ -56,7 +56,7 @@ export default function IssueEmptyOrganism({
     return () => {
       eventSource.close()
     }
-  }, [folderId, folderName])
+  }, [folderId])
 
   return (
     <div className="grid grid-cols-3 w-full gap-x-[24px] gap-y-[56px]">
