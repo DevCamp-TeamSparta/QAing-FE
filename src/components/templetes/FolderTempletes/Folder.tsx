@@ -73,22 +73,22 @@ function Folder() {
           </div>
         </div>
         <div className="px-9 py-9 gray-50">
-          {folder.length > 0 ? (
-            <div className="grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
-              {folder.map((item: any) => {
-                return (
-                  <IssueCard
-                    key={item._id}
-                    IssueCardProps={item}
-                    folderId={folderId}
-                    folderName={folderName}
-                  />
-                )
-              })}
-            </div>
-          ) : (
-            <IssueEmptyOrganism folderId={folderId} setMessage={setMessage} />
-          )}
+          {/*{folder.length > 0 ? (*/}
+          {/*  <div className="grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">*/}
+          {/*    {folder.map((item: any) => {*/}
+          {/*      return (*/}
+          {/*        <IssueCard*/}
+          {/*          key={item._id}*/}
+          {/*          IssueCardProps={item}*/}
+          {/*          folderId={folderId}*/}
+          {/*          folderName={folderName}*/}
+          {/*        />*/}
+          {/*      )*/}
+          {/*    })}*/}
+          {/*  </div>*/}
+          {/*) : (*/}
+          <IssueEmptyOrganism folderId={folderId} setMessage={setMessage} />
+          {/*)}*/}
         </div>
       </div>
     </div>

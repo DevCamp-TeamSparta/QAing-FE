@@ -17,6 +17,11 @@ export default function IssueEmptyOrganism({
   const { setProgress } = useVideoUploadStore()
 
   useEffect(() => {
+    setBackGroundClose(false)
+    setModal(<LoadingIssueModal />)
+  }, [])
+
+  useEffect(() => {
     if (!folderId) return
     const eventSource = new EventSource(
       `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/videos/subscribe/${folderId}`,
