@@ -12,6 +12,10 @@ import Link from 'next/link'
 import { EditSvg } from '../../../../public/icons/EditSvg'
 import { editFolder } from '@/services/folder/folder.api'
 import IssueEmptyOrganism from '@/components/organisms/IssuePageOrganisms/IssueEmptyOrganism'
+import instance from '@/services/instance'
+import { User } from '@/types/userStore.types'
+import { useUserStore } from '@/states/user-store/userStore'
+import { ProfileImageSvg } from '../../../../public/icons/ProfileImageSvg'
 type Values = {
   newFolderName: string
 }
@@ -24,6 +28,8 @@ function Folder() {
   const [isEditButtonClicked, setIsEditButtonClicked] = React.useState(false)
   const [values, setValues] = useState<Values>({ newFolderName: folderName })
   const router = useRouter()
+  const { user, setUser } = useUserStore()
+
   //폴더명 변경
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -105,6 +111,30 @@ function Folder() {
     console.log('folder', folder)
   }, [folder])
 
+  //프로필 이미지
+  async function fetchUser(): Promise<User> {
+    const response = await instance.get('/users/info')
+    console.log('res', response)
+    return response.data
+  }
+
+  useEffect(() => {
+    fetchUser()
+      .then(data => {
+        console.log('data', data)
+        setUser({
+          userEmail: data.userEmail,
+          userName: data.userName,
+          userProfileImg: data.userProfileImg,
+          userPhoneNumber: data.userPhoneNumber,
+          userJob: data.userJob,
+          userTeamSize: data.userTeamSize,
+          userCompany: data.userCompany,
+        })
+      })
+      .catch(e => console.error(e))
+  }, [])
+
   return (
     <div>
       <header className="h-[108px]  flex flex-col justify-center  ">
@@ -114,7 +144,17 @@ function Folder() {
             <Logo logoSize={logoSize} />
           </Link>
           <div className="mr-[36px] w-[40px] h-[40px]">
-            <Image src={ProgileImageDefault} alt="default" />
+            {user && user.userProfileImg ? (
+              <Image
+                src={user.userProfileImg}
+                alt={'user profile image'}
+                width={48}
+                height={48}
+                className={'rounded-[50%]'}
+              />
+            ) : (
+              <ProfileImageSvg />
+            )}
           </div>
         </div>
       </header>
