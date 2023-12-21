@@ -1,12 +1,7 @@
 import React from 'react'
 import CopyLinkIcon from '../../../../public/icons/CopyLinkIcon'
 
-type CopyButtonProps = {
-  imageUrl: string
-  videoUrl: string
-}
-
-function index({ imageUrl, videoUrl }: CopyButtonProps) {
+function Index() {
   const decodeUrl = (url: string) => decodeURIComponent(url)
 
   const handleCopyClipBoard = async (imageUrl: string) => {
@@ -19,13 +14,10 @@ function index({ imageUrl, videoUrl }: CopyButtonProps) {
     }
   }
   return (
-    <div
-      onClick={() => handleCopyClipBoard(imageUrl)}
-      className="bg-primary-default w-[44px] h-[44px] rounded-[99px] flex flex-row justify-center items-center shadow-copybutton "
-    >
+    <div className="bg-primary-default w-[44px] h-[44px] rounded-[99px] flex flex-row justify-center items-center shadow-copybutton ">
       <CopyLinkIcon color={'#FFFFFF'} />
     </div>
   )
 }
 
-export default index
+export default Index

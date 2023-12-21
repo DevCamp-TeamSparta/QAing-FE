@@ -57,6 +57,9 @@ export default function VideoTable() {
   //     _id: '3',
   //   },
   // ]
+  // const navigateToFoldersPage =(folders._id:string) =>{
+  //   router.push(`/folders/${folders._id}/`)
+  // }
 
   return (
     <div className="py-[44px]">

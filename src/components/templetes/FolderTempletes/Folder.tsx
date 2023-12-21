@@ -12,6 +12,7 @@ import { usePathname } from 'next/navigation'
 function Folder() {
   const backServer = process.env.NEXT_PUBLIC_BACKEND_API_URL
   const [folder, setFolder] = useState<object[]>([])
+  const [folderName, setFolderName] = useState<string>('')
   const [progress, setProgress] = useState(0)
   const [totalProgress, setTotalProgress] = useState(0)
   const [message, setMessage] = useState('')
@@ -38,10 +39,8 @@ function Folder() {
     height: 36,
   }
   const IssueCardProps = {
-    imageUrl:
-      'https://s3-qaing-test.s3.ap-northeast-2.amazonaws.com/image_1702302459868.jpg',
-    videoUrl:
-      'https://s3-qaing-test.s3.ap-northeast-2.amazonaws.com/video_1702302465430.mp4',
+    imageUrl: '',
+    videoUrl: '',
     updatedAt: '2023-12-11T13:47:45.556Z',
     issueName: '이슈 1',
     _id: 'xxx',
@@ -111,12 +110,15 @@ function Folder() {
           },
         )
         console.log('이슈 수신 완료', res.data)
-        setFolder(res.data)
+        setFolder(res.data.issuesWithContents)
+        setFolderName(res.data.folderName)
       } catch (err) {}
       // setLoading(false)
     }
     getIssues()
   }, [message])
+
+  //이슈명 수정
 
   return (
     <div>
@@ -145,10 +147,55 @@ function Folder() {
           </div>
           <div className="px-9 pt-9 gray-50">
             <div className="">
+              <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
+                {/* <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                  folderName={folderName}
+                  folderId={IssueCardProps._id}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                  folderName={folderName}
+                  folderId={IssueCardProps._id}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                  folderName={folderName}
+                  folderId={IssueCardProps._id}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                  folderName={folderName}
+                  folderId={IssueCardProps._id}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                  folderName={folderName}
+                  folderId={IssueCardProps._id}
+                />
+                <IssueCard
+                  key={IssueCardProps._id}
+                  IssueCardProps={IssueCardProps}
+                  folderName={folderName}
+                  folderId={IssueCardProps._id}
+                /> */}
+              </div>
               {folder.length > 0 ? (
                 <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
                   {folder.map((item: any) => {
-                    return <IssueCard key={item._id} IssueCardProps={item} />
+                    return (
+                      <IssueCard
+                        key={item._id}
+                        IssueCardProps={item}
+                        folderId={folderId}
+                        folderName={folderName}
+                      />
+                    )
                   })}
                 </div>
               ) : (
