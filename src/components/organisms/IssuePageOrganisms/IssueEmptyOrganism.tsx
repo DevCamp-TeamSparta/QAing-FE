@@ -17,27 +17,35 @@ export default function IssueEmptyOrganism({
   const [totalProgress, setTotalProgress] = useState(0)
 
   useEffect(() => {
-    setBackGroundClose(false)
-    setModal(
-      <LoadingIssueModal progress={progress} totalProgress={totalProgress} />,
-    )
+    if (totalProgress > progress) {
+      setBackGroundClose(false)
+      setModal(
+        <LoadingIssueModal progress={progress} totalProgress={totalProgress} />,
+      )
+    }
+
+    return () => {
+      setModal(null)
+    }
   }, [])
 
   useEffect(() => {
     if (!folderId) return
-    try {
-    } catch {}
     const eventSource = new EventSource(
       `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/videos/subscribe/${folderId}`,
       { withCredentials: true },
     )
+    eventSource.onopen = () => {
+      console.log('eventSource start')
+    }
     eventSource.onmessage = event => {
+      console.log(event)
       const data = JSON.parse(event.data)
-
       if (!data.status) {
         setTotalProgress(data.totalTasks)
         setProgress(data.progress)
       } else {
+        setModal(null)
         setMessage(data.message)
         eventSource.close()
       }
@@ -48,12 +56,6 @@ export default function IssueEmptyOrganism({
       console.error('EventSource failed:', error)
       eventSource.close()
     }
-
-    // if (eventSource.readyState === EventSource.CLOSED) {
-    //   console.log('연결이 닫혔습니다.')
-    // } else {
-    //   console.log('연결이 아직 닫히지 않았습니다.')
-    // }
 
     return () => {
       eventSource.close()
@@ -74,8 +76,8 @@ export default function IssueEmptyOrganism({
 function IssueSkeleton() {
   return (
     <div className={'flex flex-col gap-[16px]'}>
-      <div className={'w-full h-[417px] bg-gray-300 rounded-[16px]'} />
-      <div className={'w-full flex justify-between h-[36px]'}>
+      <div className={'w-full h-[337px] bg-gray-300 rounded-[16px]'} />
+      <div className={'w-full flex justify-between h-[32px]'}>
         <div className={'w-[291px] h-full bg-gray-300 rounded-[8px]'} />
         <div className={'w-[36px] h-full bg-gray-300 rounded-[8px]'} />
       </div>

@@ -10,7 +10,9 @@ export default function ModalPortal() {
   const { modal, setModal, backGroundClose, setBackGroundClose } =
     useModalStore()
   const [isMounted, setIsMounted] = useState<boolean>(false)
+
   useEffect(() => {
+    if (!isMounted) return
     document.body.style.overflow = modal ? 'hidden' : 'auto'
     if (!modal) {
       setBackGroundClose(true)
