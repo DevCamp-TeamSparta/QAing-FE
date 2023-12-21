@@ -27,7 +27,7 @@ export default function IssueEmptyOrganism({
     return () => {
       setModal(null)
     }
-  }, [])
+  }, [progress, totalProgress])
 
   useEffect(() => {
     if (!folderId) return
