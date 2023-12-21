@@ -23,13 +23,14 @@ export default function IssueEmptyOrganism({
       `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/videos/subscribe/${folderId}`,
       { withCredentials: true },
     )
-
+    setBackGroundClose(false)
+    setModal(<LoadingIssueModal />)
     eventSource.onmessage = event => {
       const data = JSON.parse(event.data)
       if (!data.status) {
         if (!modal) {
-          setBackGroundClose(false)
-          setModal(<LoadingIssueModal />)
+          // setBackGroundClose(false)
+          // setModal(<LoadingIssueModal />)
         }
         setProgress(data.progress, data.totalTasks)
       } else {
