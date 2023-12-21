@@ -87,8 +87,7 @@ function Folder() {
           {/*    })}*/}
           {/*  </div>*/}
           {/*) : (*/}
-            <IssueEmptyOrganism folderId={folderId} setMessage={setMessage} />
-          // )}
+          <IssueEmptyOrganism folderId={folderId} setMessage={setMessage} />
         </div>
       </div>
     </div>
