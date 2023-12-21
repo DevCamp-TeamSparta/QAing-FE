@@ -7,26 +7,26 @@ import { useModalStore } from '@/states/modalStore'
 
 export default function ModalPortal() {
   const pathname = usePathname()
-  const { modal, setModal } = useModalStore()
+  const { modal, setModal, backGroundClose, setBackGroundClose } =
+    useModalStore()
   const [isMounted, setIsMounted] = useState<boolean>(false)
-
-  const closeModal = () => {
-    setModal(null)
-  }
-
   useEffect(() => {
     document.body.style.overflow = modal ? 'hidden' : 'auto'
+    if (!modal) {
+      setBackGroundClose(true)
+    }
   }, [modal])
 
   useEffect(() => {
-    closeModal()
+    if (!isMounted) return
+    setModal(null)
   }, [pathname])
 
   useEffect(() => {
     setIsMounted(true)
   }, [])
 
-  if (!modal) {
+  if (!modal || !isMounted) {
     return null
   }
   return (
@@ -37,7 +37,11 @@ export default function ModalPortal() {
     >
       <div
         className={'absolute left-0 top-0 w-full h-full'}
-        onClick={closeModal}
+        onClick={() => {
+          if (backGroundClose) {
+            setModal(null)
+          }
+        }}
       />
       <div className={'z-10'}>{modal}</div>
     </div>
