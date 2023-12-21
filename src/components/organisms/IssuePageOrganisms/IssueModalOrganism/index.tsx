@@ -94,7 +94,7 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
           <div className={'flex w-full h-full relative'}>
             {mode === 'image' ? (
               <Image
-                className={'rounded-[8px] overflow-hidden'}
+                className={'rounded-[8px] overflow-hidden mx-auto'}
                 src={imageUrl}
                 alt="issue"
               />
