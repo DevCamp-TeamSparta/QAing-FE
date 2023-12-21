@@ -16,11 +16,6 @@ export default function IssueEmptyOrganism({
   const { setProgress } = useVideoUploadStore()
 
   useEffect(() => {
-    setBackGroundClose(false)
-    setModal(<LoadingIssueModal />)
-  }, [])
-
-  useEffect(() => {
     if (!folderId) return
     try {
     } catch {}

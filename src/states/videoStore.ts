@@ -22,7 +22,7 @@ interface VideoUploadStore {
 }
 
 export const useVideoUploadStore = create<VideoUploadStore>(set => ({
-  progress: 2,
-  totalProgress: 6,
+  progress: 0,
+  totalProgress: 0,
   setProgress: (progress, totalProgress) => set({ progress, totalProgress }),
 }))
