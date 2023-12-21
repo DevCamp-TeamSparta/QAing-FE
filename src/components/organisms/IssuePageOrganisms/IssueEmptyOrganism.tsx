@@ -28,15 +28,15 @@ export default function IssueEmptyOrganism({
 
     eventSource.onmessage = event => {
       const data = JSON.parse(event.data)
-      if (data.type === 'pre-processing') {
+      if (data.type === 'pre-progress') {
         setBackGroundClose(false)
         setModal(<LoadingIssueModal />)
         console.log('1')
       }
-      if (!data.status) {
+      if (data.type === 'progress') {
         if (!modal) {
           console.log('2')
-          console.log('data.status', data.status)
+
           // setBackGroundClose(false)
           // setModal(<LoadingIssueModal />)
         }
