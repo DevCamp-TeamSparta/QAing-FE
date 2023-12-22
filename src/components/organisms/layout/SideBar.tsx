@@ -133,6 +133,7 @@ export default function SideBar() {
                 width={48}
                 height={48}
                 className={'rounded-[50%] object-cover'}
+                fill
               />
             ) : (
               <ProfileImageSvg />
