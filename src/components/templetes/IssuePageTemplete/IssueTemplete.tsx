@@ -58,7 +58,7 @@ function IssuePageTemplete() {
   useEffect(() => {
     const getIssues = async () => {
       try {
-        await axios
+        const res = await axios
           .get(`${backServer}/folders/${folderId}/issues`, {
             withCredentials: true,
           })
