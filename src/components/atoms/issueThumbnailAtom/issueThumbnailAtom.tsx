@@ -3,7 +3,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { useModalStore } from '@/states/modalStore'
-import IssueModal from '@/components/organisms/IssuePageOrganisms/IssueModalOrganism'
+import IssueModal from '@/components/organisms/IssuePageOrganisms/IssueModalOrganism/IssueModalOrganism'
 
 type ThumbnailProps = {
   imageUrl: string

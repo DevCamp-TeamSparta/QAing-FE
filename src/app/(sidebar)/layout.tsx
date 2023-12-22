@@ -1,5 +1,5 @@
 import React from 'react'
-import SideBar from '@/components/organisms/layout/SideBar'
+import SideBar from '@/components/organisms/layoutOrganism/SideBar'
 
 export default async function Layout({
   children,

@@ -1,11 +1,11 @@
 'use client'
 
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
-import Logo from '@/components/atoms/LogoAtoms/index'
+import Logo from '@/components/atoms/LogoAtom/LogoAtoms'
 import Image from 'next/image'
 import ProgileImageDefault from '/public/images/profileImage.svg'
 import Back from 'public/icons/back.svg'
-import IssueCard from '@/components/organisms/IssuePageOrganisms/issueCardOrganism/index'
+import IssueCard from '@/components/organisms/IssuePageOrganisms/issueCardOrganism/IssueCardOrganism'
 import axios from 'axios'
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'

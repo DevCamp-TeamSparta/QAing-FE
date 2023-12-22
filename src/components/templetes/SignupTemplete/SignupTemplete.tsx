@@ -1,4 +1,4 @@
-import SignnupOrgansim from '@/components/organisms/SignupOrganism/index'
+import SignnupOrgansim from '@/components/organisms/SignupOrganism/SignupOrganism'
 
 export default function Signup() {
   return (

@@ -1,4 +1,4 @@
-import PhoneNumberInput from '@/components/atoms/InputAtoms/PhoneNumberInput'
+import PhoneNumberInput from '@/components/atoms/InputAtom/PhoneNumberInputAtom/PhoneNumberInputAtom'
 import { ChangeEvent } from 'react'
 
 type InputTitleProps = {
