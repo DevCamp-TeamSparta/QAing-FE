@@ -1,11 +1,11 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import instance from '@/services/instance'
 import { Folder } from '@/types/userFolder.types'
 
-export const fetchFolder = async (): Promise<Folder[]> => {
-  const response = await instance.get('/folders')
-  // console.log('폴더 가져오기 성공:', response)
-  return response.data
+export const fetchFolder = async (): Promise<AxiosResponse> => {
+  const response = await instance.get<Folder[]>('/folders')
+  // console.log('폴더 가져오기 성공:', response);
+  return response
 }
 
 export const editFolder = async (folderId: string, UpdateFolderDto: object) => {

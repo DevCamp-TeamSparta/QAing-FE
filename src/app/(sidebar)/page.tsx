@@ -1,4 +1,4 @@
-import MainPageTemplate from '@/components/templetes/(sidebar)/MainPage/MainPage'
+import MainPageTemplate from '@/components/templetes/(sidebar)/MainPageTemplete/MainPageTemplete'
 
 export default function MainPage() {
   return <MainPageTemplate />

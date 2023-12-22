@@ -1,5 +1,5 @@
 import { useModalStore } from '@/states/modalStore'
-import CTAButton from '@/components/atoms/CallToActionAButtonAtoms/index'
+import CTAButton from '@/components/atoms/CallToActionAButtonAtom/CallToActionButtonAtom'
 import { User } from '@/types/userStore.types'
 import Image from 'next/image'
 import { useUserStore } from '@/states/user-store/userStore'

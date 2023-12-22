@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import ModalPortal from '@/components/organisms/modal/ModalPortal'
+import ModalPortal from '@/components/organisms/ModalOrganism/ModalPortalOrganism'
 
 const inter = Inter({ subsets: ['latin'] })
 

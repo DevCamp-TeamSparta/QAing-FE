@@ -1,5 +1,5 @@
 import React from 'react'
-import GoogleSignup from '@/components/templetes/SignupTempletes/GoogleSignup'
+import GoogleSignup from '@/components/templetes/SignupTemplete/GoogleSignupTemplete'
 
 function Page() {
   return (

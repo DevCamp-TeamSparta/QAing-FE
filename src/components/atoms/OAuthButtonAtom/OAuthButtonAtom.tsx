@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import GoogleIcon from '../IconAtoms/GoogleIcon'
+import GoogleIcon from '../IconAtom/GoogleIcon'
 import { useRouter } from 'next/navigation'
 
 function OAuthBoutton() {

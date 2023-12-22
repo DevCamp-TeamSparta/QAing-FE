@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
-import IssueThumbnail from '@/components/atoms/issueThumbnailAtoms'
-import CopyButton from '@/components/atoms/CopyButtonAtoms'
+import IssueThumbnail from '@/components/atoms/issueThumbnailAtom/issueThumbnailAtom'
+import CopyButton from '@/components/atoms/CopyButtonAtom/CopyButtonAtom'
 import MoreIcon from '../../../../../public/icons/More'
 import { EditSvg } from '../../../../../public/icons/EditSvg'
 import DeleteIssueModal from '../DeleteIssueModal'
