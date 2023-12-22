@@ -66,8 +66,11 @@ function Folder() {
         )
         setFolder(res.data.issuesWithContents)
         setFolderName(res.data.folderName)
-      } catch (err) {}
-      // setLoading(false)
+        console.log('res', res)
+        console.log('res.data', res.data)
+      } catch (err) {
+        console.log('err', err)
+      }
     }
     getIssues()
   }, [message])
