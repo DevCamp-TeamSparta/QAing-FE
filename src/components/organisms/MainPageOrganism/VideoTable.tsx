@@ -17,13 +17,20 @@ export default function VideoTable() {
   const router = useRouter()
 
   useEffect(() => {
-    fetchFolder().then(response => {
-      console.log('상태값', response)
-      setFolders(response.data)
-      if (response.status === 401) {
-        router.push('/auth/login')
-      }
-    })
+    fetchFolder()
+      .then(response => {
+        console.log('상태값', response)
+        setFolders(response.data)
+        // if (response.status === 401) {
+        //   router.push('/auth/login')
+        // }
+      })
+      .catch(error => {
+        console.log('error', error)
+        if (error.response.status === 401) {
+          router.push('/auth/login')
+        }
+      })
   }, [])
 
   // useEffect(() => {
