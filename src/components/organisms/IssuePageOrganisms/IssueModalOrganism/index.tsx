@@ -34,8 +34,12 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
   }
 
   return (
-    <div className={'w-screen h-screen max-h-screen px-40 py-24 '}>
-      <div className={'w-full h-full bg-white rounded-[8px] flex flex-col'}>
+    <div className={' h-screen max-h-screen px-40 py-24 '}>
+      <div
+        className={
+          'w-full h-full bg-white overflow-hidden rounded-[8px] flex flex-col'
+        }
+      >
         <div
           className={
             'relative px-[20px] py-[12px] flex items-center gap-[12px]  justify-between'
@@ -96,7 +100,7 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
               <div className={'h-full w-full flex justify-center'}>
                 <Image
                   className={
-                    'rounded-[8px] overflow-hidden mx-auto object-cover'
+                    'h-full  rounded-[8px] overflow-hidden mx-auto object-cover'
                   }
                   src={imageUrl}
                   alt="issue"
