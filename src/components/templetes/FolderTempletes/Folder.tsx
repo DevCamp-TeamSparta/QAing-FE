@@ -220,7 +220,6 @@ function Folder() {
                 </div>
               ) : (
                 <IssueEmptyOrganism
-                  folderName={folderName}
                   folderId={folderId}
                   setMessage={setMessage}
                 />
