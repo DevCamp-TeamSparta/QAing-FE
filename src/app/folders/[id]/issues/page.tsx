@@ -1,10 +1,10 @@
 import React from 'react'
-import Folder from '@/components/templetes/FolderTemplete/FolderTemplete'
+import IssuePageTemplete from '@/components/templetes/IssuePageTemplete/IssueTemplete'
 
 function page() {
   return (
     <div>
-      <Folder />
+      <IssuePageTemplete />
     </div>
   )
 }
