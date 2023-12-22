@@ -1,9 +1,9 @@
 'use client'
 import React, { useState } from 'react'
-import Logo from '@/components/atoms/LogoAtoms/index'
-import InputMolecules from '@/components/molcules/InputMolecules/index'
-import DropdownMoleclue from '@/components/molcules/DropdownMolecule/index'
-import CTAButton from '@/components/atoms/CallToActionAButtonAtoms'
+import Logo from '@/components/atoms/LogoAtom/LogoAtoms'
+import InputMolecules from '@/components/molcules/InputMolecule/PhoneNumberInputMolecule'
+import DropdownMoleclue from '@/components/molcules/DropdownMolecule/DropdownMolecule'
+import CTAButton from '@/components/atoms/CallToActionAButtonAtom/CallToActionButtonAtom'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {

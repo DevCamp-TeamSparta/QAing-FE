@@ -1,5 +1,5 @@
 'use client'
-import EmailSignup from '@/components/templetes/SignupTempletes/EmailSignup'
+import EmailSignup from '@/components/templetes/SignupTemplete/EmailSignupTemplete'
 
 function Page() {
   return <EmailSignup />

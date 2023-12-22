@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from '@/components/atoms/LogoAtoms'
+import Logo from '@/components/atoms/LogoAtom/LogoAtoms'
 
 function Page() {
   const logoSize = {

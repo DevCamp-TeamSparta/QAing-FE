@@ -1,4 +1,4 @@
-import Input from '@/components/atoms/InputAtoms/index'
+import Input from '@/components/atoms/InputAtom/InputAtom'
 import { ChangeEvent } from 'react'
 import { RegisterOptions, UseFormRegisterReturn } from 'react-hook-form'
 

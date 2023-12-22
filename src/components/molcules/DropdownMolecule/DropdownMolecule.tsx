@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import Dropdown from '@/components/atoms/DropdownAtoms'
+import Dropdown from '@/components/atoms/DropdownAtom/DropdownAtom'
 import {
   UseFormSetValue,
   Control,
