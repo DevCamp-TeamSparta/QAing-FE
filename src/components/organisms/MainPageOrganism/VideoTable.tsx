@@ -8,17 +8,21 @@ import VideoTableBody from '@/components/organisms/MainPageOrganism/VideoTableBo
 import { useEffect, useState } from 'react'
 import { fetchFolder } from '@/services/folder/folder.api'
 import { Folder } from '@/types/userFolder.types'
-import axios from 'axios'
+import { useRouter } from 'next/navigation'
 
 export default function VideoTable() {
   const videos = useVideoStore(state => state.videos)
   const [folders, setFolders] = useState<Folder[]>([])
   const backServerUrl = process.env.NEXT_PUBLIC_BACKEND_API_URL
+  const router = useRouter()
 
   useEffect(() => {
-    fetchFolder().then(data => {
-      // console.log('store에 저장합니다1', data)
-      setFolders(data)
+    fetchFolder().then(response => {
+      console.log('상태값', response)
+      setFolders(response.data)
+      if (response.status === 401) {
+        router.push('/auth/login')
+      }
     })
   }, [])
 
