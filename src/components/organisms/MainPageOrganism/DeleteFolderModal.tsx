@@ -22,7 +22,7 @@ export default function DeleteFolderModal({ folderId }: Props) {
   }
 
   useEffect(() => {
-    console.log('folderId', folderId)
+    // console.log('folderId', folderId)
   }, [folderId])
   return (
     <div

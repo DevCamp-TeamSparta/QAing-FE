@@ -85,7 +85,7 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
   }
 
   useEffect(() => {
-    console.log('folderId', folderId)
+    // console.log('folderId', folderId)
   }, [])
 
   //이슈 이름 변경
@@ -95,7 +95,7 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
     values: object,
   ) => {
     editIssue(folderId, _id, values).then(() => {
-      console.log('이슈 이름 변경 완료')
+      // console.log('이슈 이름 변경 완료')
     })
   }
 

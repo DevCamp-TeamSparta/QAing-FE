@@ -100,28 +100,28 @@ function Folder() {
   const handleEditFolderSubmit = (folderId: string, values: object) => {
     editFolder(folderId, values)
       .then(res => {
-        console.log('res', res)
+        // console.log('res', res)
         alert('폴더명이 변경되었습니다.')
       })
       .catch(err => {
-        console.error('err', err)
+        // console.error('err', err)
       })
   }
   useEffect(() => {
-    console.log('folder', folder)
+    // console.log('folder', folder)
   }, [folder])
 
   //프로필 이미지
   async function fetchUser(): Promise<User> {
     const response = await instance.get('/users/info')
-    console.log('res', response)
+    // console.log('res', response)
     return response.data
   }
 
   useEffect(() => {
     fetchUser()
       .then(data => {
-        console.log('data', data)
+        // console.log('data', data)
         setUser({
           userEmail: data.userEmail,
           userName: data.userName,

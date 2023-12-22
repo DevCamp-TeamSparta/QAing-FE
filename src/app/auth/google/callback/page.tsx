@@ -13,9 +13,9 @@ function Page() {
   const baseURL = process.env.NEXT_PUBLIC_BACKEND_API_URL
   const accessToken = 'Token is here'
   const getCookie = Cookies.get('access-token')
-  console.log('getCookie', getCookie)
+  // console.log('getCookie', getCookie)
   const tokenhandler = () => {
-    console.log('확인')
+    // console.log('확인')
     Cookies.set('access-token', accessToken)
   }
   const router = useRouter()
@@ -45,7 +45,7 @@ function Page() {
   useEffect(() => {
     // window.location.href = 'https://qaing.co'
     router.push('/')
-    console.log('getCookie', getCookie)
+    // console.log('getCookie', getCookie)
   })
 
   return (
