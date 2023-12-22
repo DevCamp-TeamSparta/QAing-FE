@@ -17,15 +17,15 @@ export default function VideoTable() {
 
   useEffect(() => {
     fetchFolder().then(data => {
-      console.log('store에 저장합니다1', data)
+      // console.log('store에 저장합니다1', data)
       setFolders(data)
     })
   }, [])
 
-  useEffect(() => {
-    if (folders.length === 0) return
-    console.log('folder가 변경되었습니다.', folders)
-  }, [folders])
+  // useEffect(() => {
+  //   if (folders.length === 0) return
+  //   console.log('folder가 변경되었습니다.', folders)
+  // }, [folders])
 
   // const folders = [
   //   {
