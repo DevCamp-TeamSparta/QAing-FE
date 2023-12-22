@@ -25,7 +25,7 @@ function GoogleSignup() {
   const { phoneValue, onChangePhoneNumber, phoneNumberAutoFormat } =
     usePhoneNumber()
 
-  console.log(`phoneValue`, phoneValue.replace(/-/g, ''))
+  // console.log(`phoneValue`, phoneValue.replace(/-/g, ''))
 
   //로고 사이즈 프롭스
   const logoSize = {
@@ -81,7 +81,7 @@ function GoogleSignup() {
   //제출 함수
   const onSubmit = (data: advanceInformationSchemaType) => {
     alert('확인')
-    console.log('Button clicked!', data)
+    // console.log('Button clicked!', data)
     router.push(`${GoogleURL}/auth/google`)
   }
 

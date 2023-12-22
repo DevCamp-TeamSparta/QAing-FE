@@ -42,9 +42,9 @@ export default function VideoTableBody({
     setIsMoreButtonClicked(!isMoreButtonClicked)
   }
 
-  useEffect(() => {
-    console.log('_id', _id)
-  })
+  // useEffect(() => {
+  //   console.log('_id', _id)
+  // })
 
   function onClickDeleteButtonHandler() {
     setIsMoreButtonClicked(false)
@@ -77,17 +77,17 @@ export default function VideoTableBody({
   const handleEditFolderSubmit = (folderId: string, values: object) => {
     editFolder(folderId, values)
       .then(res => {
-        console.log('res', res)
+        // console.log('res', res)
         alert('폴더명이 변경되었습니다.')
       })
       .catch(err => {
-        console.error('err', err)
+        // console.error('err', err)
       })
   }
 
-  useEffect(() => {
-    console.log('values', values)
-  }, [values])
+  // useEffect(() => {
+  //   console.log('values', values)
+  // }, [values])
 
   useEffect(() => {
     if (isEditButtonClicked && inputRef.current) {

@@ -28,7 +28,7 @@ function Dropdown({
   const [selectedElement, setSelectedElement] = useState<string | undefined>()
   const dropdownRef = useRef<HTMLDivElement | null>(null)
 
-  console.log('dropdownPlaceholder', dropdownPlaceholder)
+  // console.log('dropdownPlaceholder', dropdownPlaceholder)
 
   return (
     <div className="text-[15px] font-medium">

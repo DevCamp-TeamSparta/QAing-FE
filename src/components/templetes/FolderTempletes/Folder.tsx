@@ -12,6 +12,10 @@ import Link from 'next/link'
 import { EditSvg } from '../../../../public/icons/EditSvg'
 import { editFolder } from '@/services/folder/folder.api'
 import IssueEmptyOrganism from '@/components/organisms/IssuePageOrganisms/IssueEmptyOrganism'
+import instance from '@/services/instance'
+import { User } from '@/types/userStore.types'
+import { useUserStore } from '@/states/user-store/userStore'
+import { ProfileImageSvg } from '../../../../public/icons/ProfileImageSvg'
 type Values = {
   newFolderName: string
 }
@@ -19,11 +23,13 @@ type Values = {
 function Folder() {
   const backServer = process.env.NEXT_PUBLIC_BACKEND_API_URL
   const [folder, setFolder] = useState<object[]>([])
-  const [folderName, setFolderName] = useState<string>('2023-11-15 16:24')
+  const [folderName, setFolderName] = useState<string>('')
   const [message, setMessage] = useState('')
   const [isEditButtonClicked, setIsEditButtonClicked] = React.useState(false)
   const [values, setValues] = useState<Values>({ newFolderName: folderName })
   const router = useRouter()
+  const { user, setUser } = useUserStore()
+
   //폴더명 변경
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -39,13 +45,15 @@ function Folder() {
     width: 100,
     height: 36,
   }
-  const IssueCardProps = {
-    imageUrl: '',
-    videoUrl: '',
-    updatedAt: '2023-12-11T13:47:45.556Z',
-    issueName: '이슈 1',
-    _id: 'xxx',
-  }
+  // const IssueCardProps = {
+  //   imageUrl:
+  //     'https://static.qaing.co/35254e30e1fbffd775c6d1974bbe9a500da22d699a0c14b5d65c4bd6b333494c.jpg',
+  //   videoUrl:
+  //     'https://static.qaing.co/40d3ac9e49bf97172435d1ae0a7ab9a8751e1f97d85d731d4d6bf72b4f98a770.mp4',
+  //   updatedAt: '2023-12-21T15:38:58.391Z',
+  //   issueName: '이슈 1',
+  //   _id: '65845c123f1d1a6684bf16ba',
+  // }
 
   useEffect(() => {
     const getIssues = async () => {
@@ -63,6 +71,8 @@ function Folder() {
     }
     getIssues()
   }, [message])
+
+  useEffect(() => {}, [])
 
   //폴더명변경
 
@@ -90,13 +100,40 @@ function Folder() {
   const handleEditFolderSubmit = (folderId: string, values: object) => {
     editFolder(folderId, values)
       .then(res => {
-        console.log('res', res)
+        // console.log('res', res)
         alert('폴더명이 변경되었습니다.')
       })
       .catch(err => {
-        console.error('err', err)
+        // console.error('err', err)
       })
   }
+  useEffect(() => {
+    // console.log('folder', folder)
+  }, [folder])
+
+  //프로필 이미지
+  async function fetchUser(): Promise<User> {
+    const response = await instance.get('/users/info')
+    // console.log('res', response)
+    return response.data
+  }
+
+  useEffect(() => {
+    fetchUser()
+      .then(data => {
+        // console.log('data', data)
+        setUser({
+          userEmail: data.userEmail,
+          userName: data.userName,
+          userProfileImg: data.userProfileImg,
+          userPhoneNumber: data.userPhoneNumber,
+          userJob: data.userJob,
+          userTeamSize: data.userTeamSize,
+          userCompany: data.userCompany,
+        })
+      })
+      .catch(e => console.error(e))
+  }, [])
 
   return (
     <div>
@@ -107,7 +144,17 @@ function Folder() {
             <Logo logoSize={logoSize} />
           </Link>
           <div className="mr-[36px] w-[40px] h-[40px]">
-            <Image src={ProgileImageDefault} alt="default" />
+            {user && user.userProfileImg ? (
+              <Image
+                src={user.userProfileImg}
+                alt={'user profile image'}
+                width={40}
+                height={40}
+                className={'rounded-[50%]  object-cover w-[40px] h-[40px]'}
+              />
+            ) : (
+              <ProfileImageSvg size={40} />
+            )}
           </div>
         </div>
       </header>
@@ -141,14 +188,23 @@ function Folder() {
                   onClick={onClickEditButtonHandler}
                   className="ml-[10px]"
                 >
-                  <EditSvg color={'#C0C2C2'} />
+                  {folderName !== '' ? <EditSvg color={'#C0C2C2'} /> : ''}
                 </button>
               </div>
             )}
           </div>
           <div className="px-9 pt-9 gray-50">
             <div className="">
-              <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]"></div>
+              <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
+                <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]"></div>
+              </div>
+              {/* <IssueCard
+                key={IssueCardProps._id}
+                IssueCardProps={IssueCardProps}
+                folderId={folderId}
+                folderName={folderName}
+              /> */}
+
               {folder.length > 0 ? (
                 <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
                   {folder.map((item: any) => {

@@ -53,14 +53,14 @@ export default function SideBar() {
   }
   async function fetchUser(): Promise<User> {
     const response = await instance.get('/users/info')
-    console.log('res', response)
+    // console.log('res', response)
     return response.data
   }
 
   useEffect(() => {
     fetchUser()
       .then(data => {
-        console.log('data', data)
+        // console.log('data', data)
         setUser({
           userEmail: data.userEmail,
           userName: data.userName,
@@ -121,6 +121,7 @@ export default function SideBar() {
           <p className={'b4 text-gray-800'}>QAing 블로그</p>
         </Link>
         <div className="w-full h-[1px] bg-gray-300 my-[16px]" />
+
         {user && (
           <div
             className={'flex items-center gap-[12px] cursor-pointer'}
@@ -132,7 +133,7 @@ export default function SideBar() {
                 alt={'user profile image'}
                 width={48}
                 height={48}
-                className={'rounded-[50%]'}
+                className={'rounded-[50%] object-cover w-[48px] h-[48px]'}
               />
             ) : (
               <ProfileImageSvg />

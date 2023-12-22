@@ -60,7 +60,9 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
   ) {
     event.stopPropagation()
     setIsEditButtonClicked(prev => !prev)
+    setIsMoreButtonClicked(false)
   }
+
   function onClickDeleteButtonHandler() {
     setIsMoreButtonClicked(false)
     setModal(<DeleteIssueModal issueID={_id} folderId={folderId} />)
@@ -83,7 +85,7 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
   }
 
   useEffect(() => {
-    console.log('folderId', folderId)
+    // console.log('folderId', folderId)
   }, [])
 
   //이슈 이름 변경
@@ -93,7 +95,7 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
     values: object,
   ) => {
     editIssue(folderId, _id, values).then(() => {
-      console.log('이슈 이름 변경 완료')
+      // console.log('이슈 이름 변경 완료')
     })
   }
 
@@ -179,12 +181,14 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
               </div>
             </form>
           ) : (
-            <p>{issueName}</p>
+            <div className="flex flex-row justify-between w-[440px]">
+              <p className="w-[428px]">{issueName}</p>
+              <button onClick={onClickMoreButtonHandler}>
+                <MoreIcon />
+              </button>
+            </div>
           )}
 
-          <button onClick={onClickMoreButtonHandler}>
-            <MoreIcon />
-          </button>
           {isMoreButtonClicked && (
             <div
               ref={ref}

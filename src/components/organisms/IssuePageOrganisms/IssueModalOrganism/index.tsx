@@ -8,6 +8,7 @@ import CopyLinkIcon from '../../../../../public/icons/CopyLinkIcon'
 import { CloseIcon } from '../../../../../public/icons/CloseIcon'
 import { TypeImageIcon } from '../../../../../public/icons/TypeImageIcon'
 import { TypeVideoIcon } from '../../../../../public/icons/TypeVideoIcon'
+import useClipboard from '@/hooks/useClipboard'
 
 interface IssueModalProps {
   imageUrl: string
@@ -20,11 +21,12 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
   function onClickThumbnailHandler(mode: 'image' | 'video') {
     setMode(mode)
   }
+  const { handleCopyClipBoard } = useClipboard()
 
-  function onClickCopyLinkHandler() {
+  async function onClickCopyLinkHandler() {
     const url = mode === 'image' ? imageUrl : videoUrl
-    navigator.clipboard.writeText(url)
-    alert('링크가 복사되었습니다.')
+    // navigator.clipboard.writeText(url)
+    await handleCopyClipBoard(url)
   }
 
   function closeModal() {
@@ -32,7 +34,7 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
   }
 
   return (
-    <div className={'w-screen h-screen max-h-screen p-12'}>
+    <div className={'w-screen h-screen max-h-screen px-40 py-24 '}>
       <div className={'w-full h-full bg-white rounded-[8px] flex flex-col'}>
         <div
           className={
@@ -88,15 +90,18 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
             <CopyLinkIcon color={'#FFFFFF'} /> 링크 복사하기
           </button>
         </div>
-        <div className={'h-full px-[60px] py-[48px] bg-gray-200'}>
+        <div className={'h-full px-[30px] py-[48px] bg-gray-200'}>
           <div className={'flex w-full h-full relative'}>
             {mode === 'image' ? (
-              <Image
-                className={'rounded-[8px] overflow-hidden'}
-                src={imageUrl}
-                alt="issue"
-                fill
-              />
+              <div className={'h-full w-full flex justify-center'}>
+                <Image
+                  className={
+                    'rounded-[8px] overflow-hidden mx-auto object-cover'
+                  }
+                  src={imageUrl}
+                  alt="issue"
+                />
+              </div>
             ) : (
               <div className={'h-full w-full flex justify-center'}>
                 <video
