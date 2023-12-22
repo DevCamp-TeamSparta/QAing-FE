@@ -20,7 +20,7 @@ type Values = {
   newFolderName: string
 }
 
-function Folder() {
+function IssuePageTemplete() {
   const backServer = process.env.NEXT_PUBLIC_BACKEND_API_URL
   const [folder, setFolder] = useState<object[]>([])
   const [folderName, setFolderName] = useState<string>('')
@@ -58,14 +58,17 @@ function Folder() {
   useEffect(() => {
     const getIssues = async () => {
       try {
-        const res = await axios.get(
-          `${backServer}/folders/${folderId}/issues`,
-          {
+        await axios
+          .get(`${backServer}/folders/${folderId}/issues`, {
             withCredentials: true,
-          },
-        )
-        setFolder(res.data.issuesWithContents)
-        setFolderName(res.data.folderName)
+          })
+          .then(res => {
+            setFolder(res.data.issuesWithContents)
+            setFolderName(res.data.folderName)
+          })
+          .catch(err => {
+            err.response.status === 401 && router.push('/auth/login')
+          })
       } catch (err) {}
       // setLoading(false)
     }
@@ -232,4 +235,4 @@ function Folder() {
   )
 }
 
-export default Folder
+export default IssuePageTemplete

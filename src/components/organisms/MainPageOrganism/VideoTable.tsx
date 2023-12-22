@@ -28,7 +28,7 @@ export default function VideoTable() {
       .catch(error => {
         console.log('error', error)
         if (error.response.status === 401) {
-          router.push('/auth/login')
+          router.push('https://test.app.qaing/auth/login')
         }
       })
   }, [])
