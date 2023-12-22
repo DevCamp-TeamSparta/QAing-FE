@@ -34,7 +34,7 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
   }
 
   return (
-    <div className={'w-screen h-screen max-h-screen py-24 px-40'}>
+    <div className={'w-screen h-screen max-h-screen px-40 py-24 '}>
       <div className={'w-full h-full bg-white rounded-[8px] flex flex-col'}>
         <div
           className={
