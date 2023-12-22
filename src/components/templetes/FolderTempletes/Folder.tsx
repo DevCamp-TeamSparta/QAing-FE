@@ -148,12 +148,12 @@ function Folder() {
               <Image
                 src={user.userProfileImg}
                 alt={'user profile image'}
-                width={48}
-                height={48}
-                className={'rounded-[50%]'}
+                width={40}
+                height={40}
+                className={'rounded-[50%]  object-cover w-[40px] h-[40px]'}
               />
             ) : (
-              <ProfileImageSvg />
+              <ProfileImageSvg size={40} />
             )}
           </div>
         </div>
