@@ -6,13 +6,11 @@ import LoadingIssueModal from '@/components/organisms/IssuePageOrganisms/Loading
 import { useVideoUploadStore } from '@/states/videoStore'
 interface PageProps {
   folderId: string
-  folderName: string
   setMessage: React.Dispatch<React.SetStateAction<string>>
 }
 export default function IssueEmptyOrganism({
   folderId,
   setMessage,
-  folderName,
 }: PageProps) {
   const { modal, setModal, setBackGroundClose } = useModalStore()
   const { setProgress } = useVideoUploadStore()
@@ -28,20 +26,13 @@ export default function IssueEmptyOrganism({
 
     eventSource.onmessage = event => {
       const data = JSON.parse(event.data)
-      if (data.type === 'pre-progress') {
-        setBackGroundClose(false)
-        setModal(<LoadingIssueModal />)
-        console.log('1')
-      }
-      if (data.type === 'progress') {
-        console.log('2')
+      if (!data.status) {
         if (!modal) {
-          // setBackGroundClose(false)
-          // setModal(<LoadingIssueModal />)
+          setBackGroundClose(false)
+          setModal(<LoadingIssueModal />)
         }
         setProgress(data.progress, data.totalTasks)
       } else {
-        console.log('3')
         setModal(null)
         setMessage(data.message)
         eventSource.close()

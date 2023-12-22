@@ -53,14 +53,14 @@ export default function SideBar() {
   }
   async function fetchUser(): Promise<User> {
     const response = await instance.get('/users/info')
-    console.log('res', response)
+    // console.log('res', response)
     return response.data
   }
 
   useEffect(() => {
     fetchUser()
       .then(data => {
-        console.log('data', data)
+        // console.log('data', data)
         setUser({
           userEmail: data.userEmail,
           userName: data.userName,

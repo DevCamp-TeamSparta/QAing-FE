@@ -27,8 +27,8 @@ export default function DeleteIssueModal({
   }
 
   useEffect(() => {
-    console.log('folderId', folderId)
-    console.log('issueID', issueID)
+    // console.log('folderId', folderId)
+    // console.log('issueID', issueID)
   }, [folderId, issueID])
   return (
     <div

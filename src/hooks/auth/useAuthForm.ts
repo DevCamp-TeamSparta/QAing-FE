@@ -44,7 +44,7 @@ export default function useAuthForm(initialValues: Values) {
 
   const handleSubmit = (values: Values) => {
     const result = signupSchema.parse(values)
-    console.log('result', result)
+    // console.log('result', result)
   }
 
   return { handleSubmit, handleChange, values, setValues }

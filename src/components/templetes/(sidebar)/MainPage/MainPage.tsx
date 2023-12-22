@@ -15,7 +15,7 @@ export default function MainPageTemplate() {
     // window.location.href = 'https://qaing.co'
     // router.push('/')
     const getCookie = Cookies.get('access-token')
-    console.log('getCookie', getCookie)
+    // console.log('getCookie', getCookie)
   }, [getCookie])
 
   return (
