@@ -78,9 +78,10 @@ export default function FolderTableBody({
   const handleEditFolderSubmit = (
     event: React.FormEvent,
     folderId: string,
-    values: object,
+    values: Values,
   ) => {
     event.preventDefault()
+    if (values.newFolderName === '') return
     setIsEditButtonClicked(false)
     editFolder(folderId, values)
       .then(res => {
