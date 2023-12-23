@@ -25,7 +25,6 @@ export default function FolderTableBody({
   const inputRef = useRef<HTMLInputElement>(null)
   const [isMoreButtonClicked, setIsMoreButtonClicked] = React.useState(false)
   const [isEditButtonClicked, setIsEditButtonClicked] = React.useState(false)
-  const [isHovered, setIsHovered] = useState(false) // 폴더명 편집 버튼 hover 상태
   const [values, setValues] = useState<Values>({ newFolderName: folderName })
   const setModal = useModalStore(state => state.setModal)
   const router = useRouter()
@@ -109,16 +108,12 @@ export default function FolderTableBody({
     //  TODO: Link tag로 변경
     <div className={'relative'}>
       <div
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
         onClick={() => {
           if (isEditButtonClicked) return
           router.push(`folders/${_id}/issues`)
         }}
         className={
-          'grid grid-cols-[2fr_1fr_1fr_20px] px-[20px] py-[16px] border-b border-gray-300 ' +
-          (isHovered ? 'bg-gray-200' : '') +
-          ' active:bg-brand-background cursor-pointer'
+          'group hover:bg-gray-200 grid grid-cols-[2fr_1fr_1fr_20px] px-[20px] py-[16px] border-b border-gray-300  active:bg-brand-background cursor-pointer'
         }
       >
         <p className="flex gap-[12px] b3">
@@ -139,8 +134,7 @@ export default function FolderTableBody({
                   onBlur={event => handleEditFolderSubmit(event, _id, values)}
                   maxLength={40}
                   className={
-                    'overflow-hidden truncate w-[428px] ' +
-                    (isHovered ? 'bg-gray-200' : '')
+                    'overflow-hidden truncate w-[428px] group-hover:bg-gray-200 '
                   }
                 />
               </div>

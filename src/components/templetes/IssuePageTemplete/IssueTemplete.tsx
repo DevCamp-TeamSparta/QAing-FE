@@ -111,10 +111,9 @@ function IssuePageTemplete() {
     folderId: string,
     values: Values,
   ) => {
-    if (values.newFolderName === '') return
     event.preventDefault()
+    if (values.newFolderName === '') return
     setIsEditButtonClicked(false)
-
     editFolder(folderId, values)
       .then(res => {
         // console.log('res', res)
