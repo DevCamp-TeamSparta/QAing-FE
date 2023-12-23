@@ -17,8 +17,8 @@ export function ProfileImageSvg({ color = '#4DDADA', size }: SvgProps) {
           y2="48"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color={color || '#4DDADA'} />
-          <stop offset="1" stop-color="white" />
+          <stop stopColor={color || '#4DDADA'} />
+          <stop offset="1" stopColor="white" />
         </linearGradient>
       </defs>
     </svg>

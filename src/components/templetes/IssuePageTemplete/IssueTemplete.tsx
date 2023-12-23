@@ -16,6 +16,7 @@ import instance from '@/services/instance'
 import { User } from '@/types/userStore.types'
 import { useUserStore } from '@/states/user-store/userStore'
 import { ProfileImageSvg } from '../../../../public/icons/ProfileImageSvg'
+import { MyVideoSvg } from '../../../../public/icons/MyVideoSvg'
 type Values = {
   newFolderName: string
 }
@@ -77,7 +78,9 @@ function IssuePageTemplete() {
     getIssues()
   }, [message])
 
-  useEffect(() => {}, [])
+  useEffect(() => {
+    console.log('folderName', folderName)
+  }, [folderName])
 
   //폴더명변경
 
@@ -176,7 +179,10 @@ function IssuePageTemplete() {
             <Link href={'/'}>
               <Image src={Back} alt="back" />
             </Link>
-            <div className="ml-4">{/* <Table /> */}</div>
+            <div className="ml-4">
+              <MyVideoSvg />
+            </div>
+            <div className="ml-4"></div>
             {isEditButtonClicked ? (
               <form
                 onSubmit={event =>
@@ -200,11 +206,16 @@ function IssuePageTemplete() {
             ) : (
               <div className="flex flex-row">
                 <p className="h3">{values.newFolderName}</p>
+                <p className="h3">{folderName}</p>
                 <button
                   onClick={onClickEditButtonHandler}
                   className="ml-[10px]"
                 >
-                  {folderName !== '' ? <EditSvg color={'#C0C2C2'} /> : ''}
+                  {values.newFolderName !== '' ? (
+                    <EditSvg color={'#C0C2C2'} />
+                  ) : (
+                    ''
+                  )}
                 </button>
               </div>
             )}
