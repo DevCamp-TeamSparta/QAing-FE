@@ -45,15 +45,15 @@ function IssuePageTemplete() {
     width: 100,
     height: 36,
   }
-  // const IssueCardProps = {
-  //   imageUrl:
-  //     'https://static.qaing.co/35254e30e1fbffd775c6d1974bbe9a500da22d699a0c14b5d65c4bd6b333494c.jpg',
-  //   videoUrl:
-  //     'https://static.qaing.co/40d3ac9e49bf97172435d1ae0a7ab9a8751e1f97d85d731d4d6bf72b4f98a770.mp4',
-  //   updatedAt: '2023-12-21T15:38:58.391Z',
-  //   issueName: '이슈 1',
-  //   _id: '65845c123f1d1a6684bf16ba',
-  // }
+  const IssueCardProps = {
+    imageUrl:
+      'https://static.qaing.co/35254e30e1fbffd775c6d1974bbe9a500da22d699a0c14b5d65c4bd6b333494c.jpg',
+    videoUrl:
+      'https://static.qaing.co/40d3ac9e49bf97172435d1ae0a7ab9a8751e1f97d85d731d4d6bf72b4f98a770.mp4',
+    updatedAt: '2023-12-21T15:38:58.391Z',
+    issueName: '이슈 1',
+    _id: '65845c123f1d1a6684bf16ba',
+  }
 
   useEffect(() => {
     const getIssues = async () => {
@@ -65,9 +65,11 @@ function IssuePageTemplete() {
           .then(res => {
             setFolder(res.data.issuesWithContents)
             setFolderName(res.data.folderName)
+            console.log('res', res)
           })
           .catch(err => {
             err.response.status === 401 && router.push('/auth/login')
+            console.log('res', res)
           })
       } catch (err) {}
       // setLoading(false)
@@ -100,7 +102,13 @@ function IssuePageTemplete() {
     }
   }, [isEditButtonClicked])
 
-  const handleEditFolderSubmit = (folderId: string, values: object) => {
+  const handleEditFolderSubmit = (
+    event: React.FormEvent,
+    folderId: string,
+    values: object,
+  ) => {
+    event.preventDefault()
+    setIsEditButtonClicked(false)
     editFolder(folderId, values)
       .then(res => {
         // console.log('res', res)
@@ -168,25 +176,30 @@ function IssuePageTemplete() {
             <Link href={'/'}>
               <Image src={Back} alt="back" />
             </Link>
-
             <div className="ml-4">{/* <Table /> */}</div>
             {isEditButtonClicked ? (
-              <form onSubmit={() => handleEditFolderSubmit(folderId, values)}>
+              <form
+                onSubmit={event =>
+                  handleEditFolderSubmit(event, folderId, values)
+                }
+              >
                 <input
                   ref={inputRef}
                   type="text"
-                  placeholder={folderName}
+                  placeholder={values.newFolderName}
                   onChange={handleChange}
                   name="newFolderName"
                   value={values.newFolderName}
-                  onBlur={() => setIsEditButtonClicked(false)}
+                  onBlur={event =>
+                    handleEditFolderSubmit(event, folderId, values)
+                  }
                   maxLength={40}
                   className="h3  overflow-hidden truncate  bg-white w-[428px]"
                 />
               </form>
             ) : (
               <div className="flex flex-row">
-                <p className="h3">{folderName}</p>
+                <p className="h3">{values.newFolderName}</p>
                 <button
                   onClick={onClickEditButtonHandler}
                   className="ml-[10px]"
@@ -201,12 +214,12 @@ function IssuePageTemplete() {
               <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
                 <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]"></div>
               </div>
-              {/* <IssueCard
+              <IssueCard
                 key={IssueCardProps._id}
                 IssueCardProps={IssueCardProps}
                 folderId={folderId}
                 folderName={folderName}
-              /> */}
+              />
 
               {folder.length > 0 ? (
                 <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">

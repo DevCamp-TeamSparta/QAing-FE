@@ -90,10 +90,13 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
 
   //이슈 이름 변경
   const handleEditFolderSubmit = (
+    event: React.FormEvent,
     folderId: string,
     _id: string,
     values: object,
   ) => {
+    event.preventDefault()
+    setIsEditButtonClicked(false)
     editIssue(folderId, _id, values).then(() => {
       // console.log('이슈 이름 변경 완료')
     })
@@ -163,17 +166,21 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
           {isEditButtonClicked ? (
             <form
               className="flex gap-[10px]"
-              onSubmit={() => handleEditFolderSubmit(folderId, _id, values)}
+              onSubmit={event =>
+                handleEditFolderSubmit(event, folderId, _id, values)
+              }
             >
               <div className=" bg-gray-200">
                 <input
                   ref={inputRef}
                   type="text"
-                  placeholder={issueName}
+                  placeholder={values.newIssueName}
                   onChange={handleChange}
                   name="newIssueName"
                   value={values.newIssueName}
-                  onBlur={() => setIsEditButtonClicked(false)}
+                  onBlur={event =>
+                    handleEditFolderSubmit(event, folderId, _id, values)
+                  }
                   maxLength={40}
                   style={{ minWidth: '50px' }}
                   className="  overflow-hidden truncate inline-block w-[428px] bg-white  "
@@ -182,7 +189,7 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
             </form>
           ) : (
             <div className="flex flex-row justify-between w-[440px]">
-              <p className="w-[428px]">{issueName}</p>
+              <p className="w-[428px]">{values.newIssueName}</p>
               <button onClick={onClickMoreButtonHandler}>
                 <MoreIcon />
               </button>
