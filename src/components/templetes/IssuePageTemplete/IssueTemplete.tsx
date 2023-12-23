@@ -24,10 +24,10 @@ type Values = {
 function IssuePageTemplete() {
   const backServer = process.env.NEXT_PUBLIC_BACKEND_API_URL
   const [folder, setFolder] = useState<object[]>([])
-  const [folderName, setFolderName] = useState<string>('')
+  // const [folderName, setFolderName] = useState<string>('')
   const [message, setMessage] = useState('')
   const [isEditButtonClicked, setIsEditButtonClicked] = React.useState(false)
-  const [values, setValues] = useState<Values>({ newFolderName: folderName })
+  const [values, setValues] = useState<Values>({ newFolderName: '' })
   const router = useRouter()
   const { user, setUser } = useUserStore()
 
@@ -80,8 +80,8 @@ function IssuePageTemplete() {
   }, [message])
 
   useEffect(() => {
-    console.log('folderName', folderName)
-  }, [folderName])
+    console.log('values', values.newFolderName)
+  }, [values])
 
   //폴더명변경
 
@@ -109,11 +109,12 @@ function IssuePageTemplete() {
   const handleEditFolderSubmit = (
     event: React.FormEvent,
     folderId: string,
-    values: object,
+    values: Values,
   ) => {
+    if (values.newFolderName === '') return
     event.preventDefault()
     setIsEditButtonClicked(false)
-    setFolderName(values.newFolderName)
+
     editFolder(folderId, values)
       .then(res => {
         // console.log('res', res)
@@ -214,7 +215,11 @@ function IssuePageTemplete() {
                   onClick={onClickEditButtonHandler}
                   className="ml-[10px]"
                 >
-                  {folderName !== '' ? <EditSvg color={'#C0C2C2'} /> : ''}
+                  {values.newFolderName !== '' ? (
+                    <EditSvg color={'#C0C2C2'} />
+                  ) : (
+                    ''
+                  )}
                 </button>
               </div>
             )}
@@ -228,7 +233,7 @@ function IssuePageTemplete() {
                 key={IssueCardProps._id}
                 IssueCardProps={IssueCardProps}
                 folderId={folderId}
-                folderName={folderName}
+                folderName={values.newFolderName}
               />
 
               {folder.length > 0 ? (
@@ -239,7 +244,7 @@ function IssuePageTemplete() {
                         key={item._id}
                         IssueCardProps={item}
                         folderId={folderId}
-                        folderName={folderName}
+                        folderName={values.newFolderName}
                       />
                     )
                   })}
