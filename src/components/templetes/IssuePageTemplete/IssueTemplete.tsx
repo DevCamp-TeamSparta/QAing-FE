@@ -65,7 +65,8 @@ function IssuePageTemplete() {
           })
           .then(res => {
             setFolder(res.data.issuesWithContents)
-            setFolderName(res.data.folderName)
+            // setFolderName(res.data.folderName)
+            setValues({ newFolderName: res.data.folderName })
             console.log('res', res)
           })
           .catch(err => {
@@ -112,6 +113,7 @@ function IssuePageTemplete() {
   ) => {
     event.preventDefault()
     setIsEditButtonClicked(false)
+    setFolderName(values.newFolderName)
     editFolder(folderId, values)
       .then(res => {
         // console.log('res', res)
