@@ -78,9 +78,10 @@ export default function FolderTableBody({
   const handleEditFolderSubmit = (
     event: React.FormEvent,
     folderId: string,
-    values: object,
+    values: Values,
   ) => {
     event.preventDefault()
+    if (values.newFolderName === '') return
     setIsEditButtonClicked(false)
     editFolder(folderId, values)
       .then(res => {
@@ -116,12 +117,12 @@ export default function FolderTableBody({
         }
       >
         <p className="flex gap-[12px] b3">
+          <MyVideoSvg color={'#959797'} size={'24'} />
           {isEditButtonClicked ? (
             <form
               className="flex gap-[10px]"
               onSubmit={event => handleEditFolderSubmit(event, _id, values)}
             >
-              <MyVideoSvg color={'#959797'} size={'24'} />
               <div className="">
                 <input
                   ref={inputRef}
@@ -137,9 +138,7 @@ export default function FolderTableBody({
               </div>
             </form>
           ) : (
-            <>
-              <MyVideoSvg color={'gray-900'} size={24} /> {values.newFolderName}
-            </>
+            <p>{values.newFolderName}</p>
           )}
         </p>
         <p className={'b4'}>{videoTableProps.count}개</p>

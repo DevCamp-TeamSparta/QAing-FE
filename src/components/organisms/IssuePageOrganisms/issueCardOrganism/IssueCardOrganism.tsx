@@ -93,9 +93,10 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
     event: React.FormEvent,
     folderId: string,
     _id: string,
-    values: object,
+    values: Values,
   ) => {
     event.preventDefault()
+    if (values.newIssueName === '') return
     setIsEditButtonClicked(false)
     editIssue(folderId, _id, values).then(() => {
       // console.log('이슈 이름 변경 완료')
