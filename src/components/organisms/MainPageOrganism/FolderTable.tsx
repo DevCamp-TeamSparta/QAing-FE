@@ -11,123 +11,123 @@ import { Folder } from '@/types/userFolder.types'
 import { useRouter } from 'next/navigation'
 
 export default function FolderTable() {
-  // const videos = useVideoStore(state => state.videos)
-  // const [folders, setFolders] = useState<Folder[]>([])
-  // const backServerUrl = process.env.NEXT_PUBLIC_BACKEND_API_URL
-  // const router = useRouter()
+  const videos = useVideoStore(state => state.videos)
+  const [folders, setFolders] = useState<Folder[]>([])
+  const backServerUrl = process.env.NEXT_PUBLIC_BACKEND_API_URL
+  const router = useRouter()
 
-  // useEffect(() => {
-  //   fetchFolder()
-  //     .then(response => {
-  //       console.log('상태값', response)
-  //       setFolders(response.data)
-  //       // if (response.status === 401) {
-  //       //   router.push('/auth/login')
-  //       // }
-  //     })
-  //     .catch(error => {
-  //       console.log('error', error)
-  //       if (error.response.status === 401) {
-  //         router.push('/auth/login')
-  //       }
-  //     })
-  // }, [])
+  useEffect(() => {
+    fetchFolder()
+      .then(response => {
+        console.log('상태값', response)
+        setFolders(response.data)
+        if (response.status === 401) {
+          router.push('/auth/login')
+        }
+      })
+      .catch(error => {
+        console.log('error', error)
+        if (error.response.status === 401) {
+          router.push('/auth/login')
+        }
+      })
+  }, [])
 
-  // useEffect(() => {
-  //   if (folders.length === 0) return
-  //   console.log('folder가 변경되었습니다.', folders)
-  // }, [folders])
+  useEffect(() => {
+    if (folders.length === 0) return
+    console.log('folder가 변경되었습니다.', folders)
+  }, [folders])
 
-  const folders = [
-    {
-      name: '0',
-      count: 0,
-      folderName: '0',
-      createdAt: '0',
-      issues: ['1', '2', '3'],
-      _id: '0',
-    },
-    {
-      name: '0',
-      count: 0,
-      folderName: '0',
-      createdAt: '0',
-      issues: ['1', '2', '3'],
-      _id: '0',
-    },
-    {
-      name: '0',
-      count: 0,
-      folderName: '0',
-      createdAt: '0',
-      issues: ['1', '2', '3'],
-      _id: '0',
-    },
-    {
-      name: '0',
-      count: 0,
-      folderName: '0',
-      createdAt: '0',
-      issues: ['1', '2', '3'],
-      _id: '0',
-    },
-    {
-      name: '0',
-      count: 0,
-      folderName: '0',
-      createdAt: '0',
-      issues: ['1', '2', '3'],
-      _id: '0',
-    },
-    {
-      name: '0',
-      count: 0,
-      folderName: '0',
-      createdAt: '0',
-      issues: ['1', '2', '3'],
-      _id: '0',
-    },
-    {
-      name: '0',
-      count: 0,
-      folderName: '0',
-      createdAt: '0',
-      issues: ['1', '2', '3'],
-      _id: '0',
-    },
-    {
-      name: '0',
-      count: 0,
-      folderName: '0',
-      createdAt: '0',
-      issues: ['1', '2', '3'],
-      _id: '0',
-    },
-    {
-      name: '0',
-      count: 0,
-      folderName: '0',
-      createdAt: '0',
-      issues: ['1', '2', '3'],
-      _id: '0',
-    },
-    {
-      name: '0',
-      count: 0,
-      folderName: '0',
-      createdAt: '0',
-      issues: ['1', '2', '3'],
-      _id: '0',
-    },
-    {
-      name: '0',
-      count: 0,
-      folderName: '0',
-      createdAt: '0',
-      issues: ['1', '2', '3'],
-      _id: '0',
-    },
-  ]
+  // const folders = [
+  //   {
+  //     name: '0',
+  //     count: 0,
+  //     folderName: '0',
+  //     createdAt: '0',
+  //     issues: ['1', '2', '3'],
+  //     _id: '0',
+  //   },
+  //   {
+  //     name: '0',
+  //     count: 0,
+  //     folderName: '0',
+  //     createdAt: '0',
+  //     issues: ['1', '2', '3'],
+  //     _id: '0',
+  //   },
+  //   {
+  //     name: '0',
+  //     count: 0,
+  //     folderName: '0',
+  //     createdAt: '0',
+  //     issues: ['1', '2', '3'],
+  //     _id: '0',
+  //   },
+  //   {
+  //     name: '0',
+  //     count: 0,
+  //     folderName: '0',
+  //     createdAt: '0',
+  //     issues: ['1', '2', '3'],
+  //     _id: '0',
+  //   },
+  //   {
+  //     name: '0',
+  //     count: 0,
+  //     folderName: '0',
+  //     createdAt: '0',
+  //     issues: ['1', '2', '3'],
+  //     _id: '0',
+  //   },
+  //   {
+  //     name: '0',
+  //     count: 0,
+  //     folderName: '0',
+  //     createdAt: '0',
+  //     issues: ['1', '2', '3'],
+  //     _id: '0',
+  //   },
+  //   {
+  //     name: '0',
+  //     count: 0,
+  //     folderName: '0',
+  //     createdAt: '0',
+  //     issues: ['1', '2', '3'],
+  //     _id: '0',
+  //   },
+  //   {
+  //     name: '0',
+  //     count: 0,
+  //     folderName: '0',
+  //     createdAt: '0',
+  //     issues: ['1', '2', '3'],
+  //     _id: '0',
+  //   },
+  //   {
+  //     name: '0',
+  //     count: 0,
+  //     folderName: '0',
+  //     createdAt: '0',
+  //     issues: ['1', '2', '3'],
+  //     _id: '0',
+  //   },
+  //   {
+  //     name: '0',
+  //     count: 0,
+  //     folderName: '0',
+  //     createdAt: '0',
+  //     issues: ['1', '2', '3'],
+  //     _id: '0',
+  //   },
+  //   {
+  //     name: '0',
+  //     count: 0,
+  //     folderName: '0',
+  //     createdAt: '0',
+  //     issues: ['1', '2', '3'],
+  //     _id: '0',
+  //   },
+  // ]
   // const navigateToFoldersPage =(folders._id:string) =>{
   //   router.push(`/folders/${folders._id}/`)
   // }
