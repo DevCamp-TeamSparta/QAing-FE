@@ -121,7 +121,7 @@ export default function FolderTableBody({
               className="flex gap-[10px]"
               onSubmit={event => handleEditFolderSubmit(event, _id, values)}
             >
-              <MyVideoSvg color={'#959797'} size={24} />
+              <MyVideoSvg color={'#959797'} size={'24'} />
               <div className="">
                 <input
                   ref={inputRef}

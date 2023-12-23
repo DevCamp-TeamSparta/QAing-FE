@@ -206,6 +206,8 @@ function IssuePageTemplete() {
             ) : (
               <div className="flex flex-row">
                 <p className="h3">{values.newFolderName}</p>
+                <p className="h3">{folderName}</p>
+
                 <button
                   onClick={onClickEditButtonHandler}
                   className="ml-[10px]"
