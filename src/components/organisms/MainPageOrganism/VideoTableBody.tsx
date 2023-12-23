@@ -55,6 +55,7 @@ export default function VideoTableBody({
     event: React.MouseEvent<HTMLButtonElement>,
   ) {
     event.stopPropagation()
+    setIsMoreButtonClicked(false)
     setIsEditButtonClicked(prev => !prev)
   }
 
