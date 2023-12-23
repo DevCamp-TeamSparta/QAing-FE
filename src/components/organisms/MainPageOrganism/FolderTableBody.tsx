@@ -133,7 +133,7 @@ export default function FolderTableBody({
                   value={values.newFolderName}
                   onBlur={event => handleEditFolderSubmit(event, _id, values)}
                   maxLength={40}
-                  className="  overflow-hidden truncate  bg-white w-[428px]"
+                  className="  overflow-hidden truncate w-[428px]"
                 />
               </div>
             </form>
