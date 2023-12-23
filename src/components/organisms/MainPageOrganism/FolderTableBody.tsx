@@ -15,7 +15,7 @@ type Values = {
   newFolderName: string
 }
 
-export default function VideoTableBody({
+export default function FolderTableBody({
   createdAt,
   issues,
   _id,

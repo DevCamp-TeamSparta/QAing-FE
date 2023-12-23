@@ -4,13 +4,13 @@ import { FolderSvg } from '../../../../public/icons/FolderSvg'
 import { SaveSvg } from '../../../../public/icons/SaveSvg'
 import { DateSvg } from '../../../../public/icons/DataSvg'
 import { MoreSvg } from '../../../../public/icons/MoreSvg'
-import VideoTableBody from '@/components/organisms/MainPageOrganism/VideoTableBody'
+import FolderTableBody from '@/components/organisms/MainPageOrganism/FolderTableBody'
 import { useEffect, useState } from 'react'
 import { fetchFolder } from '@/services/folder/folder.api'
 import { Folder } from '@/types/userFolder.types'
 import { useRouter } from 'next/navigation'
 
-export default function VideoTable() {
+export default function FolderTable() {
   const videos = useVideoStore(state => state.videos)
   const [folders, setFolders] = useState<Folder[]>([])
   const backServerUrl = process.env.NEXT_PUBLIC_BACKEND_API_URL
@@ -156,7 +156,7 @@ export default function VideoTable() {
         {folders.length > 0 ? (
           <div>
             {folders.map((folder, index) => (
-              <VideoTableBody
+              <FolderTableBody
                 key={`video table body ${index}`}
                 folderName={folder.folderName}
                 createdAt={folder.createdAt}
