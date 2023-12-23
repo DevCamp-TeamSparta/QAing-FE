@@ -1,6 +1,6 @@
 'use client'
 import { useEffect } from 'react'
-import VideoTable from '@/components/organisms/MainPageOrganism/VideoTable'
+import FolderTable from '@/components/organisms/MainPageOrganism/FolderTable'
 import { useVideoStore } from '@/states/videoStore'
 import InstallBanner from '@/components/organisms/MainPageOrganism/InstallBanner'
 import Cookies from 'js-cookie'
@@ -28,7 +28,7 @@ export default function MainPageTemplate() {
         <h1 className={'h3'}>QA 폴더</h1>
       </header>
       <InstallBanner />
-      <VideoTable />
+      <FolderTable />
     </main>
   )
 }

@@ -4,46 +4,41 @@ import { FolderSvg } from '../../../../public/icons/FolderSvg'
 import { SaveSvg } from '../../../../public/icons/SaveSvg'
 import { DateSvg } from '../../../../public/icons/DataSvg'
 import { MoreSvg } from '../../../../public/icons/MoreSvg'
-import VideoTableBody from '@/components/organisms/MainPageOrganism/VideoTableBody'
+import FolderTableBody from '@/components/organisms/MainPageOrganism/FolderTableBody'
 import { useEffect, useState } from 'react'
 import { fetchFolder } from '@/services/folder/folder.api'
 import { Folder } from '@/types/userFolder.types'
-import axios from 'axios'
+import { useRouter } from 'next/navigation'
 
-export default function VideoTable() {
+export default function FolderTable() {
   const videos = useVideoStore(state => state.videos)
   const [folders, setFolders] = useState<Folder[]>([])
   const backServerUrl = process.env.NEXT_PUBLIC_BACKEND_API_URL
+  const router = useRouter()
 
   useEffect(() => {
-    fetchFolder().then(data => {
-      // console.log('store에 저장합니다1', data)
-      setFolders(data)
-    })
+    fetchFolder()
+      .then(response => {
+        console.log('상태값', response)
+        setFolders(response.data)
+        // if (response.status === 401) {
+        //   router.push('/auth/login')
+        // }
+      })
+      .catch(error => {
+        console.log('error', error)
+        if (error.response.status === 401) {
+          router.push('/auth/login')
+        }
+      })
   }, [])
 
-  // useEffect(() => {
-  //   if (folders.length === 0) return
-  //   console.log('folder가 변경되었습니다.', folders)
-  // }, [folders])
+  useEffect(() => {
+    if (folders.length === 0) return
+    console.log('folder가 변경되었습니다.', folders)
+  }, [folders])
 
   // const folders = [
-  //   {
-  //     name: '0',
-  //     count: 0,
-  //     folderName: '0',
-  //     createdAt: '0',
-  //     issues: ['1', '2', '3'],
-  //     _id: '0',
-  //   },
-  //   {
-  //     name: '0',
-  //     count: 0,
-  //     folderName: '0',
-  //     createdAt: '0',
-  //     issues: ['1', '2', '3'],
-  //     _id: '0',
-  //   },
   //   {
   //     name: '0',
   //     count: 0,
@@ -157,10 +152,11 @@ export default function VideoTable() {
             생성 날짜
           </p>
         </div>
+
         {folders.length > 0 ? (
           <div>
             {folders.map((folder, index) => (
-              <VideoTableBody
+              <FolderTableBody
                 key={`video table body ${index}`}
                 folderName={folder.folderName}
                 createdAt={folder.createdAt}

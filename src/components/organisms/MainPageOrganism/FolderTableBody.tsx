@@ -15,7 +15,7 @@ type Values = {
   newFolderName: string
 }
 
-export default function VideoTableBody({
+export default function FolderTableBody({
   createdAt,
   issues,
   _id,
@@ -55,6 +55,7 @@ export default function VideoTableBody({
     event: React.MouseEvent<HTMLButtonElement>,
   ) {
     event.stopPropagation()
+    setIsMoreButtonClicked(false)
     setIsEditButtonClicked(prev => !prev)
   }
 
@@ -74,7 +75,13 @@ export default function VideoTableBody({
       [name]: value,
     })
   }
-  const handleEditFolderSubmit = (folderId: string, values: object) => {
+  const handleEditFolderSubmit = (
+    event: React.FormEvent,
+    folderId: string,
+    values: object,
+  ) => {
+    event.preventDefault()
+    setIsEditButtonClicked(false)
     editFolder(folderId, values)
       .then(res => {
         // console.log('res', res)
@@ -112,9 +119,9 @@ export default function VideoTableBody({
           {isEditButtonClicked ? (
             <form
               className="flex gap-[10px]"
-              onSubmit={() => handleEditFolderSubmit(_id, values)}
+              onSubmit={event => handleEditFolderSubmit(event, _id, values)}
             >
-              <MyVideoSvg color={'#959797'} />
+              <MyVideoSvg color={'#959797'} size={'24'} />
               <div className="">
                 <input
                   ref={inputRef}
@@ -131,7 +138,7 @@ export default function VideoTableBody({
             </form>
           ) : (
             <>
-              <MyVideoSvg color={'#959797'} /> {videoTableProps.name}
+              <MyVideoSvg color={'gray-900'} size={24} /> {values.newFolderName}
             </>
           )}
         </p>

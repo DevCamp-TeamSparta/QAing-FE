@@ -16,17 +16,18 @@ import instance from '@/services/instance'
 import { User } from '@/types/userStore.types'
 import { useUserStore } from '@/states/user-store/userStore'
 import { ProfileImageSvg } from '../../../../public/icons/ProfileImageSvg'
+import { MyVideoSvg } from '../../../../public/icons/MyVideoSvg'
 type Values = {
   newFolderName: string
 }
 
-function Folder() {
+function IssuePageTemplete() {
   const backServer = process.env.NEXT_PUBLIC_BACKEND_API_URL
   const [folder, setFolder] = useState<object[]>([])
-  const [folderName, setFolderName] = useState<string>('')
+  // const [folderName, setFolderName] = useState<string>('')
   const [message, setMessage] = useState('')
   const [isEditButtonClicked, setIsEditButtonClicked] = React.useState(false)
-  const [values, setValues] = useState<Values>({ newFolderName: folderName })
+  const [values, setValues] = useState<Values>({ newFolderName: '' })
   const router = useRouter()
   const { user, setUser } = useUserStore()
 
@@ -45,34 +46,42 @@ function Folder() {
     width: 100,
     height: 36,
   }
-  // const IssueCardProps = {
-  //   imageUrl:
-  //     'https://static.qaing.co/35254e30e1fbffd775c6d1974bbe9a500da22d699a0c14b5d65c4bd6b333494c.jpg',
-  //   videoUrl:
-  //     'https://static.qaing.co/40d3ac9e49bf97172435d1ae0a7ab9a8751e1f97d85d731d4d6bf72b4f98a770.mp4',
-  //   updatedAt: '2023-12-21T15:38:58.391Z',
-  //   issueName: '이슈 1',
-  //   _id: '65845c123f1d1a6684bf16ba',
-  // }
+  const IssueCardProps = {
+    imageUrl:
+      'https://static.qaing.co/35254e30e1fbffd775c6d1974bbe9a500da22d699a0c14b5d65c4bd6b333494c.jpg',
+    videoUrl:
+      'https://static.qaing.co/40d3ac9e49bf97172435d1ae0a7ab9a8751e1f97d85d731d4d6bf72b4f98a770.mp4',
+    updatedAt: '2023-12-21T15:38:58.391Z',
+    issueName: '이슈 1',
+    _id: '65845c123f1d1a6684bf16ba',
+  }
 
   useEffect(() => {
     const getIssues = async () => {
       try {
-        const res = await axios.get(
-          `${backServer}/folders/${folderId}/issues`,
-          {
+        const res = await axios
+          .get(`${backServer}/folders/${folderId}/issues`, {
             withCredentials: true,
-          },
-        )
-        setFolder(res.data.issuesWithContents)
-        setFolderName(res.data.folderName)
+          })
+          .then(res => {
+            setFolder(res.data.issuesWithContents)
+            // setFolderName(res.data.folderName)
+            setValues({ newFolderName: res.data.folderName })
+            console.log('res', res)
+          })
+          .catch(err => {
+            err.response.status === 401 && router.push('/auth/login')
+            console.log('res', res)
+          })
       } catch (err) {}
       // setLoading(false)
     }
     getIssues()
   }, [message])
 
-  useEffect(() => {}, [])
+  useEffect(() => {
+    console.log('values', values.newFolderName)
+  }, [values])
 
   //폴더명변경
 
@@ -97,7 +106,15 @@ function Folder() {
     }
   }, [isEditButtonClicked])
 
-  const handleEditFolderSubmit = (folderId: string, values: object) => {
+  const handleEditFolderSubmit = (
+    event: React.FormEvent,
+    folderId: string,
+    values: Values,
+  ) => {
+    if (values.newFolderName === '') return
+    event.preventDefault()
+    setIsEditButtonClicked(false)
+
     editFolder(folderId, values)
       .then(res => {
         // console.log('res', res)
@@ -165,30 +182,44 @@ function Folder() {
             <Link href={'/'}>
               <Image src={Back} alt="back" />
             </Link>
-
-            <div className="ml-4">{/* <Table /> */}</div>
+            <div className="ml-4">
+              <MyVideoSvg />
+            </div>
+            <div className="ml-4"></div>
             {isEditButtonClicked ? (
-              <form onSubmit={() => handleEditFolderSubmit(folderId, values)}>
+              <form
+                onSubmit={event =>
+                  handleEditFolderSubmit(event, folderId, values)
+                }
+              >
                 <input
                   ref={inputRef}
                   type="text"
-                  placeholder={folderName}
+                  placeholder={values.newFolderName}
                   onChange={handleChange}
                   name="newFolderName"
                   value={values.newFolderName}
-                  onBlur={() => setIsEditButtonClicked(false)}
+                  onBlur={event =>
+                    handleEditFolderSubmit(event, folderId, values)
+                  }
                   maxLength={40}
                   className="h3  overflow-hidden truncate  bg-white w-[428px]"
                 />
               </form>
             ) : (
               <div className="flex flex-row">
-                <p className="h3">{folderName}</p>
+                <p className="h3">{values.newFolderName}</p>
+                {/* <p className="h3">{folderName}</p> */}
+
                 <button
                   onClick={onClickEditButtonHandler}
                   className="ml-[10px]"
                 >
-                  {folderName !== '' ? <EditSvg color={'#C0C2C2'} /> : ''}
+                  {values.newFolderName !== '' ? (
+                    <EditSvg color={'#C0C2C2'} />
+                  ) : (
+                    ''
+                  )}
                 </button>
               </div>
             )}
@@ -198,12 +229,12 @@ function Folder() {
               <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
                 <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]"></div>
               </div>
-              {/* <IssueCard
+              <IssueCard
                 key={IssueCardProps._id}
                 IssueCardProps={IssueCardProps}
                 folderId={folderId}
-                folderName={folderName}
-              /> */}
+                folderName={values.newFolderName}
+              />
 
               {folder.length > 0 ? (
                 <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
@@ -213,7 +244,7 @@ function Folder() {
                         key={item._id}
                         IssueCardProps={item}
                         folderId={folderId}
-                        folderName={folderName}
+                        folderName={values.newFolderName}
                       />
                     )
                   })}
@@ -232,4 +263,4 @@ function Folder() {
   )
 }
 
-export default Folder
+export default IssuePageTemplete
