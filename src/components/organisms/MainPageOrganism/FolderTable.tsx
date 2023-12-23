@@ -21,9 +21,9 @@ export default function FolderTable() {
       .then(response => {
         console.log('상태값', response)
         setFolders(response.data)
-        // if (response.status === 401) {
-        //   router.push('/auth/login')
-        // }
+        if (response.status === 401) {
+          router.push('/auth/login')
+        }
       })
       .catch(error => {
         console.log('error', error)
