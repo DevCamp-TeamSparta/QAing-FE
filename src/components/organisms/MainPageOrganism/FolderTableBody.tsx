@@ -25,7 +25,6 @@ export default function FolderTableBody({
   const inputRef = useRef<HTMLInputElement>(null)
   const [isMoreButtonClicked, setIsMoreButtonClicked] = React.useState(false)
   const [isEditButtonClicked, setIsEditButtonClicked] = React.useState(false)
-  const [isHovered, setIsHovered] = useState(false) // 폴더명 편집 버튼 hover 상태
   const [values, setValues] = useState<Values>({ newFolderName: folderName })
   const setModal = useModalStore(state => state.setModal)
   const router = useRouter()

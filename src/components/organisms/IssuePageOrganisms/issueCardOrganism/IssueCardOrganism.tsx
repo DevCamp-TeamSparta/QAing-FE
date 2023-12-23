@@ -95,8 +95,8 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
     _id: string,
     values: Values,
   ) => {
-    if (values.newIssueName === '') return
     event.preventDefault()
+    if (values.newIssueName === '') return
     setIsEditButtonClicked(false)
     editIssue(folderId, _id, values).then(() => {
       // console.log('이슈 이름 변경 완료')
