@@ -3,7 +3,8 @@
 import React from 'react'
 import Image from 'next/image'
 import { useModalStore } from '@/states/modalStore'
-import IssueModal from '@/components/organisms/IssuePageOrganisms/IssueModalOrganism/IssueModalOrganism'
+// import IssueModal from '@/components/organisms/IssuePageOrganisms/IssueModalOrganism/IssueModalOrganism'
+import TestIssueModal from '@/components/organisms/IssuePageOrganisms/IssueModalOrganism/TestIssueModalOrganism'
 
 type ThumbnailProps = {
   imageUrl: string
@@ -13,7 +14,7 @@ type ThumbnailProps = {
 function IssueThumbnail({ imageUrl, videoUrl }: ThumbnailProps) {
   const setModal = useModalStore(state => state.setModal)
   function onClickThumbnailHandler() {
-    setModal(<IssueModal imageUrl={imageUrl} videoUrl={videoUrl} />)
+    setModal(<TestIssueModal imageUrl={imageUrl} videoUrl={videoUrl} />)
   }
   return (
     <div className="relative group cursor-pointer">
