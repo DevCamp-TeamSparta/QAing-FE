@@ -27,6 +27,9 @@ export default function IssueEmptyOrganism({
     eventSource.onmessage = event => {
       const data = JSON.parse(event.data)
       console.log('data', data)
+      if (data.status === 'pre-progress') {
+        console.log('data.status', data.status)
+      }
       // if (!data.status) {
       //   if (!modal) {
       //     setBackGroundClose(false)
