@@ -52,7 +52,7 @@ function IssuePageTemplete() {
     videoUrl:
       'https://static.qaing.co/40d3ac9e49bf97172435d1ae0a7ab9a8751e1f97d85d731d4d6bf72b4f98a770.mp4',
     updatedAt: '2023-12-21T15:38:58.391Z',
-    issueName: '이슈 1',
+    issueName: '이슈 11',
     _id: '65845c123f1d1a6684bf16ba',
   }
 

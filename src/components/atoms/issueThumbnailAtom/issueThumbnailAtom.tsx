@@ -4,6 +4,7 @@ import React from 'react'
 import Image from 'next/image'
 import { useModalStore } from '@/states/modalStore'
 import IssueModal from '@/components/organisms/IssuePageOrganisms/IssueModalOrganism/IssueModalOrganism'
+// import TestIssueModal from '@/components/organisms/IssuePageOrganisms/IssueModalOrganism/TestIssueModalOrganism'
 
 type ThumbnailProps = {
   imageUrl: string
