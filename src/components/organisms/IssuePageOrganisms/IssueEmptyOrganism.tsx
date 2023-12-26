@@ -27,20 +27,21 @@ export default function IssueEmptyOrganism({
     eventSource.onmessage = event => {
       const data = JSON.parse(event.data)
       console.log('data', data)
-      if (data.status === 'pre-progress') {
-        console.log('data.status', data.status)
-      }
-      // if (!data.status) {
-      //   if (!modal) {
-      //     setBackGroundClose(false)
-      //     setModal(<LoadingIssueModal />)
-      //   }
-      //   setProgress(data.progress, data.totalTasks)
-      // } else {
-      //   setModal(null)
-      //   setMessage(data.message)
-      //   eventSource.close()
+      // if (data.status === 'pre-progress') {
+      //   console.log('data.status', data.status)
       // }
+      if (data.status === 'progress') {
+        if (!modal) {
+          setBackGroundClose(false)
+          setModal(<LoadingIssueModal />)
+        }
+        setProgress(data.progress, data.totalTasks)
+      }
+      if (data.status === 'done') {
+        setModal(null)
+        setMessage(data.message)
+        eventSource.close()
+      }
     }
     //에러확인
     eventSource.onerror = error => {
