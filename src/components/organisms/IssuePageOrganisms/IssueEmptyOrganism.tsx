@@ -26,17 +26,18 @@ export default function IssueEmptyOrganism({
 
     eventSource.onmessage = event => {
       const data = JSON.parse(event.data)
-      if (!data.status) {
-        if (!modal) {
-          setBackGroundClose(false)
-          setModal(<LoadingIssueModal />)
-        }
-        setProgress(data.progress, data.totalTasks)
-      } else {
-        setModal(null)
-        setMessage(data.message)
-        eventSource.close()
-      }
+      console.log('data', data)
+      // if (!data.status) {
+      //   if (!modal) {
+      //     setBackGroundClose(false)
+      //     setModal(<LoadingIssueModal />)
+      //   }
+      //   setProgress(data.progress, data.totalTasks)
+      // } else {
+      //   setModal(null)
+      //   setMessage(data.message)
+      //   eventSource.close()
+      // }
     }
     //에러확인
     eventSource.onerror = error => {
