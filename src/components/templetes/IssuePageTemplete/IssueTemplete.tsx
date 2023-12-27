@@ -71,7 +71,7 @@ function IssuePageTemplete() {
             console.log('res', res)
           })
           .catch(err => {
-            err.response.status === 401 && router.push('/auth/login')
+            err.response.status === 401 && router.push('/auth')
             console.log('res', res)
           })
       } catch (err) {}

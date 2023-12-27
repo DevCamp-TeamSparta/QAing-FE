@@ -1,10 +1,10 @@
 import React from 'react'
-import GoogleSignup from '@/components/templetes/SignupTemplete/GoogleSignupTemplete'
+import OnboardingTemplete from '@/components/templetes/AuthTemplete/OnboardingTemplete'
 
 function Page() {
   return (
     <div className="h-[1342px]">
-      <GoogleSignup />
+      <OnboardingTemplete />
     </div>
   )
 }

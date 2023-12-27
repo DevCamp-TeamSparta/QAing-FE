@@ -56,7 +56,7 @@ function Page() {
         user.userJob === null ||
         user.userCompany === null
       ) {
-        console.log('사전정보를 입력해야합니다.')
+        router.push('/auth/onboarding')
       }
     }
     isAdvancedSignup()

@@ -1,9 +1,8 @@
 'use client'
 import Logo from '@/components/atoms/LogoAtom/LogoAtoms'
 import OAuthBoutton from '@/components/atoms/OAuthButtonAtom/OAuthButtonAtom'
-import { GoogleSignup } from '@/services/auth/google.api'
 
-function SignnupOrgansim() {
+function GoogleSignnupOrgansim() {
   const logoSize = {
     alt: 'Logo',
     width: 302.22,
@@ -29,4 +28,4 @@ function SignnupOrgansim() {
   )
 }
 
-export default SignnupOrgansim
+export default GoogleSignnupOrgansim
