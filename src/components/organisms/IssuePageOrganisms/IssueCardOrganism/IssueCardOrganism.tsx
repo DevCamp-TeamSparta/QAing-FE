@@ -12,6 +12,7 @@ import { TypeVideoIcon } from '../../../../../public/icons/TypeVideoIcon'
 import CopyLinkIcon from '../../../../../public/icons/CopyLinkIcon'
 import useClipboard from '@/hooks/useClipboard'
 import { editIssue } from '@/services/issue/issue.api'
+import { initAmplitude, logPageView, logEvent } from '@/lib/amplitude'
 
 interface IssueCardProps {
   IssueCardProps: {
@@ -73,6 +74,7 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
   }
   function onClickCopyButtonHandler(e: React.MouseEvent<HTMLButtonElement>) {
     e.stopPropagation()
+    linkButtonClickEvent('공통', '썸네일')
     setIsCopyButtonClicked(!isCopyButtonClicked)
   }
 
@@ -110,6 +112,15 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
     }
   }, [isEditButtonClicked])
 
+  //amplitude
+  const linkButtonClickEvent = (contentType: string, buttonWhere: string) => {
+    logEvent('qaing_folderpage_link_button_click', {
+      button_name: '파일 링크복사',
+      content_type: contentType,
+      button_where: buttonWhere,
+    })
+  }
+
   return (
     <div className="w-[440px] h-[417px] relative">
       <div className="flex flex-col">
@@ -128,7 +139,10 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
                 <div className="flex flex-col gap-3">
                   <div
                     className="rounded-2xl px-4 py-[10px] bg-gray-200 cursor-pointer hover:bg-primary-light "
-                    onClick={() => handleCopyClipBoard(imageUrl)}
+                    onClick={() => {
+                      handleCopyClipBoard(imageUrl),
+                        linkButtonClickEvent('이미지', '썸네일')
+                    }}
                   >
                     <div className="flex flex-row ">
                       <div className="py-1 mr-3">
@@ -144,7 +158,10 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
                   </div>
                   <div
                     className="rounded-2xl px-4 py-[10px] bg-gray-200 cursor-pointer hover:bg-primary-light "
-                    onClick={() => handleCopyClipBoard(videoUrl)}
+                    onClick={() => {
+                      handleCopyClipBoard(videoUrl),
+                        linkButtonClickEvent('영상', '썸네일')
+                    }}
                   >
                     <div className="flex flex-row ">
                       <div className="py-1 mr-3">

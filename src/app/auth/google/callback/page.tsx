@@ -4,6 +4,7 @@ import { fetchUser } from '@/services/auth/auth.api'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { EditUserType } from '@/types/userStore.types'
+import { setAmplitudeUserId } from '@/lib/amplitude'
 
 function Page() {
   const [folderList, setFolderList] = useState()
@@ -36,6 +37,7 @@ function Page() {
     fetchUser()
       .then(data => {
         console.log('콜백 유저정보', data)
+        setAmplitudeUserId(data.userEmail)
         setUser({
           userName: data.userName,
           userPhoneNumber: data.userPhoneNumber,

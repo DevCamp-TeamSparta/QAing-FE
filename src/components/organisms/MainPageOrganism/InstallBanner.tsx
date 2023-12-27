@@ -1,10 +1,13 @@
 'use client'
-
+import { logEvent } from '@/lib/amplitude'
 import ChromeSvg from '../../../../public/icons/ChromeSvg'
 import NextSvg from '../../../../public/icons/NextSvg'
 
 export default function InstallBanner() {
   function onClickInstall() {
+    logEvent('qaing_mainpage_install_button_click', {
+      button_name: '설치하러 가기',
+    })
     window.open(
       'https://chromewebstore.google.com/detail/qaing-qa-%ED%99%94%EB%A9%B4-%EC%BA%A1%EC%B3%90-%EB%B0%8F-%EB%85%B9%ED%99%94/meoehebomhebdjdbcbeehbjnljdblocn',
       '_blank',

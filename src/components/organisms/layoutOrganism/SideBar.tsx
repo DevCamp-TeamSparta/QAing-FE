@@ -19,6 +19,7 @@ import { useUserStore } from '@/states/user-store/userStore'
 import { User } from '@/types/userStore.types'
 import { ProfileImageSvg } from '../../../../public/icons/ProfileImageSvg'
 import { fetchUser } from '@/services/auth/auth.api'
+import { logEvent } from '@/lib/amplitude'
 
 const SideBarRoutes = [
   {
@@ -47,6 +48,10 @@ export default function SideBar() {
     //   issueNum: 8,
     //   createdAt: new Date(),
     // })
+    logEvent('qaing_mainpage_start_button_click', {
+      button_name: 'QA 시작하기',
+      //button_where: buttonWhere
+    })
     window.open(
       'https://chromewebstore.google.com/detail/qaing-qa-%ED%99%94%EB%A9%B4-%EC%BA%A1%EC%B3%90-%EB%B0%8F-%EB%85%B9%ED%99%94/meoehebomhebdjdbcbeehbjnljdblocn',
       '_blank',

@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Logo from '@/components/atoms/LogoAtom/LogoAtoms'
 import InputMolecules from '@/components/molcules/InputMolecule/PhoneNumberInputMolecule'
 import DropdownMoleclue from '@/components/molcules/DropdownMolecule/DropdownMolecule'
@@ -14,6 +14,7 @@ import usePhoneNumber from '@/hooks/auth/usePhoneNumber'
 import { useRouter } from 'next/navigation'
 import { signupUser } from '@/services/auth/auth.api'
 import Link from 'next/link'
+import { initAmplitude, logPageView, logEvent } from '@/lib/amplitude'
 
 function OnboardingTemplete() {
   const [buttonClicked, setButtonClicked] = useState<boolean>(false)
@@ -105,6 +106,14 @@ function OnboardingTemplete() {
       userTeamsize: data.teamsize,
       userCompany: data.company,
     }
+    logEvent('qaing_onboardingpage_complete_button_click', {
+      button_name: '사전정보제출',
+      user_name: data.username,
+      user_job: data.job,
+      user_teamsize: data.teamsize,
+      user_company: data.company || null,
+      // is_installed: false,
+    })
     signupUser(signupdata)
       .then(res => {
         console.log('res', res)
@@ -122,6 +131,12 @@ function OnboardingTemplete() {
   const googleAuth = () => {
     router.push(`${GoogleURL}/auth/google`)
   }
+
+  //amplitude
+  useEffect(() => {
+    initAmplitude()
+    logPageView('qaing_onboardingpage_view')
+  }, [])
 
   return (
     <div>

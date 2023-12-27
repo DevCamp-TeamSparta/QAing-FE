@@ -2,6 +2,7 @@
 import Logo from '@/components/atoms/LogoAtom/LogoAtoms'
 import OAuthBoutton from '@/components/atoms/OAuthButtonAtom/OAuthButtonAtom'
 import { useEffect } from 'react'
+import { logPageView, initAmplitude } from '@/lib/amplitude'
 
 function GoogleSignnupOrgansim() {
   // useEffect(() => {
@@ -13,6 +14,11 @@ function GoogleSignnupOrgansim() {
     width: 302.22,
     height: 109,
   }
+
+  useEffect(() => {
+    initAmplitude()
+    logPageView('qaing_signuppage_view')
+  }, [])
 
   return (
     <div className="bg-white w-[440px] h-[310px] mx-auto">

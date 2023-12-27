@@ -10,6 +10,7 @@ import { useClickOutSide } from '@/hooks/useClickOutSide'
 import { Folder } from '@/types/userFolder.types'
 import { editFolder } from '@/services/folder/folder.api'
 import { useRouter } from 'next/navigation'
+import { logEvent } from '@/lib/amplitude'
 
 type Values = {
   newFolderName: string
@@ -110,6 +111,9 @@ export default function FolderTableBody({
       <div
         onClick={() => {
           if (isEditButtonClicked) return
+          logEvent('qaing_mainpage_folder_click', {
+            button_name: '폴더 클릭',
+          })
           router.push(`folders/${_id}/issues`)
         }}
         className={
