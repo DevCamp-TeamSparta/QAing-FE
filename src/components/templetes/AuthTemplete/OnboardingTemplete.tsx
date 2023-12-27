@@ -98,7 +98,14 @@ function OnboardingTemplete() {
   //제출 함수
   const onSubmit = (data: any) => {
     console.log('submit', data)
-    signupUser(data)
+    const signupdata = {
+      userName: data.username,
+      userPhoneNumber: data.phone,
+      userJob: data.job,
+      userTeamSize: data.teamsize,
+      userCompany: data.company,
+    }
+    signupUser(signupdata)
       .then(res => {
         console.log('res', res)
       })
