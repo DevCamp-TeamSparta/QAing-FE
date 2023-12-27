@@ -5,7 +5,7 @@ export type User = {
   userProfileImg: string
   userPhoneNumber: number | undefined
   userJob: string | undefined
-  userTeamSize: string | undefined
+  userTeamsize: string | undefined
   userCompany: string | undefined
 }
 
@@ -13,7 +13,7 @@ export type EditUserType = {
   userName: string | undefined
   userPhoneNumber: number | undefined | null
   userJob: string | undefined | null
-  userTeamSize: string | undefined | null
+  userTeamsize: string | undefined | null
   userCompany: string | undefined | null
 }
 

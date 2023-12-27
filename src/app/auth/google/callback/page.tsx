@@ -12,7 +12,7 @@ function Page() {
     userName: 'undefined',
     userPhoneNumber: 1234567890,
     userJob: 'undefined',
-    userTeamSize: 'undefined',
+    userTeamsize: 'undefined',
     userCompany: 'undefined',
   })
   // const cookieStore = cookies()
@@ -40,7 +40,7 @@ function Page() {
           userName: data.userName,
           userPhoneNumber: data.userPhoneNumber,
           userJob: data.userJob,
-          userTeamSize: data.userTeamSize,
+          userTeamsize: data.userTeamsize,
           userCompany: data.userCompany,
         })
       })

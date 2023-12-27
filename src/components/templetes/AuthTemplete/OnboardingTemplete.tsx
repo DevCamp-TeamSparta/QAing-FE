@@ -102,7 +102,7 @@ function OnboardingTemplete() {
       userName: data.username,
       userPhoneNumber: data.phone,
       userJob: data.job,
-      userTeamSize: data.teamsize,
+      userTeamsize: data.teamsize,
       userCompany: data.company,
     }
     signupUser(signupdata)
