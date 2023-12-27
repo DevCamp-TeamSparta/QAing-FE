@@ -34,11 +34,12 @@ export default function ProfileModal() {
 
   function onChangeFileHandler(e: React.ChangeEvent<HTMLInputElement>) {
     const files = e.target.files
+    console.log('파일 객체 : ', files)
     if (!files) return
     const file = files[0]
     console.log('이미지 url', file)
     setImageFile(file)
-    setImageFile(file)
+    // setImageFile(file)
     const objectUrl = URL.createObjectURL(file)
     console.log('이미지 url2', objectUrl)
     setUpdateUser({
