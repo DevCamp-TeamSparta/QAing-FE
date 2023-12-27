@@ -39,6 +39,7 @@ export default function ProfileModal() {
     setImageFile(file)
     setImageFile(file)
     const objectUrl = URL.createObjectURL(file)
+    console.log('이미지 url', objectUrl)
     setUpdateUser({
       ...updateUser,
       userProfileImg: objectUrl,
