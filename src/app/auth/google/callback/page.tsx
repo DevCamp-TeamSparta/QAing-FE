@@ -59,6 +59,7 @@ function Page() {
         console.log('사전정보를 입력해야합니다.')
       }
     }
+    isAdvancedSignup()
     // router.push('/')
     console.log('CookieGetVariable', CookieGetVariable)
     console.log('getCookie', getCookie)
