@@ -3,8 +3,6 @@ import Cookies from 'js-cookie'
 import { fetchUser } from '@/services/auth/auth.api'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { set } from 'zod'
-import { Cookie } from 'next/font/google'
 import { EditUserType } from '@/types/userStore.types'
 
 function Page() {
