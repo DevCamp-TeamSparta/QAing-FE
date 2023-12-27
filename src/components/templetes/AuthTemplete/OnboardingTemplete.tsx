@@ -13,7 +13,7 @@ import {
 import usePhoneNumber from '@/hooks/auth/usePhoneNumber'
 import { useRouter } from 'next/navigation'
 
-function GoogleSignup() {
+function OnboardingTemplete() {
   const [buttonClicked, setButtonClicked] = useState<boolean>(false)
   const router = useRouter()
 
@@ -201,4 +201,4 @@ function GoogleSignup() {
   )
 }
 
-export default GoogleSignup
+export default OnboardingTemplete
