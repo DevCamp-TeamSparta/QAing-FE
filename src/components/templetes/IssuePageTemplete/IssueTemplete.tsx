@@ -18,6 +18,8 @@ import { useUserStore } from '@/states/user-store/userStore'
 import { ProfileImageSvg } from '../../../../public/icons/ProfileImageSvg'
 import { MyVideoSvg } from '../../../../public/icons/MyVideoSvg'
 import { fetchUser } from '@/services/auth/auth.api'
+import { initAmplitude, logPageView, logEvent } from '@/lib/amplitude'
+
 type Values = {
   newFolderName: string
 }
@@ -150,6 +152,12 @@ function IssuePageTemplete() {
         })
       })
       .catch(e => console.error(e))
+  }, [])
+
+  //amplitude
+  useEffect(() => {
+    initAmplitude()
+    logPageView('qaing_folderpage_view')
   }, [])
 
   return (

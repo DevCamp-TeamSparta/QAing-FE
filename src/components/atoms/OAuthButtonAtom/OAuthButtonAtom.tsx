@@ -2,12 +2,16 @@
 import React from 'react'
 import GoogleIcon from '../IconAtom/GoogleIcon'
 import { useRouter } from 'next/navigation'
+import { logEvent } from '@/lib/amplitude'
 
 function OAuthBoutton() {
   const router = useRouter()
   const GoogleURL = process.env.NEXT_PUBLIC_BACKEND_API_URL
 
   const GoogleSignup = () => {
+    logEvent('qaing_signuppage_start_button_click', {
+      button_name: '구글 로그인',
+    })
     router.push(`${GoogleURL}/auth/google`)
   }
 
