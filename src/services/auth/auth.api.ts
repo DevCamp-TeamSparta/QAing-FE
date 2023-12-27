@@ -8,7 +8,7 @@ export const fetchUser = async (): Promise<User> => {
   return response.data
 }
 
-export const editUser = async (UpdateUser: EditUserType) => {
+export const signupUser = async (UpdateUser: EditUserType) => {
   const response = await instance.put('/users/preInfo', UpdateUser)
   return response.data
 }

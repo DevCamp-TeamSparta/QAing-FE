@@ -42,6 +42,7 @@ function DropdownMoleclue({
         errors={errors}
         dropdownPlaceholder={dropdownPlaceholder}
       />
+      <div className="b4 text-sementic-danger "></div>
     </div>
   )
 }

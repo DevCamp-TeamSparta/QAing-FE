@@ -1,17 +1,22 @@
 import Input from '@/components/atoms/InputAtom/InputAtom'
 import { ChangeEvent } from 'react'
-import { RegisterOptions, UseFormRegisterReturn } from 'react-hook-form'
+import {
+  RegisterOptions,
+  UseFormRegisterReturn,
+  FieldError,
+} from 'react-hook-form'
 
 type InputTitleProps = {
   inputTitle: string
   register?: UseFormRegisterReturn
-  errors?: object
+  errors?: FieldError
   phoneNumberProps?: {
     type: string
     maxLength: number
   }
   onChangePhoneNumber?: (e: ChangeEvent<HTMLInputElement>) => void
   phoneValue?: string
+  inputPlaceholder?: string
 }
 
 function InputMolcules({
@@ -21,6 +26,7 @@ function InputMolcules({
   onChangePhoneNumber,
   phoneValue,
   phoneNumberProps,
+  inputPlaceholder,
 }: InputTitleProps) {
   return (
     <div className="w-[440px] h-[80px] space-y-[5px]   ">
@@ -31,7 +37,9 @@ function InputMolcules({
         onChangePhoneNumber={onChangePhoneNumber}
         phoneValue={phoneValue}
         phoneNumberProps={phoneNumberProps}
+        inputPlaceholder={inputPlaceholder}
       />
+      <p className="b4 text-sementic-danger">{errors && errors.message}</p>
     </div>
   )
 }

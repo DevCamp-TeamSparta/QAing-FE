@@ -48,7 +48,7 @@ function Dropdown({
             readOnly
             value={selectedElement || ''}
             placeholder={dropdownPlaceholder && dropdownPlaceholder}
-            className="w-[376px] h-[24px] bg-gray-200  text-left outline-none placeholder:b4 "
+            className="w-[376px] h-[24px] bg-gray-200  text-left outline-none placeholder:text-[14px] placeholder:text-[#959797] placeholder:leading-[20px] placeholder:font-thin  "
           />
         </div>
       </div>
