@@ -1,8 +1,8 @@
 export function MyVideoSvg({ color, size }: SvgProps) {
   return (
     <svg
-      width={size || '36'}
-      height={size || '36'}
+      width={size || '24'}
+      height={size || '24'}
       viewBox="0 0 36 36"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

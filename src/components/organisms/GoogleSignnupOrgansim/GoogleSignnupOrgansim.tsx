@@ -1,8 +1,13 @@
 'use client'
 import Logo from '@/components/atoms/LogoAtom/LogoAtoms'
 import OAuthBoutton from '@/components/atoms/OAuthButtonAtom/OAuthButtonAtom'
+import { useEffect } from 'react'
 
 function GoogleSignnupOrgansim() {
+  // useEffect(() => {
+  //   console.log('회원가입 페이지 랜더링 확인')
+  // })
+  console.log('회원가입 페이지 랜더링 확인')
   const logoSize = {
     alt: 'Logo',
     width: 302.22,

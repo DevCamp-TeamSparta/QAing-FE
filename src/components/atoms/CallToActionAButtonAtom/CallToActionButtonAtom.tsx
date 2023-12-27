@@ -23,7 +23,7 @@ export default function CTAButton({
           focus:outline-none 
           hover:bg-primary-hover 
           active:bg-primary-pressed 
-          disabled:bg-gray-400 disabled:cursor-not-allowed 
+          disabled:bg-primary-light disabled:cursor-not-allowed 
           cursor-pointer
           text-white
           t3
@@ -34,7 +34,7 @@ export default function CTAButton({
           b3: size === 'small',
         },
       )}
-      disabled={false}
+      disabled={disabled}
       onClick={onClick}
     >
       {children}

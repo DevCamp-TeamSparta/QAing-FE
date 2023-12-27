@@ -138,7 +138,7 @@ function IssuePageTemplete() {
   useEffect(() => {
     fetchUser()
       .then(data => {
-        console.log('이슈페이지 유저정보', data)
+        // console.log('이슈페이지 유저정보', data)
         setUser({
           userEmail: data.userEmail,
           userName: data.userName,

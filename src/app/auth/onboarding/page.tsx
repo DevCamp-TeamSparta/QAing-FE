@@ -3,7 +3,7 @@ import OnboardingTemplete from '@/components/templetes/AuthTemplete/OnboardingTe
 
 function Page() {
   return (
-    <div className="h-[1342px]">
+    <div className="h-[1230px]">
       <OnboardingTemplete />
     </div>
   )

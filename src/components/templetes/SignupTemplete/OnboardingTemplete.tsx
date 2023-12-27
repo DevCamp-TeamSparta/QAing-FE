@@ -12,8 +12,6 @@ import {
 } from '@/utils/zod/authValidation/AdvanceInformationValidation'
 import usePhoneNumber from '@/hooks/auth/usePhoneNumber'
 import { useRouter } from 'next/navigation'
-import { signupUser } from '@/services/auth/auth.api'
-import Link from 'next/link'
 
 function OnboardingTemplete() {
   const [buttonClicked, setButtonClicked] = useState<boolean>(false)
@@ -46,10 +44,9 @@ function OnboardingTemplete() {
   //드롭다운 타이틀 프롭스
   const dropdownTitle = {
     job: '직무 *',
-    teamSize: '팀 규모 *',
+    teamSize: '팀 규모',
   }
   const dropdownPlaceholder = {
-    phoneNuber: '하이폰(-)없이 숫자만 적어주세요',
     job: '직무를 선택해주세요',
     teamSize: '팀 규모를 선택해주세요',
   }
@@ -74,41 +71,18 @@ function OnboardingTemplete() {
   const {
     register,
     handleSubmit,
+    setValue,
     control,
-    watch,
     formState: { errors },
   } = useForm<advanceInformationSchemaType>({
     resolver: zodResolver(advanceInformationSchema),
   })
-  // 모든 필드를 감시
-  const watchAllFields = watch()
-  // 필요한 필드들
-
-  const requiredFields: (keyof advanceInformationSchemaType)[] = [
-    'username',
-    'phone',
-    'job',
-    'teamsize',
-  ]
-  // 모든 필드가 채워졌는지 확인
-  const allFieldsFilled = requiredFields.every(field => !!watchAllFields[field])
-
-  // console.log('watchAllFields', watchAllFields)
 
   //제출 함수
-  const onSubmit = (data: any) => {
-    console.log('submit', data)
-    signupUser(data)
-      .then(res => {
-        console.log('res', res)
-      })
-      .catch(e => {
-        console.error('사전정보 등록 실패', e)
-        alert('사전정보 등록 실패')
-      })
-    // const UpdateUserDto = { ...data }
+  const onSubmit = (data: advanceInformationSchemaType) => {
+    alert('확인')
     // console.log('Button clicked!', data)
-    // router.push(`${GoogleURL}/auth/google`)
+    router.push(`${GoogleURL}/auth/google`)
   }
 
   const GoogleURL = process.env.NEXT_PUBLIC_BACKEND_API_URL
@@ -119,9 +93,9 @@ function OnboardingTemplete() {
   return (
     <div>
       <header className="h-[108px]   flex flex-col justify-center ">
-        <Link href={'/'} className="ml-[35px]">
+        <div className="ml-[35px]">
           <Logo logoSize={logoSize} />
-        </Link>
+        </div>
       </header>
 
       <div className="flex flex-col items-center ">
@@ -140,7 +114,7 @@ function OnboardingTemplete() {
             errors={errors.username}
             phoneNumberProps={phoneNumberProps}
           />
-          <div></div>
+          <div>{errors.username && <p>이름입력</p>}</div>
 
           <div className="mt-[43px]">
             <InputMolecules
@@ -149,7 +123,6 @@ function OnboardingTemplete() {
               errors={errors.phone}
               phoneNumberProps={phoneNumberProps}
               onChangePhoneNumber={onChangePhoneNumber}
-              inputPlaceholder={dropdownPlaceholder.phoneNuber}
               phoneValue={phoneValue}
             />
           </div>
@@ -169,7 +142,7 @@ function OnboardingTemplete() {
             /> */}
             <div></div>
           </div>
-          <div className=" mt-[45px] ">
+          <div className=" mt-[45px]">
             <Controller
               control={control}
               name="job"
@@ -184,11 +157,9 @@ function OnboardingTemplete() {
                 />
               )}
             />
-            <div className="b4 text-sementic-danger ">
-              {errors.job && <p>직무를 입력해주세요</p>}
-            </div>
+            <div>{errors.job && <p>직무를 선택해 주세요</p>}</div>
           </div>
-          <div className=" mt-[45px] ">
+          <div className=" mt-[45px]">
             <Controller
               control={control}
               name="teamsize"
@@ -203,13 +174,6 @@ function OnboardingTemplete() {
                 />
               )}
             />
-            <div>
-              {errors.teamsize && (
-                <p className="b4 text-sementic-danger">
-                  팀 규모를를 선택해주세요
-                </p>
-              )}
-            </div>
           </div>
           <div className=" mt-[45px]">
             <InputMolecules
@@ -229,9 +193,7 @@ function OnboardingTemplete() {
             </p>
           </div>
           <div className="mt-4">
-            <CTAButton size={'large'} disabled={!allFieldsFilled}>
-              가입 완료하기
-            </CTAButton>
+            <CTAButton size={'large'}>가입 완료하기</CTAButton>
           </div>
         </form>
       </div>

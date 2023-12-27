@@ -1,4 +1,5 @@
 import GoogleSignnupOrgansim from '@/components/organisms/GoogleSignnupOrgansim/GoogleSignnupOrgansim'
+import { useEffect } from 'react'
 
 export default function GoogleSignupTemplete() {
   return (
