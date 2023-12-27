@@ -9,7 +9,7 @@ import { CloseIcon } from '../../../../../public/icons/CloseIcon'
 import { TypeImageIcon } from '../../../../../public/icons/TypeImageIcon'
 import { TypeVideoIcon } from '../../../../../public/icons/TypeVideoIcon'
 import useClipboard from '@/hooks/useClipboard'
-import { initAmplitude, logPageView, logEvent } from '@/lib/amplitude'
+import { logEvent } from '@/lib/amplitude'
 
 interface IssueModalProps {
   imageUrl: string
