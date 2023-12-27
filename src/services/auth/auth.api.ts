@@ -1,5 +1,17 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
+import instance from '@/services/instance'
 import { signupSchemaType } from '@/utils/zod/authValidation/authValidation'
+import { User, EditUserType } from '@/types/userStore.types'
+
+export const fetchUser = async (): Promise<User> => {
+  const response = await instance.get('/users/info')
+  return response.data
+}
+
+export const editUser = async (UpdateUser: EditUserType) => {
+  const response = await instance.put('/users/preInfo', UpdateUser)
+  return response.data
+}
 
 const API_URL = 'https://jsonplaceholder.typicode.com' //더미
 const mockData = {

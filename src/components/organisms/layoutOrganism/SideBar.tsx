@@ -18,6 +18,7 @@ import instance from '@/services/instance'
 import { useUserStore } from '@/states/user-store/userStore'
 import { User } from '@/types/userStore.types'
 import { ProfileImageSvg } from '../../../../public/icons/ProfileImageSvg'
+import { fetchUser } from '@/services/auth/auth.api'
 
 const SideBarRoutes = [
   {
@@ -51,16 +52,16 @@ export default function SideBar() {
       '_blank',
     )
   }
-  async function fetchUser(): Promise<User> {
-    const response = await instance.get('/users/info')
-    // console.log('res', response)
-    return response.data
-  }
+  // async function fetchUser(): Promise<User> {
+  //   const response = await instance.get('/users/info')
+  //   // console.log('res', response)
+  //   return response.data
+  // }
 
   useEffect(() => {
     fetchUser()
       .then(data => {
-        // console.log('data', data)
+        console.log('사이드바 유저정보', data)
         setUser({
           userEmail: data.userEmail,
           userName: data.userName,

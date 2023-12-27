@@ -9,6 +9,14 @@ export type User = {
   userCompany: string | undefined
 }
 
+export type EditUserType = {
+  userName: string | undefined
+  userPhoneNumber: number | undefined | null
+  userJob: string | undefined | null
+  userTeamSize: string | undefined | null
+  userCompany: string | undefined | null
+}
+
 export type UserStore = {
   user: User | null
   accessToken: string | null

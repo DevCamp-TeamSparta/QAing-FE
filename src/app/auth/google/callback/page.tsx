@@ -1,52 +1,68 @@
 'use client'
-// import { cookies } from 'next/headers'
-// import { getServerSideProps } from 'next/dist/build/templates/pages'
 import Cookies from 'js-cookie'
-import axios from 'axios'
+import { fetchUser } from '@/services/auth/auth.api'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { EditUserType } from '@/types/userStore.types'
 
 function Page() {
   const [folderList, setFolderList] = useState()
+  const [getCookie, setGetCookie] = useState<string | undefined>()
+  const [user, setUser] = useState<EditUserType>({
+    userName: 'undefined',
+    userPhoneNumber: 1234567890,
+    userJob: 'undefined',
+    userTeamSize: 'undefined',
+    userCompany: 'undefined',
+  })
   // const cookieStore = cookies()
   // console.log('cookieStore', cookieStore)
   const baseURL = process.env.NEXT_PUBLIC_BACKEND_API_URL
   const accessToken = 'Token is here'
-  const getCookie = Cookies.get('access-token')
-  // console.log('getCookie', getCookie)
-  const tokenhandler = () => {
+  const CookieGet = () => {
+    const cookie = Cookies.get('access-token')
+    setGetCookie(cookie)
+  }
+  const CookieGetVariable = Cookies.get('access-token')
+
+  const tokenHandler = () => {
     // console.log('확인')
     Cookies.set('access-token', accessToken)
   }
   const router = useRouter()
 
-  // const apiTest = async () => {
-  //   try {
-  //     const UpdateUserDto = { userName: 'IamGroot' }
-  //     const UpdateFolderDto = {
-  //       folderName: '수정 완료',
-  //     }
-  //     const UpdateIssueFileDto = {
-  //       newIssueName: '수정 완료',
-  //     }
-  //     const data = await axios
-  //       .delete(`${baseURL}/folders//issues/`, {
-  //         withCredentials: true,
-  //       })
-  //       .then(res => {
-  //         console.log('res.data', res.data)
-  //         setFolderList(res.data)
-  //       })
-  //   } catch (err) {
-  //     console.log('err', err)
-  //   }
-  // }
+  useEffect(() => {
+    CookieGet()
+    fetchUser()
+      .then(data => {
+        console.log('콜백 유저정보', data)
+        setUser({
+          userName: data.userName,
+          userPhoneNumber: data.userPhoneNumber,
+          userJob: data.userJob,
+          userTeamSize: data.userTeamSize,
+          userCompany: data.userCompany,
+        })
+      })
+      .catch(e => console.error(e))
+  }, [])
 
   useEffect(() => {
     // window.location.href = 'https://qaing.co'
-    router.push('/')
-    // console.log('getCookie', getCookie)
-  })
+    const isAdvancedSignup = () => {
+      if (
+        user.userName === null ||
+        user.userPhoneNumber === null ||
+        user.userJob === null ||
+        user.userCompany === null
+      ) {
+        console.log('사전정보를 입력해야합니다.')
+      }
+    }
+    // router.push('/')
+    console.log('CookieGetVariable', CookieGetVariable)
+    console.log('getCookie', getCookie)
+  }, [getCookie, user])
 
   return (
     <div className="flex flex-col mb-2 items-center">
