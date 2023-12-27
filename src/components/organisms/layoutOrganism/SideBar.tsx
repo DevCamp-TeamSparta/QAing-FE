@@ -68,7 +68,7 @@ export default function SideBar() {
           userProfileImg: data.userProfileImg,
           userPhoneNumber: data.userPhoneNumber,
           userJob: data.userJob,
-          userTeamSize: data.userTeamSize,
+          userTeamsize: data.userTeamsize,
           userCompany: data.userCompany,
         })
       })
