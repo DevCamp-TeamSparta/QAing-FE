@@ -11,7 +11,7 @@ export const advanceInformationSchema = z.object({
     .nonempty('이름을 입력해주세요.')
     .min(1, '이름은 1글자 이상으로 입력해주세요')
     .max(20, '이름은 20글자 이하로 입력해주세요')
-    .regex(/^[가-힣a-zA-Z]{2,}$/, '이름을 정확히 입력해주세요'),
+    .regex(/^[가-힣a-zA-Z]{1,}$/, '이름을 정확히 입력해주세요'),
 
   company: z.string().max(20, '20자 이내로 입력해주세요.'),
   teamsize: z.string().refine(value => {
