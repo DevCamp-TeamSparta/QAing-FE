@@ -5,7 +5,7 @@ import Logo from '@/components/atoms/LogoAtom/LogoAtoms'
 import Image from 'next/image'
 import ProgileImageDefault from '/public/images/profileImage.svg'
 import Back from 'public/icons/back.svg'
-import IssueCard from '@/components/organisms/IssuePageOrganisms/issueCardOrganism/IssueCardOrganism'
+import IssueCard from '@/components/organisms/IssuePageOrganisms/IssueCardOrganism/IssueCardOrganism'
 import axios from 'axios'
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -52,7 +52,7 @@ function IssuePageTemplete() {
     videoUrl:
       'https://static.qaing.co/40d3ac9e49bf97172435d1ae0a7ab9a8751e1f97d85d731d4d6bf72b4f98a770.mp4',
     updatedAt: '2023-12-21T15:38:58.391Z',
-    issueName: '이슈 1',
+    issueName: '이슈 11',
     _id: '65845c123f1d1a6684bf16ba',
   }
 
@@ -111,10 +111,9 @@ function IssuePageTemplete() {
     folderId: string,
     values: Values,
   ) => {
-    if (values.newFolderName === '') return
     event.preventDefault()
+    if (values.newFolderName === '') return
     setIsEditButtonClicked(false)
-
     editFolder(folderId, values)
       .then(res => {
         // console.log('res', res)

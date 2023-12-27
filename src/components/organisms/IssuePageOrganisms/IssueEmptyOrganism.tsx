@@ -15,39 +15,40 @@ export default function IssueEmptyOrganism({
   const { modal, setModal, setBackGroundClose } = useModalStore()
   const { setProgress } = useVideoUploadStore()
 
-  // useEffect(() => {
-  //   if (!folderId) return
-  //   try {
-  //   } catch {}
-  //   const eventSource = new EventSource(
-  //     `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/videos/subscribe/${folderId}`,
-  //     { withCredentials: true },
-  //   )
+  useEffect(() => {
+    if (!folderId) return
+    try {
+    } catch {}
+    const eventSource = new EventSource(
+      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/videos/subscribe/${folderId}`,
+      { withCredentials: true },
+    )
 
-  //   eventSource.onmessage = event => {
-  //     const data = JSON.parse(event.data)
-  //     if (!data.status) {
-  //       if (!modal) {
-  //         setBackGroundClose(false)
-  //         setModal(<LoadingIssueModal />)
-  //       }
-  //       setProgress(data.progress, data.totalTasks)
-  //     } else {
-  //       setModal(null)
-  //       setMessage(data.message)
-  //       eventSource.close()
-  //     }
-  //   }
-  //   //에러확인
-  //   eventSource.onerror = error => {
-  //     // 오류 처리
-  //     console.error('EventSource failed:', error)
-  //     eventSource.close()
-  //   }
-  //   return () => {
-  //     eventSource.close()
-  //   }
-  // }, [folderId])
+    eventSource.onmessage = event => {
+      const data = JSON.parse(event.data)
+      console.log('data', data)
+      if (!data.status) {
+        if (!modal) {
+          setBackGroundClose(false)
+          setModal(<LoadingIssueModal />)
+        }
+        setProgress(data.progress, data.totalTasks)
+      } else {
+        setModal(null)
+        setMessage(data.message)
+        eventSource.close()
+      }
+    }
+    //에러확인
+    eventSource.onerror = error => {
+      // 오류 처리
+      console.error('EventSource failed:', error)
+      eventSource.close()
+    }
+    return () => {
+      eventSource.close()
+    }
+  }, [folderId])
 
   return (
     <div className="grid grid-cols-3 w-full gap-x-[24px] gap-y-[56px]">
