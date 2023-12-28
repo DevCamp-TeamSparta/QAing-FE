@@ -158,7 +158,7 @@ function OnboardingTemplete() {
       //비 로그인유저 리다이렉트
     })
     if (!accessToken) {
-      router.push('/')
+      router.push('/auth/signup')
     }
   }, [])
 
