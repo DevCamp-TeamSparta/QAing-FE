@@ -72,11 +72,12 @@ function IssuePageTemplete() {
             setFolder(res.data.issuesWithContents)
             // setFolderName(res.data.folderName)
             setValues({ newFolderName: res.data.folderName })
-            console.log('res', res)
+            // console.log('res', res)
           })
           .catch(err => {
             err.response.status === 401 && router.push('/auth')
-            console.log('res', res)
+            err.response.status === 404 && router.push('/')
+            // console.log('res', res)
           })
       } catch (err) {}
       // setLoading(false)

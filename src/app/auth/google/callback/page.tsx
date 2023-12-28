@@ -31,7 +31,7 @@ function Page() {
   useEffect(() => {
     fetchUser()
       .then(data => {
-        console.log('콜백 유저정보', data)
+        // console.log('콜백 유저정보', data)
         setAmplitudeUserId(data.userEmail)
         setUser({
           userName: data.userName,
@@ -51,6 +51,7 @@ function Page() {
   }, [])
 
   useEffect(() => {
+    if (!accessToken) return
     router.push('/')
   }, [accessToken])
 

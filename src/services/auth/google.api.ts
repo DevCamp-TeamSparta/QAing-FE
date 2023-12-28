@@ -10,6 +10,6 @@ export const GoogleSignup = (GoogleURL: string, setUser: any) => {
       setUser(resData)
     })
   } catch (err) {
-    console.log(err)
+    // console.log(err)
   }
 }

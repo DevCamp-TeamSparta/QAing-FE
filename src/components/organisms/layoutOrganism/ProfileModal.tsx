@@ -7,6 +7,11 @@ import { ProfileImageSvg } from '../../../../public/icons/ProfileImageSvg'
 import { EditSvg } from '../../../../public/icons/EditSvg'
 import React, { useEffect, useState } from 'react'
 import instance from '@/services/instance'
+import {
+  getPresignedURL,
+  uploadImageToS3,
+  uploadImageToBackend,
+} from '@/services/auth/auth.api'
 
 export default function ProfileModal() {
   const [imageFile, setImageFile] = useState<File | null>(null)
@@ -34,14 +39,14 @@ export default function ProfileModal() {
 
   function onChangeFileHandler(e: React.ChangeEvent<HTMLInputElement>) {
     const files = e.target.files
-    console.log('파일 객체 : ', files)
+    // console.log('파일 객체 : ', files)
     if (!files) return
     const file = files[0]
-    console.log('이미지 url', file)
+    // console.log('이미지 url', file)
     setImageFile(file)
     // setImageFile(file)
     const objectUrl = URL.createObjectURL(file)
-    console.log('이미지 url2', objectUrl)
+    // console.log('이미지 url2', objectUrl)
     setUpdateUser({
       ...updateUser,
       userProfileImg: objectUrl,
@@ -50,13 +55,24 @@ export default function ProfileModal() {
 
   async function onClickSaveButtonHandler() {
     if (!user) return
+    if (imageFile === null && user.userName === updateUser.userName) {
+      console.log('변경사항이 없습니다.')
+      return
+    }
     if (user.userName === updateUser.userName) {
       //이미지업로드
+      if (imageFile === null) {
+        alert('이미지가 선택되지 않았습니다.')
+      }
+      imageFile &&
+        getPresignedURL(imageFile).then(data => {
+          console.log('presigned data', data)
+        })
     }
     if (imageFile === null) {
       //프로필이름 수정
     }
-    if (imageFile === null && user.userName === updateUser.userName) return
+
     // 이미지 업로드  + 프로필이름 수정
     const response = await instance.put('/users/profile', {
       ...user,
