@@ -39,7 +39,7 @@ export default function ProfileModal() {
 
   function onChangeFileHandler(e: React.ChangeEvent<HTMLInputElement>) {
     const files = e.target.files
-    // console.log('파일 객체 : ', files)
+    console.log('파일 객체 : ', files)
     if (!files) return
     const file = files[0]
     // console.log('이미지 url', file)
@@ -55,6 +55,8 @@ export default function ProfileModal() {
 
   async function onClickSaveButtonHandler() {
     if (!user) return
+    console.log('imageFile', imageFile)
+
     if (imageFile === null && user.userName === updateUser.userName) {
       console.log('변경사항이 없습니다.')
       return
