@@ -15,12 +15,15 @@ export const signupUser = async (UpdateUser: EditUserType) => {
   return response.data
 }
 
-export const editUserName = async (UpdateUser: EditUserType) => {
-  const response = await instance.put
+export const editUserName = async (UpdateUserName: EditUserType) => {
+  const response = await instance.put('/users/profile', {
+    userName: UpdateUserName.userName,
+  })
+  return response.data
 }
 
 export const logout = async () => {
-  const response = await instance.get('/auth/logout')
+  const response = await instance.get('/users/logout')
   return response.data
 }
 
