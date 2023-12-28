@@ -8,6 +8,7 @@ interface PageProps {
   folderId: string
   setMessage: React.Dispatch<React.SetStateAction<string>>
 }
+
 export default function IssueEmptyOrganism({
   folderId,
   setMessage,

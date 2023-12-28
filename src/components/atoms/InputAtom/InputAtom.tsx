@@ -10,6 +10,7 @@ type InputProps = {
   }
   onChangePhoneNumber?: (e: ChangeEvent<HTMLInputElement>) => void
   phoneValue?: string
+  inputPlaceholder?: string
 }
 
 function Input({
@@ -18,6 +19,7 @@ function Input({
   onChangePhoneNumber,
   phoneValue,
   phoneNumberProps,
+  inputPlaceholder,
 }: InputProps) {
   return (
     <div
@@ -37,7 +39,8 @@ function Input({
             onChangePhoneNumber && onChangePhoneNumber(e)
           }}
           value={phoneValue}
-          className={`bg-gray-200 w-[408px] h-[24px] ml-4 mt-[14px] font-regular outline-none  `}
+          placeholder={inputPlaceholder}
+          className={`bg-gray-200 w-[408px] h-[24px] ml-4 mt-[14px] font-regular outline-none placeholder:text-[14px] placeholder:text-[#959797] placeholder:leading-[20px] placeholder:font-thin `}
         />
       </div>
     </div>

@@ -1,5 +1,41 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
+import instance from '@/services/instance'
 import { signupSchemaType } from '@/utils/zod/authValidation/authValidation'
+import { User, EditUserType } from '@/types/userStore.types'
+
+export const fetchUser = async (): Promise<User> => {
+  const response = await instance.get('/users/info')
+  return response.data
+}
+
+export const signupUser = async (UpdateUser: EditUserType) => {
+  const response = await instance.put('/users/preInfo', UpdateUser)
+  return response.data
+}
+
+export const getPresignedURL = async (file: File) => {
+  const data = { filname: file.name, filetype: file.type }
+  const response = await instance.post('/presignedURL', JSON.stringify(data))
+  return response.data
+}
+
+export const uploadImageToS3 = async (presignedURL: string, file: File) => {
+  const response = await axios.put(presignedURL, file)
+  return response.data
+}
+
+export const uploadImageToBackend = async (
+  presignedURL: string,
+  file: File,
+  userId: string,
+) => {
+  const data = { filename: file.name, userId: userId }
+  const response = await instance.post(
+    `${presignedURL}/s3bucket`,
+    JSON.stringify(data),
+  )
+  return response.data
+}
 
 const API_URL = 'https://jsonplaceholder.typicode.com' //더미
 const mockData = {

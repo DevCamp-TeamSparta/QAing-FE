@@ -18,6 +18,10 @@ import instance from '@/services/instance'
 import { useUserStore } from '@/states/user-store/userStore'
 import { User } from '@/types/userStore.types'
 import { ProfileImageSvg } from '../../../../public/icons/ProfileImageSvg'
+import { fetchUser } from '@/services/auth/auth.api'
+import { logEvent } from '@/lib/amplitude'
+import { useRouter } from 'next/navigation'
+import useAdvancedSignup from '@/hooks/useAdvancedSignup'
 
 const SideBarRoutes = [
   {
@@ -32,6 +36,7 @@ export default function SideBar() {
   const setModal = useModalStore(state => state.setModal)
   const addVideo = useVideoStore(state => state.addVideo)
   const { user, setUser } = useUserStore()
+  const { isAdvancedSignup } = useAdvancedSignup()
 
   function onClickProfileHandler() {
     if (!user) {
@@ -46,30 +51,46 @@ export default function SideBar() {
     //   issueNum: 8,
     //   createdAt: new Date(),
     // })
+    logEvent('qaing_mainpage_start_button_click', {
+      button_name: 'QA 시작하기',
+      //button_where: buttonWhere
+    })
     window.open(
       'https://chromewebstore.google.com/detail/qaing-qa-%ED%99%94%EB%A9%B4-%EC%BA%A1%EC%B3%90-%EB%B0%8F-%EB%85%B9%ED%99%94/meoehebomhebdjdbcbeehbjnljdblocn',
       '_blank',
     )
   }
-  async function fetchUser(): Promise<User> {
-    const response = await instance.get('/users/info')
-    // console.log('res', response)
-    return response.data
-  }
+  // async function fetchUser(): Promise<User> {
+  //   const response = await instance.get('/users/info')
+  //   // console.log('res', response)
+  //   return response.data
+  // }
+
+  // const isAdvancedSignup = (data: User) => {
+  //   if (
+  //     data.userName === null ||
+  //     data.userPhoneNumber === null ||
+  //     data.userJob === null ||
+  //     data.userCompany === null
+  //   ) {
+  //     router.push('/auth/onboarding')
+  //   }
+  // }
 
   useEffect(() => {
     fetchUser()
       .then(data => {
-        // console.log('data', data)
+        // console.log('사이드바 유저정보', data)
         setUser({
           userEmail: data.userEmail,
           userName: data.userName,
           userProfileImg: data.userProfileImg,
           userPhoneNumber: data.userPhoneNumber,
           userJob: data.userJob,
-          userTeamSize: data.userTeamSize,
+          userTeamsize: data.userTeamsize,
           userCompany: data.userCompany,
         })
+        isAdvancedSignup(data)
       })
       .catch(e => console.error(e))
   }, [])

@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Logo from '@/components/atoms/LogoAtom/LogoAtoms'
 import InputMolecules from '@/components/molcules/InputMolecule/PhoneNumberInputMolecule'
 import DropdownMoleclue from '@/components/molcules/DropdownMolecule/DropdownMolecule'
@@ -12,10 +12,16 @@ import {
 } from '@/utils/zod/authValidation/AdvanceInformationValidation'
 import usePhoneNumber from '@/hooks/auth/usePhoneNumber'
 import { useRouter } from 'next/navigation'
+import { signupUser } from '@/services/auth/auth.api'
+import Link from 'next/link'
+import { initAmplitude, logPageView, logEvent } from '@/lib/amplitude'
+import { useUserStore } from '@/states/user-store/userStore'
+import { fetchUser } from '@/services/auth/auth.api'
 
-function GoogleSignup() {
+function OnboardingTemplete() {
   const [buttonClicked, setButtonClicked] = useState<boolean>(false)
   const router = useRouter()
+  const { accessToken } = useUserStore()
 
   //휴대폰 자동 하이픈생성훅 프롭스
   const phoneNumberProps = {
@@ -44,9 +50,10 @@ function GoogleSignup() {
   //드롭다운 타이틀 프롭스
   const dropdownTitle = {
     job: '직무 *',
-    teamSize: '팀 규모',
+    teamSize: '팀 규모 *',
   }
   const dropdownPlaceholder = {
+    phoneNuber: '하이폰(-)없이 숫자만 적어주세요',
     job: '직무를 선택해주세요',
     teamSize: '팀 규모를 선택해주세요',
   }
@@ -71,18 +78,57 @@ function GoogleSignup() {
   const {
     register,
     handleSubmit,
-    setValue,
     control,
+    watch,
     formState: { errors },
   } = useForm<advanceInformationSchemaType>({
     resolver: zodResolver(advanceInformationSchema),
   })
+  // 모든 필드를 감시
+  const watchAllFields = watch()
+  // 필요한 필드들
+
+  const requiredFields: (keyof advanceInformationSchemaType)[] = [
+    'username',
+    'phone',
+    'job',
+    'teamsize',
+  ]
+  // 모든 필드가 채워졌는지 확인
+  const allFieldsFilled = requiredFields.every(field => !!watchAllFields[field])
+
+  // console.log('watchAllFields', watchAllFields)
 
   //제출 함수
-  const onSubmit = (data: advanceInformationSchemaType) => {
-    alert('확인')
+  const onSubmit = (data: any) => {
+    console.log('submit', data)
+    const signupdata = {
+      userName: data.username,
+      userPhoneNumber: data.phone,
+      userJob: data.job,
+      userTeamsize: data.teamsize,
+      userCompany: data.company,
+    }
+    logEvent('qaing_onboardingpage_complete_button_click', {
+      button_name: '사전정보제출',
+      user_name: data.username,
+      user_job: data.job,
+      user_teamsize: data.teamsize,
+      user_company: data.company || null,
+      // is_installed: false,
+    })
+    signupUser(signupdata)
+      .then(res => {
+        console.log('res', res)
+        router.push('/')
+      })
+      .catch(e => {
+        console.error('사전정보 등록 실패', e)
+        alert('사전정보 등록 실패')
+      })
+    // const UpdateUserDto = { ...data }
     // console.log('Button clicked!', data)
-    router.push(`${GoogleURL}/auth/google`)
+    // router.push(`${GoogleURL}/auth/google`)
   }
 
   const GoogleURL = process.env.NEXT_PUBLIC_BACKEND_API_URL
@@ -90,12 +136,38 @@ function GoogleSignup() {
     router.push(`${GoogleURL}/auth/google`)
   }
 
+  //amplitude
+  useEffect(() => {
+    initAmplitude()
+    logPageView('qaing_onboardingpage_view')
+  }, [])
+
+  //로그인 안 했을 때
+  useEffect(() => {
+    fetchUser().then(data => {
+      //이미 사전정보 등록한 유저 리다이렉트
+      if (
+        data.userName !== null &&
+        data.userPhoneNumber !== null &&
+        data.userJob !== null &&
+        data.userCompany !== null
+      ) {
+        router.push('/')
+        return
+      }
+      //비 로그인유저 리다이렉트
+    })
+    if (!accessToken) {
+      router.push('/auth/signup')
+    }
+  }, [])
+
   return (
     <div>
       <header className="h-[108px]   flex flex-col justify-center ">
-        <div className="ml-[35px]">
+        <Link href={'/'} className="ml-[35px]">
           <Logo logoSize={logoSize} />
-        </div>
+        </Link>
       </header>
 
       <div className="flex flex-col items-center ">
@@ -123,6 +195,7 @@ function GoogleSignup() {
               errors={errors.phone}
               phoneNumberProps={phoneNumberProps}
               onChangePhoneNumber={onChangePhoneNumber}
+              inputPlaceholder={dropdownPlaceholder.phoneNuber}
               phoneValue={phoneValue}
             />
           </div>
@@ -142,7 +215,7 @@ function GoogleSignup() {
             /> */}
             <div></div>
           </div>
-          <div className=" mt-[45px]">
+          <div className=" mt-[45px] ">
             <Controller
               control={control}
               name="job"
@@ -157,9 +230,11 @@ function GoogleSignup() {
                 />
               )}
             />
-            <div></div>
+            <div className="b4 text-sementic-danger ">
+              {errors.job && <p>직무를 입력해주세요</p>}
+            </div>
           </div>
-          <div className=" mt-[45px]">
+          <div className=" mt-[45px] ">
             <Controller
               control={control}
               name="teamsize"
@@ -174,6 +249,13 @@ function GoogleSignup() {
                 />
               )}
             />
+            <div>
+              {errors.teamsize && (
+                <p className="b4 text-sementic-danger">
+                  팀 규모를를 선택해주세요
+                </p>
+              )}
+            </div>
           </div>
           <div className=" mt-[45px]">
             <InputMolecules
@@ -193,7 +275,9 @@ function GoogleSignup() {
             </p>
           </div>
           <div className="mt-4">
-            <CTAButton size={'large'}>가입 완료하기</CTAButton>
+            <CTAButton size={'large'} disabled={!allFieldsFilled}>
+              가입 완료하기
+            </CTAButton>
           </div>
         </form>
       </div>
@@ -201,4 +285,4 @@ function GoogleSignup() {
   )
 }
 
-export default GoogleSignup
+export default OnboardingTemplete

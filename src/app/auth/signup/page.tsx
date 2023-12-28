@@ -1,9 +1,10 @@
-'use client'
 import React from 'react'
-import Signup from '@/components/templetes/SignupTemplete/SignupTemplete'
+import GoogleSignupTemplete from '@/components/templetes/AuthTemplete/GoogleSignupTemplete'
 
-function Page() {
-  return <Signup />
+export default function page() {
+  return (
+    <div>
+      <GoogleSignupTemplete />
+    </div>
+  )
 }
-
-export default Page

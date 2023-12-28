@@ -19,24 +19,28 @@ export default function FolderTable() {
   useEffect(() => {
     fetchFolder()
       .then(response => {
-        console.log('상태값', response)
+        // console.log('상태값', response)
         setFolders(response.data)
         if (response.status === 401) {
-          router.push('/auth/login')
+          router.push('/auth/signup')
         }
       })
       .catch(error => {
-        console.log('error', error)
+        // console.log('error', error)
         if (error.response.status === 401) {
-          router.push('/auth/login')
+          router.push('/auth/signup')
+          return
+        }
+        if (error.response.status !== 200) {
+          window.location.href = 'https://qaing.co/404'
         }
       })
   }, [])
 
-  useEffect(() => {
-    if (folders.length === 0) return
-    console.log('folder가 변경되었습니다.', folders)
-  }, [folders])
+  // useEffect(() => {
+  //   if (folders.length === 0) return
+  //   console.log('folder가 변경되었습니다.', folders)
+  // }, [folders])
 
   // const folders = [
   //   {

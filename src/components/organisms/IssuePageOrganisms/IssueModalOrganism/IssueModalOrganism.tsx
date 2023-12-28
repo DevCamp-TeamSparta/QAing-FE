@@ -9,6 +9,7 @@ import { CloseIcon } from '../../../../../public/icons/CloseIcon'
 import { TypeImageIcon } from '../../../../../public/icons/TypeImageIcon'
 import { TypeVideoIcon } from '../../../../../public/icons/TypeVideoIcon'
 import useClipboard from '@/hooks/useClipboard'
+import { logEvent } from '@/lib/amplitude'
 
 interface IssueModalProps {
   imageUrl: string
@@ -31,6 +32,15 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
 
   function closeModal() {
     setModal(null)
+  }
+
+  //amplitude
+  const linkButtonClickEvent = (contentType: string, buttonWhere: string) => {
+    logEvent('qaing_folderpage_link_button_click', {
+      button_name: '파일 링크복사',
+      content_type: contentType,
+      button_where: buttonWhere,
+    })
   }
 
   return (
@@ -85,7 +95,14 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
           </div>
           <button
             className={`flex gap-[8px] px-[20px] py-[8px] rounded-[99px] bg-primary-default b3 text-white [&>svg]:w-[20px] [&>svg]:h-[20px]`}
-            onClick={onClickCopyLinkHandler}
+            onClick={() => {
+              onClickCopyLinkHandler()
+              if (mode === 'image') {
+                linkButtonClickEvent('이미지', '미리보기')
+              } else {
+                linkButtonClickEvent('영상', '미리보기')
+              }
+            }}
           >
             <CopyLinkIcon color={'#FFFFFF'} /> 링크 복사하기
           </button>

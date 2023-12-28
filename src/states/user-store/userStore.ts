@@ -3,6 +3,9 @@ import { create } from 'zustand'
 import type { StateCreator } from 'zustand'
 import type { UserStore } from '@/types/userStore.types'
 
+// 현재 시간으로부터 10분 후의 시간을 계산
+const expires = new Date(new Date().getTime() + 10 * 60 * 1000)
+
 export const useUserStore = create<UserStore>(set => ({
   registerUser: null,
   user: null,
@@ -11,7 +14,7 @@ export const useUserStore = create<UserStore>(set => ({
   setRegisterUser: user => set({ registerUser: user }),
   setAccessToken: token => {
     Cookies.set('accessToken', token, {
-      expires: 3,
+      expires: expires,
     })
     set({ accessToken: token })
   },

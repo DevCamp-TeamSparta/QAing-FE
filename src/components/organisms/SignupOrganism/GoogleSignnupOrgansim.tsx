@@ -1,14 +1,24 @@
 'use client'
 import Logo from '@/components/atoms/LogoAtom/LogoAtoms'
 import OAuthBoutton from '@/components/atoms/OAuthButtonAtom/OAuthButtonAtom'
-import { GoogleSignup } from '@/services/auth/google.api'
+import { useEffect } from 'react'
+import { logPageView, initAmplitude } from '@/lib/amplitude'
 
-function SignnupOrgansim() {
+function GoogleSignnupOrgansim() {
+  // useEffect(() => {
+  //   console.log('회원가입 페이지 랜더링 확인')
+  // })
+  console.log('회원가입 페이지 랜더링 확인')
   const logoSize = {
     alt: 'Logo',
     width: 302.22,
     height: 109,
   }
+
+  useEffect(() => {
+    initAmplitude()
+    logPageView('qaing_signuppage_view')
+  }, [])
 
   return (
     <div className="bg-white w-[440px] h-[310px] mx-auto">
@@ -29,4 +39,4 @@ function SignnupOrgansim() {
   )
 }
 
-export default SignnupOrgansim
+export default GoogleSignnupOrgansim

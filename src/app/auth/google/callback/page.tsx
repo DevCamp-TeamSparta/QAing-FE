@@ -1,52 +1,64 @@
 'use client'
-// import { cookies } from 'next/headers'
-// import { getServerSideProps } from 'next/dist/build/templates/pages'
 import Cookies from 'js-cookie'
-import axios from 'axios'
+import { fetchUser } from '@/services/auth/auth.api'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { EditUserType } from '@/types/userStore.types'
+import { setAmplitudeUserId } from '@/lib/amplitude'
+import useAdvancedSignup from '@/hooks/useAdvancedSignup'
+import { useUserStore } from '@/states/user-store/userStore'
 
 function Page() {
   const [folderList, setFolderList] = useState()
-  // const cookieStore = cookies()
-  // console.log('cookieStore', cookieStore)
-  const baseURL = process.env.NEXT_PUBLIC_BACKEND_API_URL
-  const accessToken = 'Token is here'
-  const getCookie = Cookies.get('access-token')
-  // console.log('getCookie', getCookie)
-  const tokenhandler = () => {
-    // console.log('확인')
-    Cookies.set('access-token', accessToken)
-  }
+  const [getCookie, setGetCookie] = useState<string | undefined>()
+  const { isAdvancedSignup } = useAdvancedSignup()
+  const [user, setUser] = useState<EditUserType>({
+    userName: 'undefined',
+    userPhoneNumber: 1234567890,
+    userJob: 'undefined',
+    userTeamsize: 'undefined',
+    userCompany: 'undefined',
+  })
+  const {
+    setAccessToken,
+    setRefreshToken,
+    setRegisterUser,
+    accessToken,
+    refreshToken,
+  } = useUserStore()
   const router = useRouter()
 
-  // const apiTest = async () => {
-  //   try {
-  //     const UpdateUserDto = { userName: 'IamGroot' }
-  //     const UpdateFolderDto = {
-  //       folderName: '수정 완료',
-  //     }
-  //     const UpdateIssueFileDto = {
-  //       newIssueName: '수정 완료',
-  //     }
-  //     const data = await axios
-  //       .delete(`${baseURL}/folders//issues/`, {
-  //         withCredentials: true,
-  //       })
-  //       .then(res => {
-  //         console.log('res.data', res.data)
-  //         setFolderList(res.data)
-  //       })
-  //   } catch (err) {
-  //     console.log('err', err)
-  //   }
-  // }
+  useEffect(() => {
+    fetchUser()
+      .then(data => {
+        console.log('콜백 유저정보', data)
+        setAmplitudeUserId(data.userEmail)
+        setUser({
+          userName: data.userName,
+          userPhoneNumber: data.userPhoneNumber,
+          userJob: data.userJob,
+          userTeamsize: data.userTeamsize,
+          userCompany: data.userCompany,
+        })
+        if (!data.accessToken || !data.refreshToken) return
+        setAccessToken(data.accessToken)
+        isAdvancedSignup(data)
+      })
+      .catch(e => {
+        console.error(e)
+        window.location.href = 'https://qaing.co/404'
+      })
+  }, [])
 
   useEffect(() => {
-    // window.location.href = 'https://qaing.co'
     router.push('/')
-    // console.log('getCookie', getCookie)
-  })
+  }, [accessToken])
+
+  // const tokenhandler = () => {
+  //   Cookies.remove('refreshToken')
+  //   Cookies.remove('accessToken')
+  //   console.log('토큰제거')
+  // }
 
   return (
     <div className="flex flex-col mb-2 items-center">
@@ -54,9 +66,9 @@ function Page() {
         className="bg-gray-200 w-[200px] h-[50px] rounded-lg mb-2"
         onClick={tokenhandler}
       >
-        set cookie
-      </button>
-      <button
+        remove cookie
+      </button> */}
+      {/* <button
         className="bg-gray-200 w-[200px] h-[50px] rounded-lg"
         // onClick={apiTest}
       >

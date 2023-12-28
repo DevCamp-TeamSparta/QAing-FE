@@ -34,11 +34,14 @@ export default function ProfileModal() {
 
   function onChangeFileHandler(e: React.ChangeEvent<HTMLInputElement>) {
     const files = e.target.files
+    console.log('파일 객체 : ', files)
     if (!files) return
     const file = files[0]
+    console.log('이미지 url', file)
     setImageFile(file)
-    setImageFile(file)
+    // setImageFile(file)
     const objectUrl = URL.createObjectURL(file)
+    console.log('이미지 url2', objectUrl)
     setUpdateUser({
       ...updateUser,
       userProfileImg: objectUrl,
@@ -47,6 +50,14 @@ export default function ProfileModal() {
 
   async function onClickSaveButtonHandler() {
     if (!user) return
+    if (user.userName === updateUser.userName) {
+      //이미지업로드
+    }
+    if (imageFile === null) {
+      //프로필이름 수정
+    }
+    if (imageFile === null && user.userName === updateUser.userName) return
+    // 이미지 업로드  + 프로필이름 수정
     const response = await instance.put('/users/profile', {
       ...user,
       userName: updateUser.userName,
