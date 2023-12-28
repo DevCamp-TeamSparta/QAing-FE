@@ -62,15 +62,16 @@ export default function ProfileModal() {
       return
     }
     //이미지업로드만 할 때
-    if (user.userName === updateUser.userName) {
-      if (imageFile === null) {
-        alert('이미지가 선택되지 않았습니다.')
-      }
-      imageFile &&
-        getPresignedURL(imageFile).then(data => {
-          console.log('presigned data', data)
-        })
-    }
+    // if (user.userName === updateUser.userName)
+    // if (imageFile === null) {
+    //   alert('이미지가 선택되지 않았습니다.')
+    // }
+    console.log('이미지 업로드가 시작됩니다.')
+    imageFile &&
+      getPresignedURL(imageFile).then(data => {
+        console.log('presigned data', data)
+      })
+
     //프로필이름 수정만 할 때
     if (imageFile === null) {
     }

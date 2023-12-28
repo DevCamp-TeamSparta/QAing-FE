@@ -15,6 +15,8 @@ export const signupUser = async (UpdateUser: EditUserType) => {
 
 export const getPresignedURL = async (file: File) => {
   const data = { filename: file.name, type: file.type }
+  console.log('filename', file.name)
+  console.log('filetype', file.type)
   const response = await instance.post('/presignedurl', JSON.stringify(data))
   return response.data
 }
