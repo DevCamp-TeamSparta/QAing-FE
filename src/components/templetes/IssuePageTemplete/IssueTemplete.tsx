@@ -137,6 +137,17 @@ function IssuePageTemplete() {
   //   return response.data
   // }
 
+  const isAdvancedSignup = (data: User) => {
+    if (
+      data.userName === null ||
+      data.userPhoneNumber === null ||
+      data.userJob === null ||
+      data.userCompany === null
+    ) {
+      router.push('/auth/onboarding')
+    }
+  }
+
   useEffect(() => {
     fetchUser()
       .then(data => {
@@ -150,6 +161,7 @@ function IssuePageTemplete() {
           userTeamsize: data.userTeamsize,
           userCompany: data.userCompany,
         })
+        isAdvancedSignup(data)
       })
       .catch(e => console.error(e))
   }, [])
