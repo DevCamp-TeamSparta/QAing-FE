@@ -99,6 +99,7 @@ export default function ProfileModal() {
   }
 
   const handleLogout = () => {
+    console.log('로그아웃을 시작합니다.')
     logout().then(data => {
       console.log('로그아웃', data)
       // closeModal()
@@ -174,16 +175,15 @@ export default function ProfileModal() {
           저장
         </CTAButton>
       </div>
-      <form>
-        <button
-          className={'mt-[40px] b4 text-gray-700'}
-          onSubmit={() => {
-            handleLogout()
-          }}
-        >
-          로그아웃
-        </button>
-      </form>
+
+      <button
+        className={'mt-[40px] b4 text-gray-700'}
+        onSubmit={() => {
+          handleLogout()
+        }}
+      >
+        로그아웃
+      </button>
     </div>
   )
 }
