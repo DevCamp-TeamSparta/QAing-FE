@@ -53,15 +53,21 @@ function Page() {
     console.log('refreshToken', refreshToken)
   }, [accessToken, refreshToken])
 
+  const tokenhandler = () => {
+    Cookies.remove('access-token')
+    Cookies.remove('refresh-token')
+    console.log('토큰제거')
+  }
+
   return (
     <div className="flex flex-col mb-2 items-center">
-      {/* <button
+      <button
         className="bg-gray-200 w-[200px] h-[50px] rounded-lg mb-2"
         onClick={tokenhandler}
       >
-        set cookie
+        remove cookie
       </button>
-      <button
+      {/* <button
         className="bg-gray-200 w-[200px] h-[50px] rounded-lg"
         // onClick={apiTest}
       >
