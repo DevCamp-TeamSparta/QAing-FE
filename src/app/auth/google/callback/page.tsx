@@ -7,7 +7,6 @@ import { EditUserType } from '@/types/userStore.types'
 import { setAmplitudeUserId } from '@/lib/amplitude'
 import useAdvancedSignup from '@/hooks/useAdvancedSignup'
 import { useUserStore } from '@/states/user-store/userStore'
-import { set } from 'zod'
 
 function Page() {
   const [folderList, setFolderList] = useState()
@@ -27,6 +26,7 @@ function Page() {
     accessToken,
     refreshToken,
   } = useUserStore()
+  const router = useRouter()
 
   useEffect(() => {
     fetchUser()
@@ -42,31 +42,32 @@ function Page() {
         })
         if (!data.accessToken || !data.refreshToken) return
         setAccessToken(data.accessToken)
-        setRefreshToken(data.refreshToken)
         isAdvancedSignup(data)
       })
-      .catch(e => console.error(e))
+      .catch(e => {
+        console.error(e)
+        window.location.href = 'https://qaing.co/404'
+      })
   }, [])
 
   useEffect(() => {
-    console.log('accessToken', accessToken)
-    console.log('refreshToken', refreshToken)
-  }, [accessToken, refreshToken])
+    router.push('/')
+  }, [accessToken])
 
-  const tokenhandler = () => {
-    Cookies.remove('refreshToken')
-    Cookies.remove('accessToken')
-    console.log('토큰제거')
-  }
+  // const tokenhandler = () => {
+  //   Cookies.remove('refreshToken')
+  //   Cookies.remove('accessToken')
+  //   console.log('토큰제거')
+  // }
 
   return (
     <div className="flex flex-col mb-2 items-center">
-      <button
+      {/* <button
         className="bg-gray-200 w-[200px] h-[50px] rounded-lg mb-2"
         onClick={tokenhandler}
       >
         remove cookie
-      </button>
+      </button> */}
       {/* <button
         className="bg-gray-200 w-[200px] h-[50px] rounded-lg"
         // onClick={apiTest}
