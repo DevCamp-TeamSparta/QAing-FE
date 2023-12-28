@@ -11,6 +11,7 @@ import {
   getPresignedURL,
   uploadImageToS3,
   uploadImageToBackend,
+  logout,
 } from '@/services/auth/auth.api'
 
 export default function ProfileModal() {
@@ -62,7 +63,7 @@ export default function ProfileModal() {
       return
     }
     //이미지업로드만 할 때
-    // if (user.userName === updateUser.userName)
+    // if (user.userName === updateUser.userName || updateUser.userName === '') return
     // if (imageFile === null) {
     //   alert('이미지가 선택되지 않았습니다.')
     // }
@@ -96,6 +97,18 @@ export default function ProfileModal() {
     // }
     closeModal()
   }
+
+  const handleLogout = () => {
+    logout().then(data => {
+      console.log('로그아웃', data)
+      // closeModal()
+    })
+  }
+
+  useEffect(() => {
+    console.log('updateUser', updateUser)
+  }, [])
+
   if (!user) return null
   return (
     <div
@@ -161,9 +174,16 @@ export default function ProfileModal() {
           저장
         </CTAButton>
       </div>
-      <button className={'mt-[40px] b4 text-gray-700'} onClick={closeModal}>
-        로그 아웃
-      </button>
+      <form>
+        <button
+          className={'mt-[40px] b4 text-gray-700'}
+          onSubmit={() => {
+            handleLogout()
+          }}
+        >
+          로그아웃
+        </button>
+      </form>
     </div>
   )
 }

@@ -15,6 +15,15 @@ export const signupUser = async (UpdateUser: EditUserType) => {
   return response.data
 }
 
+export const editUserName = async (UpdateUser: EditUserType) => {
+  const response = await instance.put
+}
+
+export const logout = async () => {
+  const response = await instance.get('/auth/logout')
+  return response.data
+}
+
 export const getPresignedURL = async (file: File) => {
   const data = { filename: file.name, type: file.type }
   console.log('filename', file.name)
