@@ -50,6 +50,14 @@ export default function ProfileModal() {
 
   async function onClickSaveButtonHandler() {
     if (!user) return
+    if (user.userName === updateUser.userName) {
+      //이미지업로드
+    }
+    if (imageFile === null) {
+      //프로필이름 수정
+    }
+    if (imageFile === null && user.userName === updateUser.userName) return
+    // 이미지 업로드  + 프로필이름 수정
     const response = await instance.put('/users/profile', {
       ...user,
       userName: updateUser.userName,

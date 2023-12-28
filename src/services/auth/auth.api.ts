@@ -13,6 +13,30 @@ export const signupUser = async (UpdateUser: EditUserType) => {
   return response.data
 }
 
+export const getPresignedURL = async (file: File) => {
+  const data = { filname: file.name, filetype: file.type }
+  const response = await instance.post('/presignedURL', JSON.stringify(data))
+  return response.data
+}
+
+export const uploadImageToS3 = async (presignedURL: string, file: File) => {
+  const response = await axios.put(presignedURL, file)
+  return response.data
+}
+
+export const uploadImageToBackend = async (
+  presignedURL: string,
+  file: File,
+  userId: string,
+) => {
+  const data = { filename: file.name, userId: userId }
+  const response = await instance.post(
+    `${presignedURL}/s3bucket`,
+    JSON.stringify(data),
+  )
+  return response.data
+}
+
 const API_URL = 'https://jsonplaceholder.typicode.com' //더미
 const mockData = {
   company: '팀스파르타',

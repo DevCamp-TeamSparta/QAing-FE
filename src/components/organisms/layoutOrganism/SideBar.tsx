@@ -20,6 +20,7 @@ import { User } from '@/types/userStore.types'
 import { ProfileImageSvg } from '../../../../public/icons/ProfileImageSvg'
 import { fetchUser } from '@/services/auth/auth.api'
 import { logEvent } from '@/lib/amplitude'
+import { useRouter } from 'next/navigation'
 
 const SideBarRoutes = [
   {
@@ -33,6 +34,7 @@ export default function SideBar() {
   const pathname = usePathname()
   const setModal = useModalStore(state => state.setModal)
   const addVideo = useVideoStore(state => state.addVideo)
+  const router = useRouter()
   const { user, setUser } = useUserStore()
 
   function onClickProfileHandler() {
@@ -63,6 +65,17 @@ export default function SideBar() {
   //   return response.data
   // }
 
+  const isAdvancedSignup = (data: User) => {
+    if (
+      data.userName === null ||
+      data.userPhoneNumber === null ||
+      data.userJob === null ||
+      data.userCompany === null
+    ) {
+      router.push('/auth/onboarding')
+    }
+  }
+
   useEffect(() => {
     fetchUser()
       .then(data => {
@@ -76,6 +89,7 @@ export default function SideBar() {
           userTeamsize: data.userTeamsize,
           userCompany: data.userCompany,
         })
+        isAdvancedSignup(data)
       })
       .catch(e => console.error(e))
   }, [])
