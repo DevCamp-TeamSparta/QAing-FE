@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation'
 import { EditUserType } from '@/types/userStore.types'
 import { setAmplitudeUserId } from '@/lib/amplitude'
 import useAdvancedSignup from '@/hooks/useAdvancedSignup'
+import { useUserStore } from '@/states/user-store/userStore'
+import { set } from 'zod'
 
 function Page() {
   const [folderList, setFolderList] = useState()
@@ -18,24 +20,15 @@ function Page() {
     userTeamsize: 'undefined',
     userCompany: 'undefined',
   })
-  // const cookieStore = cookies()
-  // console.log('cookieStore', cookieStore)
-  const baseURL = process.env.NEXT_PUBLIC_BACKEND_API_URL
-  const accessToken = 'Token is here'
-  const CookieGet = () => {
-    const cookie = Cookies.get('access-token')
-    setGetCookie(cookie)
-  }
-  const CookieGetVariable = Cookies.get('access-token')
-
-  const tokenHandler = () => {
-    // console.log('확인')
-    Cookies.set('access-token', accessToken)
-  }
-  const router = useRouter()
+  const {
+    setAccessToken,
+    setRefreshToken,
+    setRegisterUser,
+    accessToken,
+    refreshToken,
+  } = useUserStore()
 
   useEffect(() => {
-    CookieGet()
     fetchUser()
       .then(data => {
         console.log('콜백 유저정보', data)
@@ -47,28 +40,18 @@ function Page() {
           userTeamsize: data.userTeamsize,
           userCompany: data.userCompany,
         })
+        if (!data.accessToken || !data.refreshToken) return
+        setAccessToken(data.accessToken)
+        setRefreshToken(data.refreshToken)
         isAdvancedSignup(data)
       })
       .catch(e => console.error(e))
   }, [])
 
   useEffect(() => {
-    // window.location.href = 'https://qaing.co'
-    // const isAdvancedSignup = () => {
-    //   if (
-    //     user.userName === null ||
-    //     user.userPhoneNumber === null ||
-    //     user.userJob === null ||
-    //     user.userCompany === null
-    //   ) {
-    //     router.push('/auth/onboarding')
-    //   }
-    // }
-    // isAdvancedSignup()
-    // router.push('/')
-    console.log('CookieGetVariable', CookieGetVariable)
-    console.log('getCookie', getCookie)
-  }, [getCookie, user])
+    console.log('accessToken', accessToken)
+    console.log('refreshToken', refreshToken)
+  }, [accessToken, refreshToken])
 
   return (
     <div className="flex flex-col mb-2 items-center">

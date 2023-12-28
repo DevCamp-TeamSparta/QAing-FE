@@ -7,6 +7,8 @@ export type User = {
   userJob: string | undefined
   userTeamsize: string | undefined
   userCompany: string | undefined
+  accessToken?: string
+  refreshToken?: string
 }
 
 export type EditUserType = {
