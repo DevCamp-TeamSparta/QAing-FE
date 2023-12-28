@@ -76,6 +76,7 @@ function IssuePageTemplete() {
           })
           .catch(err => {
             err.response.status === 401 && router.push('/auth')
+            err.response.status === 404 && router.push('/')
             // console.log('res', res)
           })
       } catch (err) {}
