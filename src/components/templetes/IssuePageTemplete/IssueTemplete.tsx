@@ -19,6 +19,7 @@ import { ProfileImageSvg } from '../../../../public/icons/ProfileImageSvg'
 import { MyVideoSvg } from '../../../../public/icons/MyVideoSvg'
 import { fetchUser } from '@/services/auth/auth.api'
 import { initAmplitude, logPageView, logEvent } from '@/lib/amplitude'
+import useAdvancedSignup from '@/hooks/useAdvancedSignup'
 
 type Values = {
   newFolderName: string
@@ -33,6 +34,7 @@ function IssuePageTemplete() {
   const [values, setValues] = useState<Values>({ newFolderName: '' })
   const router = useRouter()
   const { user, setUser } = useUserStore()
+  const { isAdvancedSignup } = useAdvancedSignup()
 
   //폴더명 변경
   const inputRef = useRef<HTMLInputElement>(null)
@@ -137,6 +139,17 @@ function IssuePageTemplete() {
   //   return response.data
   // }
 
+  // const isAdvancedSignup = (data: User) => {
+  //   if (
+  //     data.userName === null ||
+  //     data.userPhoneNumber === null ||
+  //     data.userJob === null ||
+  //     data.userCompany === null
+  //   ) {
+  //     router.push('/auth/onboarding')
+  //   }
+  // }
+
   useEffect(() => {
     fetchUser()
       .then(data => {
@@ -150,6 +163,7 @@ function IssuePageTemplete() {
           userTeamsize: data.userTeamsize,
           userCompany: data.userCompany,
         })
+        isAdvancedSignup(data)
       })
       .catch(e => console.error(e))
   }, [])
