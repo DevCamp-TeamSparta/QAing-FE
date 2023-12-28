@@ -101,7 +101,7 @@ function OnboardingTemplete() {
 
   //제출 함수
   const onSubmit = (data: any) => {
-    console.log('submit', data)
+    // console.log('submit', data)
     const signupdata = {
       userName: data.username,
       userPhoneNumber: data.phone,
@@ -119,7 +119,7 @@ function OnboardingTemplete() {
     })
     signupUser(signupdata)
       .then(res => {
-        console.log('res', res)
+        // console.log('res', res)
         router.push('/')
       })
       .catch(e => {
