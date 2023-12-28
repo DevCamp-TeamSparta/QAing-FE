@@ -61,8 +61,8 @@ export default function ProfileModal() {
       console.log('변경사항이 없습니다.')
       return
     }
+    //이미지업로드만 할 때
     if (user.userName === updateUser.userName) {
-      //이미지업로드
       if (imageFile === null) {
         alert('이미지가 선택되지 않았습니다.')
       }
@@ -71,8 +71,8 @@ export default function ProfileModal() {
           console.log('presigned data', data)
         })
     }
+    //프로필이름 수정만 할 때
     if (imageFile === null) {
-      //프로필이름 수정
     }
 
     // 이미지 업로드  + 프로필이름 수정
