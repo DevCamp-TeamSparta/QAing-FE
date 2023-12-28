@@ -70,6 +70,9 @@ export default function ProfileModal() {
     imageFile &&
       getPresignedURL(imageFile).then(data => {
         console.log('presigned data', data)
+        uploadImageToS3(data.url, imageFile).then(data => {
+          console.log('s3 버킷에 저장 완료', data)
+        })
       })
 
     //프로필이름 수정만 할 때
