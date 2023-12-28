@@ -16,6 +16,7 @@ import { signupUser } from '@/services/auth/auth.api'
 import Link from 'next/link'
 import { initAmplitude, logPageView, logEvent } from '@/lib/amplitude'
 import { useUserStore } from '@/states/user-store/userStore'
+import { fetchUser } from '@/services/auth/auth.api'
 
 function OnboardingTemplete() {
   const [buttonClicked, setButtonClicked] = useState<boolean>(false)
@@ -143,9 +144,21 @@ function OnboardingTemplete() {
 
   //로그인 안 했을 때
   useEffect(() => {
-    if (!accessToken) {
-      router.push('/')
-    }
+    fetchUser().then(data => {
+      //이미 사전정보 등록한 유저 리다이렉트
+      if (
+        data.userName !== null &&
+        data.userPhoneNumber !== null &&
+        data.userJob !== null &&
+        data.userCompany !== null
+      ) {
+        router.push('/')
+      }
+      //비 로그인유저 리다이렉트
+      if (!accessToken) {
+        router.push('/')
+      }
+    })
   }, [])
 
   return (
