@@ -5,7 +5,7 @@ function Custom404() {
   useEffect(() => {
     window.location.href = 'https://qaing.co/404'
   }, [])
-  return <div>404</div>
+  return <div></div>
 }
 
 export default Custom404

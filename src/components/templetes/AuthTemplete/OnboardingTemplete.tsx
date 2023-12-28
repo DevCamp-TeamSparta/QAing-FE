@@ -15,10 +15,12 @@ import { useRouter } from 'next/navigation'
 import { signupUser } from '@/services/auth/auth.api'
 import Link from 'next/link'
 import { initAmplitude, logPageView, logEvent } from '@/lib/amplitude'
+import { useUserStore } from '@/states/user-store/userStore'
 
 function OnboardingTemplete() {
   const [buttonClicked, setButtonClicked] = useState<boolean>(false)
   const router = useRouter()
+  const { accessToken } = useUserStore()
 
   //휴대폰 자동 하이픈생성훅 프롭스
   const phoneNumberProps = {
@@ -137,6 +139,13 @@ function OnboardingTemplete() {
   useEffect(() => {
     initAmplitude()
     logPageView('qaing_onboardingpage_view')
+  }, [])
+
+  //로그인 안 했을 때
+  useEffect(() => {
+    if (!accessToken) {
+      router.push('/')
+    }
   }, [])
 
   return (
