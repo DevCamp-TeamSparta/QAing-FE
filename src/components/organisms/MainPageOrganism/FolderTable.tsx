@@ -22,13 +22,13 @@ export default function FolderTable() {
         // console.log('상태값', response)
         setFolders(response.data)
         if (response.status === 401) {
-          router.push('/auth')
+          router.push('/auth/signup')
         }
       })
       .catch(error => {
         // console.log('error', error)
         if (error.response.status === 401) {
-          router.push('/auth')
+          router.push('/auth/signup')
           return
         }
         if (error.response.status !== 200) {
