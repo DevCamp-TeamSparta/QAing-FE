@@ -74,17 +74,17 @@ export default function ProfileModal() {
     }
 
     // 이미지 업로드  + 프로필이름 수정
-    const response = await instance.put('/users/profile', {
-      ...user,
-      userName: updateUser.userName,
-      userProfileImg: updateUser.userProfileImg,
-    })
-    if (response.status === 200) {
-      alert('프로필이 수정되었습니다.')
-      setUser({
-        ...user,
-      })
-    }
+    // const response = await instance.put('/users/profile', {
+    //   ...user,
+    //   userName: updateUser.userName,
+    //   userProfileImg: updateUser.userProfileImg,
+    // })
+    // if (response.status === 200) {
+    //   alert('프로필이 수정되었습니다.')
+    //   setUser({
+    //     ...user,
+    //   })
+    // }
     closeModal()
   }
   if (!user) return null
