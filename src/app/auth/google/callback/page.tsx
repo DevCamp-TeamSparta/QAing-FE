@@ -5,10 +5,12 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { EditUserType } from '@/types/userStore.types'
 import { setAmplitudeUserId } from '@/lib/amplitude'
+import useAdvancedSignup from '@/hooks/useAdvancedSignup'
 
 function Page() {
   const [folderList, setFolderList] = useState()
   const [getCookie, setGetCookie] = useState<string | undefined>()
+  const { isAdvancedSignup } = useAdvancedSignup()
   const [user, setUser] = useState<EditUserType>({
     userName: 'undefined',
     userPhoneNumber: 1234567890,
@@ -45,23 +47,24 @@ function Page() {
           userTeamsize: data.userTeamsize,
           userCompany: data.userCompany,
         })
+        isAdvancedSignup(data)
       })
       .catch(e => console.error(e))
   }, [])
 
   useEffect(() => {
     // window.location.href = 'https://qaing.co'
-    const isAdvancedSignup = () => {
-      if (
-        user.userName === null ||
-        user.userPhoneNumber === null ||
-        user.userJob === null ||
-        user.userCompany === null
-      ) {
-        router.push('/auth/onboarding')
-      }
-    }
-    isAdvancedSignup()
+    // const isAdvancedSignup = () => {
+    //   if (
+    //     user.userName === null ||
+    //     user.userPhoneNumber === null ||
+    //     user.userJob === null ||
+    //     user.userCompany === null
+    //   ) {
+    //     router.push('/auth/onboarding')
+    //   }
+    // }
+    // isAdvancedSignup()
     // router.push('/')
     console.log('CookieGetVariable', CookieGetVariable)
     console.log('getCookie', getCookie)
