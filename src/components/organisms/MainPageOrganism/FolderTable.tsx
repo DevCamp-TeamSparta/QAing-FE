@@ -30,6 +30,9 @@ export default function FolderTable() {
         if (error.response.status === 401) {
           router.push('/auth')
         }
+        if (error.response.status !== 200) {
+          window.location.href = 'https://qaing.co/404'
+        }
       })
   }, [])
 
