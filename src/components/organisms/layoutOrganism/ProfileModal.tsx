@@ -178,7 +178,7 @@ export default function ProfileModal() {
 
       <button
         className={'mt-[40px] b4 text-gray-700'}
-        onSubmit={() => {
+        onClick={() => {
           handleLogout()
         }}
       >
