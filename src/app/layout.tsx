@@ -6,7 +6,7 @@ import ModalPortal from '@/components/organisms/ModalOrganism/ModalPortalOrganis
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'QA 화면 녹화부터 공유까지 한 큐에, QAing',
+  title: 'QAing',
   description:
     '화면 캡쳐를 위해 QA를 멈추지 마세요! 실시간 북마크를 통해 QA를 더 빠르고 정확하게! QAing과 함께 시간을 단축하세요!',
   openGraph: {
