@@ -117,6 +117,7 @@ function OnboardingTemplete() {
     signupUser(signupdata)
       .then(res => {
         console.log('res', res)
+        router.push('/')
       })
       .catch(e => {
         console.error('사전정보 등록 실패', e)

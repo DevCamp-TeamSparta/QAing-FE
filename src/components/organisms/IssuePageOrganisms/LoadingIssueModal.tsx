@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import ProgressBar from '@/components/atoms/commonAtom/ProgressBarAtom'
+import ProgressBar from '@/components/atoms/CommonAtom/ProgressBarAtom'
 
 import { useVideoUploadStore } from '@/states/videoStore'
 
