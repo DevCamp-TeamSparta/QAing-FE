@@ -3,6 +3,8 @@ import instance from '@/services/instance'
 import { signupSchemaType } from '@/utils/zod/authValidation/authValidation'
 import { User, EditUserType } from '@/types/userStore.types'
 
+// const baseURL = process.env.NEXT_PUBLIC_BACKEND_API_URL
+
 export const fetchUser = async (): Promise<User> => {
   const response = await instance.get('/users/info')
   return response.data
@@ -22,7 +24,7 @@ export const getPresignedURL = async (file: File) => {
 }
 
 export const uploadImageToS3 = async (presignedURL: string, file: File) => {
-  const response = await instance.put(presignedURL, file)
+  const response = await axios.put(presignedURL, file)
   return response.data
 }
 
