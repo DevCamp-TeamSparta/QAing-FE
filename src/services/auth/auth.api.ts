@@ -15,7 +15,7 @@ export const signupUser = async (UpdateUser: EditUserType) => {
 
 export const getPresignedURL = async (file: File) => {
   const data = { filname: file.name, filetype: file.type }
-  const response = await instance.post('/presignedURL', JSON.stringify(data))
+  const response = await instance.post('/presignedurl', JSON.stringify(data))
   return response.data
 }
 
@@ -24,14 +24,10 @@ export const uploadImageToS3 = async (presignedURL: string, file: File) => {
   return response.data
 }
 
-export const uploadImageToBackend = async (
-  presignedURL: string,
-  file: File,
-  userId: string,
-) => {
+export const uploadImageToBackend = async (file: File, userId: string) => {
   const data = { filename: file.name, userId: userId }
   const response = await instance.post(
-    `${presignedURL}/s3bucket`,
+    `presignedurl/s3bucket`,
     JSON.stringify(data),
   )
   return response.data
