@@ -72,6 +72,10 @@ export default function ProfileModal() {
         console.log('presigned data', data)
         uploadImageToS3(data.url, imageFile).then(data => {
           console.log('s3 버킷에 저장 완료', data)
+          if (!data) return
+          uploadImageToBackend(imageFile).then(data => {
+            console.log('백엔드에 저장완료 메세지', data)
+          })
         })
       })
 

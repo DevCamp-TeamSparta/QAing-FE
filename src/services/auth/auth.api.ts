@@ -28,8 +28,8 @@ export const uploadImageToS3 = async (presignedURL: string, file: File) => {
   return response.data
 }
 
-export const uploadImageToBackend = async (file: File, userId: string) => {
-  const data = { filename: file.name, userId: userId }
+export const uploadImageToBackend = async (file: File) => {
+  const data = { filename: file.name, type: file.type }
   const response = await instance.post(`presignedurl/s3bucket`, data)
   return response.data
 }
