@@ -54,8 +54,8 @@ function Page() {
   }, [accessToken, refreshToken])
 
   const tokenhandler = () => {
-    Cookies.remove('access-token')
-    Cookies.remove('refresh-token')
+    Cookies.remove('refreshToken')
+    Cookies.remove('accessToken')
     console.log('토큰제거')
   }
 
