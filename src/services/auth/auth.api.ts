@@ -17,12 +17,12 @@ export const getPresignedURL = async (file: File) => {
   const data = { filename: file.name, type: file.type }
   console.log('filename', file.name)
   console.log('filetype', file.type)
-  const response = await instance.post('/presignedurl', JSON.stringify(data))
+  const response = await instance.post('/presignedurl', data)
   return response.data
 }
 
 export const uploadImageToS3 = async (presignedURL: string, file: File) => {
-  const response = await axios.put(presignedURL, file)
+  const response = await instance.put(presignedURL, file)
   return response.data
 }
 
