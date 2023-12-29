@@ -178,13 +178,9 @@ export default function ProfileModal() {
         onChange={onChangeInputHandler}
       />
 
-      <div
-        className={
-          'mt-[28px] flex gap-[8px] [&>button]:w-[100px] [&>button]:p-[12px]'
-        }
-      >
+      <div className={'mt-[28px] flex gap-[8px]'}>
         <button
-          className={'bg-gray-200 rounded-[99px] b3'}
+          className={'bg-gray-200 rounded-[99px] b3 w-[100px] p-[12px]'}
           onClick={closeModal}
         >
           취소
@@ -196,7 +192,7 @@ export default function ProfileModal() {
       </div>
       <form>
         <button
-          className={'mt-[40px] b4 text-gray-700'}
+          className={'mt-[40px] b4 text-gray-700 w-[100px] p-[12px]'}
           onSubmit={() => {
             handleLogout()
           }}
