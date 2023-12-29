@@ -29,8 +29,8 @@ export const logout = async () => {
 
 export const getPresignedURL = async (file: File) => {
   const data = { filename: file.name, type: file.type }
-  console.log('filename', file.name)
-  console.log('filetype', file.type)
+  // console.log('filename', file.name)
+  // console.log('filetype', file.type)
   const response = await instance.post('/presignedurl', data)
   return response.data
 }
