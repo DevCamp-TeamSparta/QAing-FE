@@ -18,11 +18,12 @@ import {
 export default function ProfileModal() {
   const [imageFile, setImageFile] = useState<File | null>(null)
   const setModal = useModalStore(state => state.setModal)
-  const { user, setUser } = useUserStore()
+  const { user, setUser, setProfileImg, setProfileName } = useUserStore()
   const [updateUser, setUpdateUser] = useState({
     userName: user?.userName,
     userProfileImg: user?.userProfileImg,
   })
+
   function closeModal() {
     setModal(null)
   }
@@ -66,6 +67,8 @@ export default function ProfileModal() {
             // console.log('s3 버킷에 저장 완료', data)
             uploadImageToBackend(imageFile).then(data => {
               // console.log('백백엔드에 저장 API test', data)
+              updateUser.userProfileImg &&
+                setProfileImg(updateUser.userProfileImg)
             })
           })
         })
@@ -84,6 +87,7 @@ export default function ProfileModal() {
       updateUser.userName &&
         editUserName(updateUser.userName).then(data => {
           // console.log('프로필이름 수정 API test', data)
+          updateUser.userName && setProfileName(updateUser.userName)
         })
       closeModal()
       return
@@ -101,6 +105,8 @@ export default function ProfileModal() {
             // console.log('s3 버킷에 저장 완료', data)
             uploadImageToBackend(imageFile).then(data => {
               // console.log('백백엔드에 저장 API test', data)
+              updateUser.userProfileImg &&
+                setProfileImg(updateUser.userProfileImg)
             })
           })
         })
@@ -108,6 +114,7 @@ export default function ProfileModal() {
       updateUser.userName &&
         editUserName(updateUser.userName).then(data => {
           // console.log('프로필이름 수정 API test', data)
+          updateUser.userName && setProfileName(updateUser.userName)
         })
       closeModal()
     }

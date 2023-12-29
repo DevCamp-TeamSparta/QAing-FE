@@ -9,9 +9,13 @@ const expires = new Date(new Date().getTime() + 10 * 60 * 1000)
 export const useUserStore = create<UserStore>(set => ({
   registerUser: null,
   user: null,
+  profileImg: null,
+  profileName: null,
   accessToken: Cookies.get('accessToken') || null,
   refreshToken: Cookies.get('refreshToken') || null,
   setRegisterUser: user => set({ registerUser: user }),
+  setProfileImg: imgURL => set({ profileImg: imgURL }),
+  setProfileName: name => set({ profileName: name }),
   setAccessToken: token => {
     Cookies.set('accessToken', token, {
       expires: expires,
