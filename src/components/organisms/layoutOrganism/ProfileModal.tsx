@@ -186,11 +186,10 @@ export default function ProfileModal() {
         >
           취소
         </button>
-        <form>
-          <CTAButton size={'small'} onClick={onClickSaveButtonHandler}>
-            저장
-          </CTAButton>
-        </form>
+
+        <CTAButton size={'small'} onClick={onClickSaveButtonHandler}>
+          저장
+        </CTAButton>
       </div>
       <form>
         <button
