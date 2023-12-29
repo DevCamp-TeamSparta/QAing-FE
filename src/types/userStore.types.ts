@@ -27,7 +27,7 @@ export type UserStore = {
   profileImg: string | null
   profileName: string | null
   setProfileImg: (imgURL: string) => void
-  setProfileName: (name: string) => void
+  setProfileName: (name: string | null) => void
   setRegisterUser: (user: User) => void
   setAccessToken: (token: string) => void
   setRefreshToken: (token: string) => void
