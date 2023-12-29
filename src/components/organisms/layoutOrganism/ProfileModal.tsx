@@ -7,6 +7,13 @@ import { ProfileImageSvg } from '../../../../public/icons/ProfileImageSvg'
 import { EditSvg } from '../../../../public/icons/EditSvg'
 import React, { useEffect, useState } from 'react'
 import instance from '@/services/instance'
+import {
+  getPresignedURL,
+  uploadImageToS3,
+  uploadImageToBackend,
+  logout,
+  editUserName,
+} from '@/services/auth/auth.api'
 
 export default function ProfileModal() {
   const [imageFile, setImageFile] = useState<File | null>(null)
@@ -34,14 +41,12 @@ export default function ProfileModal() {
 
   function onChangeFileHandler(e: React.ChangeEvent<HTMLInputElement>) {
     const files = e.target.files
-    console.log('파일 객체 : ', files)
+    // console.log('파일 객체 : ', files)
     if (!files) return
     const file = files[0]
-    console.log('이미지 url', file)
     setImageFile(file)
     // setImageFile(file)
     const objectUrl = URL.createObjectURL(file)
-    console.log('이미지 url2', objectUrl)
     setUpdateUser({
       ...updateUser,
       userProfileImg: objectUrl,
@@ -50,27 +55,79 @@ export default function ProfileModal() {
 
   async function onClickSaveButtonHandler() {
     if (!user) return
-    if (user.userName === updateUser.userName) {
-      //이미지업로드
+    // console.log('imageFile', imageFile)
+
+    if (user.userName === updateUser.userName || updateUser.userName === '') {
+      if (imageFile === null) return
+      imageFile &&
+        getPresignedURL(imageFile).then(data => {
+          // console.log('presigned data', data)
+          uploadImageToS3(data.url, imageFile).then(data => {
+            // console.log('s3 버킷에 저장 완료', data)
+            uploadImageToBackend(imageFile).then(data => {
+              // console.log('백백엔드에 저장 API test', data)
+            })
+          })
+        })
+      closeModal()
+      return
     }
-    if (imageFile === null) {
-      //프로필이름 수정
+
+    //프로필이름 수정만 할 때
+    if (!imageFile) {
+      // console.log('프로필 이름만 수정 시작')
+      if (user.userName === updateUser.userName || updateUser.userName === '')
+        return
+      // console.log(
+      //   '프로필 이름만 수정 이름이 변경되지 않거나 빈스트링이 아닐 때',
+      // )
+      updateUser.userName &&
+        editUserName(updateUser.userName).then(data => {
+          // console.log('프로필이름 수정 API test', data)
+        })
+      closeModal()
+      return
     }
-    if (imageFile === null && user.userName === updateUser.userName) return
-    // 이미지 업로드  + 프로필이름 수정
-    const response = await instance.put('/users/profile', {
-      ...user,
-      userName: updateUser.userName,
-      userProfileImg: updateUser.userProfileImg,
-    })
-    if (response.status === 200) {
-      alert('프로필이 수정되었습니다.')
-      setUser({
-        ...user,
-      })
+
+    if (
+      imageFile &&
+      updateUser.userName !== '' &&
+      user.userName !== updateUser.userName
+    ) {
+      imageFile &&
+        getPresignedURL(imageFile).then(data => {
+          // console.log('presigned data', data)
+          uploadImageToS3(data.url, imageFile).then(data => {
+            // console.log('s3 버킷에 저장 완료', data)
+            uploadImageToBackend(imageFile).then(data => {
+              // console.log('백백엔드에 저장 API test', data)
+            })
+          })
+        })
+
+      updateUser.userName &&
+        editUserName(updateUser.userName).then(data => {
+          // console.log('프로필이름 수정 API test', data)
+        })
+      closeModal()
     }
+
     closeModal()
   }
+
+  const handleLogout = () => {
+    // console.log('로그아웃을 시작합니다.')
+    logout().then(data => {
+      // console.log('로그아웃', data)
+      // closeModal()
+    })
+  }
+
+  useEffect(() => {
+    // console.log('updateUser', updateUser)
+    // console.log('user', user)
+  }, [updateUser, user])
+
   if (!user) return null
   return (
     <div
@@ -114,7 +171,7 @@ export default function ProfileModal() {
       </div>
       <input
         className={
-          'w-[208px] px-[40px] py-[14px] mt-[24px] rounded-[8px] bg-gray-300  t1'
+          'w-[208px] px-[40px] py-[14px] mt-[24px] text-center rounded-[8px] bg-gray-300  t1'
         }
         name={'userName'}
         value={updateUser.userName}
@@ -132,13 +189,21 @@ export default function ProfileModal() {
         >
           취소
         </button>
+
         <CTAButton size={'small'} onClick={onClickSaveButtonHandler}>
           저장
         </CTAButton>
       </div>
-      <button className={'mt-[40px] b4 text-gray-700'} onClick={closeModal}>
-        로그 아웃
-      </button>
+      <form>
+        <button
+          className={'mt-[40px] b4 text-gray-700'}
+          onSubmit={() => {
+            handleLogout()
+          }}
+        >
+          로그아웃
+        </button>
+      </form>
     </div>
   )
 }
