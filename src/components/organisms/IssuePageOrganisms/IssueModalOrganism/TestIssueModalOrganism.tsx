@@ -34,15 +34,17 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
   }
 
   return (
-    <div className={' h-screen max-h-screen px-[0%] py-[5%] '}>
-      <div className={'w-full h-full bg-white rounded-[8px] flex flex-col'}>
+    <div className={' h-screen w-full px-[13%] py-[2%] fixed top-0 left-0 '}>
+      <div className={'w-full h-full  bg-white rounded-[8px] flex flex-col'}>
         <div
           className={
             'relative px-[20px] py-[12px] flex items-center gap-[12px]  justify-between'
           }
         >
           <button
-            className={'[&>svg]:w-[20px] [&>svg]:h-[20px]'}
+            className={
+              'p-[8px] rounded-[8px] duration-150 [&>svg]:w-[20px] [&>svg]:h-[20px] hover:bg-gray-200'
+            }
             onClick={closeModal}
           >
             <CloseIcon />
@@ -84,19 +86,27 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
             </button>
           </div>
           <button
-            className={`flex gap-[8px] px-[20px] py-[8px] rounded-[99px] bg-primary-default b3 text-white [&>svg]:w-[20px] [&>svg]:h-[20px]`}
+            className={`flex gap-[8px] px-[20px] py-[8px] rounded-[99px] bg-primary-default b3 text-white [&>svg]:w-[20px] [&>svg]:h-[20px] hover:bg-primary-hover duration-150`}
             onClick={onClickCopyLinkHandler}
           >
             <CopyLinkIcon color={'#FFFFFF'} /> 링크 복사하기
           </button>
         </div>
-        <div className={'h-full px-[30px] py-[48px] bg-gray-200 rounded-[8px]'}>
+        <div
+          className={
+            'h-full max-w-full px-[30px] py-[48px] bg-gray-200 rounded-[8px] relative'
+          }
+        >
           <div className={'flex w-full h-full relative'}>
             {mode === 'image' ? (
-              <div className={'h-full w-full flex justify-center'}>
+              <div
+                className={
+                  'h-full w-full flex justify-center items-center absolute'
+                }
+              >
                 <Image
                   className={
-                    'h-full  rounded-[8px] overflow-hidden mx-auto object-cover'
+                    'h-full w-full rounded-[8px] overflow-hidden object-cover'
                   }
                   width={1080}
                   height={720}
@@ -105,9 +115,15 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
                 />
               </div>
             ) : (
-              <div className={'h-full w-full flex justify-center'}>
+              <div
+                className={
+                  'h-full w-full max-h-full flex justify-center items-center absolute'
+                }
+              >
                 <video
-                  className={'h-full w-auto rounded-[8px] overflow-hidden'}
+                  className={
+                    'h-full w-full rounded-[8px] overflow-hidden absolute'
+                  }
                   controls
                   autoPlay
                   playsInline
