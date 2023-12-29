@@ -122,7 +122,8 @@ export default function ProfileModal() {
 
   useEffect(() => {
     console.log('updateUser', updateUser)
-  }, [updateUser])
+    console.log('user', user)
+  }, [updateUser, user])
 
   if (!user) return null
   return (
@@ -185,9 +186,11 @@ export default function ProfileModal() {
         >
           취소
         </button>
-        <CTAButton size={'small'} onClick={onClickSaveButtonHandler}>
-          저장
-        </CTAButton>
+        <form>
+          <CTAButton size={'small'} onClick={onClickSaveButtonHandler}>
+            저장
+          </CTAButton>
+        </form>
       </div>
       <form>
         <button
