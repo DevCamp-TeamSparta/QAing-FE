@@ -18,11 +18,19 @@ import {
 export default function ProfileModal() {
   const [imageFile, setImageFile] = useState<File | null>(null)
   const setModal = useModalStore(state => state.setModal)
-  const { user, setUser } = useUserStore()
+  const {
+    user,
+    setUser,
+    setProfileImg,
+    setProfileName,
+    profileName,
+    profileImg,
+  } = useUserStore()
   const [updateUser, setUpdateUser] = useState({
     userName: user?.userName,
     userProfileImg: user?.userProfileImg,
   })
+
   function closeModal() {
     setModal(null)
   }
@@ -37,6 +45,8 @@ export default function ProfileModal() {
 
   function onChangeInputHandler(e: React.ChangeEvent<HTMLInputElement>) {
     setUpdateUser({ ...updateUser, [e.target.name]: e.target.value })
+    if (profileName == null) return
+    setProfileName(null)
   }
 
   function onChangeFileHandler(e: React.ChangeEvent<HTMLInputElement>) {
@@ -66,6 +76,8 @@ export default function ProfileModal() {
             // console.log('s3 버킷에 저장 완료', data)
             uploadImageToBackend(imageFile).then(data => {
               // console.log('백백엔드에 저장 API test', data)
+              updateUser.userProfileImg &&
+                setProfileImg(updateUser.userProfileImg)
             })
           })
         })
@@ -84,6 +96,7 @@ export default function ProfileModal() {
       updateUser.userName &&
         editUserName(updateUser.userName).then(data => {
           // console.log('프로필이름 수정 API test', data)
+          updateUser.userName && setProfileName(updateUser.userName)
         })
       closeModal()
       return
@@ -101,6 +114,8 @@ export default function ProfileModal() {
             // console.log('s3 버킷에 저장 완료', data)
             uploadImageToBackend(imageFile).then(data => {
               // console.log('백백엔드에 저장 API test', data)
+              updateUser.userProfileImg &&
+                setProfileImg(updateUser.userProfileImg)
             })
           })
         })
@@ -108,6 +123,7 @@ export default function ProfileModal() {
       updateUser.userName &&
         editUserName(updateUser.userName).then(data => {
           // console.log('프로필이름 수정 API test', data)
+          updateUser.userName && setProfileName(updateUser.userName)
         })
       closeModal()
     }
@@ -143,7 +159,7 @@ export default function ProfileModal() {
         {updateUser.userProfileImg ? (
           <Image
             className={'rounded-[50%]'}
-            src={updateUser.userProfileImg}
+            src={profileImg || updateUser.userProfileImg}
             alt={'프로필 이미지'}
             fill
             objectFit={'cover'}
@@ -174,7 +190,7 @@ export default function ProfileModal() {
           'w-[208px] px-[40px] py-[14px] mt-[24px] text-center rounded-[8px] bg-gray-300  t1'
         }
         name={'userName'}
-        value={updateUser.userName}
+        value={profileName || updateUser.userName}
         onChange={onChangeInputHandler}
       />
 
@@ -184,26 +200,29 @@ export default function ProfileModal() {
         }
       >
         <button
-          className={'bg-gray-200 rounded-[99px] b3'}
+          className={'bg-gray-200 rounded-[99px] b3 w-[100px] p-[12px]'}
           onClick={closeModal}
         >
           취소
         </button>
 
-        <CTAButton size={'small'} onClick={onClickSaveButtonHandler}>
+        <CTAButton
+          size={'small'}
+          onClick={onClickSaveButtonHandler}
+          className="w-[100px] p-[12px]"
+        >
           저장
         </CTAButton>
       </div>
-      <form>
-        <button
-          className={'mt-[40px] b4 text-gray-700'}
-          onSubmit={() => {
-            handleLogout()
-          }}
-        >
-          로그아웃
-        </button>
-      </form>
+
+      <button
+        className={'mt-[40px] b4 text-gray-700 w-[100px] p-[12px]'}
+        onClick={() => {
+          handleLogout()
+        }}
+      >
+        로그아웃
+      </button>
     </div>
   )
 }

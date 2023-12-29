@@ -40,23 +40,25 @@ export default function DeleteIssueModal({
       <p className={'mt-[12px] text-gray-800 b4'}>
         삭제된 이슈들은 복구가 어려워요
       </p>
-      <div
-        className={
-          'flex gap-[12px] ml-auto mt-auto [&>button]:px-[28px] [&>button]:py-[12px] [&>button]:rounded-[99px]'
-        }
-      >
+      <div className={'flex gap-[12px] ml-auto mt-auto '}>
         <button
-          className={'bg-gray-200 text-black cursor-pointer b3'}
+          className={
+            'bg-gray-200 text-black cursor-pointer b3 px-[28px] py-[12px] rounded-[99px] '
+          }
           onClick={() => setModal(null)}
         >
           취소
         </button>
-        <button
-          className={'bg-sementic-danger text-white cursor-pointer b3'}
-          onClick={() => onClickDeleteButtonHandler(folderId, issueID)}
-        >
-          삭제
-        </button>
+        <form>
+          <button
+            className={
+              'bg-sementic-danger text-white cursor-pointer b3 px-[28px] py-[12px] rounded-[99px]'
+            }
+            onClick={() => onClickDeleteButtonHandler(folderId, issueID)}
+          >
+            삭제
+          </button>
+        </form>
       </div>
     </div>
   )
