@@ -189,26 +189,24 @@ export default function ProfileModal() {
         >
           취소
         </button>
-        <form>
-          <CTAButton
-            size={'small'}
-            onClick={onClickSaveButtonHandler}
-            className="w-[100px] p-[12px]"
-          >
-            저장
-          </CTAButton>
-        </form>
-      </div>
-      <form>
-        <button
-          className={'mt-[40px] b4 text-gray-700 w-[100px] p-[12px]'}
-          onClick={() => {
-            handleLogout()
-          }}
+
+        <CTAButton
+          size={'small'}
+          onClick={onClickSaveButtonHandler}
+          className="w-[100px] p-[12px]"
         >
-          로그아웃
-        </button>
-      </form>
+          저장
+        </CTAButton>
+      </div>
+
+      <button
+        className={'mt-[40px] b4 text-gray-700 w-[100px] p-[12px]'}
+        onClick={() => {
+          handleLogout()
+        }}
+      >
+        로그아웃
+      </button>
     </div>
   )
 }
