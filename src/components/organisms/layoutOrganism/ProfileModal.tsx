@@ -45,6 +45,7 @@ export default function ProfileModal() {
 
   function onChangeInputHandler(e: React.ChangeEvent<HTMLInputElement>) {
     setUpdateUser({ ...updateUser, [e.target.name]: e.target.value })
+    if (profileName == null) return
     setProfileName(null)
   }
 
