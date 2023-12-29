@@ -167,7 +167,7 @@ export default function ProfileModal() {
       </div>
       <input
         className={
-          'w-[208px] px-[40px] py-[14px] mt-[24px] rounded-[8px] bg-gray-300  t1'
+          'w-[208px] px-[40px] py-[14px] mt-[24px] text-center rounded-[8px] bg-gray-300  t1'
         }
         name={'userName'}
         value={updateUser.userName}
