@@ -44,11 +44,9 @@ export default function ProfileModal() {
     console.log('파일 객체 : ', files)
     if (!files) return
     const file = files[0]
-    // console.log('이미지 url', file)
     setImageFile(file)
     // setImageFile(file)
     const objectUrl = URL.createObjectURL(file)
-    // console.log('이미지 url2', objectUrl)
     setUpdateUser({
       ...updateUser,
       userProfileImg: objectUrl,
@@ -59,12 +57,8 @@ export default function ProfileModal() {
     if (!user) return
     console.log('imageFile', imageFile)
 
-    // if (user.userName === updateUser.userName) {
-    //   console.log('프로필명이 변경되지 않았습니다.')
-    //   return
-    // }
-    //이미지업로드만 할 때
     if (user.userName === updateUser.userName || updateUser.userName === '') {
+      if (imageFile === null) return
       imageFile &&
         getPresignedURL(imageFile).then(data => {
           console.log('presigned data', data)
@@ -77,13 +71,15 @@ export default function ProfileModal() {
         })
       return
     }
-    // if (imageFile === null) {
-    //   alert('이미지가 선택되지 않았습니다.')
-    // }
-    console.log('이미지 업로드가 시작됩니다.')
 
     //프로필이름 수정만 할 때
     if (!imageFile) {
+      console.log('프로필 이름만 수정 시작')
+      if (user.userName === updateUser.userName || updateUser.userName === '')
+        return
+      console.log(
+        '프로필 이름만 수정 이름이 변경되지 않거나 빈스트링이 아닐 때',
+      )
       updateUser.userName &&
         editUserName(updateUser.userName).then(data => {
           console.log('프로필이름 수정 API test', data)
@@ -91,7 +87,11 @@ export default function ProfileModal() {
       return
     }
 
-    if (imageFile && updateUser.userName) {
+    if (
+      imageFile &&
+      updateUser.userName !== '' &&
+      user.userName !== updateUser.userName
+    ) {
       imageFile &&
         getPresignedURL(imageFile).then(data => {
           console.log('presigned data', data)
@@ -109,34 +109,6 @@ export default function ProfileModal() {
         })
     }
 
-    // imageFile &&
-    //   getPresignedURL(imageFile).then(data => {
-    //     console.log('presigned data', data)
-    //     uploadImageToS3(data.url, imageFile).then(data => {
-    //       console.log('s3 버킷에 저장 완료', data)
-    //       uploadImageToBackend(imageFile).then(data => {
-    //         console.log('백백엔드에 저장 API test', data)
-    //       })
-    //     })
-    //   })
-
-    // updateUser.userName &&
-    //   editUserName(updateUser.userName).then(data => {
-    //     console.log('프로필이름 수정 API test', data)
-    //   })
-
-    // 이미지 업로드  + 프로필이름 수정
-    // const response = await instance.put('/users/profile', {
-    //   ...user,
-    //   userName: updateUser.userName,
-    //   userProfileImg: updateUser.userProfileImg,
-    // })
-    // if (response.status === 200) {
-    //   alert('프로필이 수정되었습니다.')
-    //   setUser({
-    //     ...user,
-    //   })
-    // }
     closeModal()
   }
 
@@ -195,7 +167,7 @@ export default function ProfileModal() {
       </div>
       <input
         className={
-          'w-[208px] px-[40px] py-[14px] mt-[24px] rounded-[8px] bg-gray-300  t1'
+          'w-[208px] px-[40px] py-[14px] mt-[24px] text-center rounded-[8px] bg-gray-300  t1'
         }
         name={'userName'}
         value={updateUser.userName}
