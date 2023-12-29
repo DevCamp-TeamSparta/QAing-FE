@@ -41,7 +41,7 @@ export default function ProfileModal() {
 
   function onChangeFileHandler(e: React.ChangeEvent<HTMLInputElement>) {
     const files = e.target.files
-    console.log('파일 객체 : ', files)
+    // console.log('파일 객체 : ', files)
     if (!files) return
     const file = files[0]
     setImageFile(file)
@@ -55,17 +55,17 @@ export default function ProfileModal() {
 
   async function onClickSaveButtonHandler() {
     if (!user) return
-    console.log('imageFile', imageFile)
+    // console.log('imageFile', imageFile)
 
     if (user.userName === updateUser.userName || updateUser.userName === '') {
       if (imageFile === null) return
       imageFile &&
         getPresignedURL(imageFile).then(data => {
-          console.log('presigned data', data)
+          // console.log('presigned data', data)
           uploadImageToS3(data.url, imageFile).then(data => {
-            console.log('s3 버킷에 저장 완료', data)
+            // console.log('s3 버킷에 저장 완료', data)
             uploadImageToBackend(imageFile).then(data => {
-              console.log('백백엔드에 저장 API test', data)
+              // console.log('백백엔드에 저장 API test', data)
             })
           })
         })
@@ -75,15 +75,15 @@ export default function ProfileModal() {
 
     //프로필이름 수정만 할 때
     if (!imageFile) {
-      console.log('프로필 이름만 수정 시작')
+      // console.log('프로필 이름만 수정 시작')
       if (user.userName === updateUser.userName || updateUser.userName === '')
         return
-      console.log(
-        '프로필 이름만 수정 이름이 변경되지 않거나 빈스트링이 아닐 때',
-      )
+      // console.log(
+      //   '프로필 이름만 수정 이름이 변경되지 않거나 빈스트링이 아닐 때',
+      // )
       updateUser.userName &&
         editUserName(updateUser.userName).then(data => {
-          console.log('프로필이름 수정 API test', data)
+          // console.log('프로필이름 수정 API test', data)
         })
       closeModal()
       return
@@ -96,18 +96,18 @@ export default function ProfileModal() {
     ) {
       imageFile &&
         getPresignedURL(imageFile).then(data => {
-          console.log('presigned data', data)
+          // console.log('presigned data', data)
           uploadImageToS3(data.url, imageFile).then(data => {
-            console.log('s3 버킷에 저장 완료', data)
+            // console.log('s3 버킷에 저장 완료', data)
             uploadImageToBackend(imageFile).then(data => {
-              console.log('백백엔드에 저장 API test', data)
+              // console.log('백백엔드에 저장 API test', data)
             })
           })
         })
 
       updateUser.userName &&
         editUserName(updateUser.userName).then(data => {
-          console.log('프로필이름 수정 API test', data)
+          // console.log('프로필이름 수정 API test', data)
         })
       closeModal()
     }
@@ -116,16 +116,16 @@ export default function ProfileModal() {
   }
 
   const handleLogout = () => {
-    console.log('로그아웃을 시작합니다.')
+    // console.log('로그아웃을 시작합니다.')
     logout().then(data => {
-      console.log('로그아웃', data)
+      // console.log('로그아웃', data)
       // closeModal()
     })
   }
 
   useEffect(() => {
-    console.log('updateUser', updateUser)
-    console.log('user', user)
+    // console.log('updateUser', updateUser)
+    // console.log('user', user)
   }, [updateUser, user])
 
   if (!user) return null
