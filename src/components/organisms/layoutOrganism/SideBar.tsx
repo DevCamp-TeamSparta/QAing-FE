@@ -14,9 +14,7 @@ import { useVideoStore } from '@/states/videoStore'
 import { RecodeSvg } from '../../../../public/icons/RecodeSvg'
 import { BlogSvg } from '../../../../public/icons/BlogSvg'
 import { useEffect } from 'react'
-import instance from '@/services/instance'
 import { useUserStore } from '@/states/user-store/userStore'
-import { User } from '@/types/userStore.types'
 import { ProfileImageSvg } from '../../../../public/icons/ProfileImageSvg'
 import { fetchUser } from '@/services/auth/auth.api'
 import { logEvent } from '@/lib/amplitude'
@@ -35,7 +33,7 @@ export default function SideBar() {
   const pathname = usePathname()
   const setModal = useModalStore(state => state.setModal)
   const addVideo = useVideoStore(state => state.addVideo)
-  const { user, setUser } = useUserStore()
+  const { user, setUser, profileImg, profileName } = useUserStore()
   const { isAdvancedSignup } = useAdvancedSignup()
 
   function onClickProfileHandler() {
@@ -46,11 +44,6 @@ export default function SideBar() {
   }
 
   function onClickStartButtonHandler() {
-    // addVideo({
-    //   name: '2023-11-15 16:24',
-    //   issueNum: 8,
-    //   createdAt: new Date(),
-    // })
     logEvent('qaing_mainpage_start_button_click', {
       button_name: 'QA 시작하기',
       //button_where: buttonWhere
@@ -60,22 +53,6 @@ export default function SideBar() {
       '_blank',
     )
   }
-  // async function fetchUser(): Promise<User> {
-  //   const response = await instance.get('/users/info')
-  //   // console.log('res', response)
-  //   return response.data
-  // }
-
-  // const isAdvancedSignup = (data: User) => {
-  //   if (
-  //     data.userName === null ||
-  //     data.userPhoneNumber === null ||
-  //     data.userJob === null ||
-  //     data.userCompany === null
-  //   ) {
-  //     router.push('/auth/onboarding')
-  //   }
-  // }
 
   useEffect(() => {
     fetchUser()
@@ -150,7 +127,7 @@ export default function SideBar() {
           >
             {user.userProfileImg ? (
               <Image
-                src={user.userProfileImg}
+                src={profileImg || user.userProfileImg}
                 alt={'user profile image'}
                 width={48}
                 height={48}
@@ -160,7 +137,7 @@ export default function SideBar() {
               <ProfileImageSvg />
             )}
             <div>
-              <p className={'b1 text-black'}>{user.userName}</p>
+              <p className={'b1 text-black'}>{profileName || user.userName}</p>
               <p className={'b4 text-gray-500'}>{user.userEmail}</p>
             </div>
           </div>
