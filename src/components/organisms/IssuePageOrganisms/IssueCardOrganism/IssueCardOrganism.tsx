@@ -152,7 +152,7 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
                       </div>
                       <div className="flex flex-col gap-1 mr-[30px]">
                         <p className="b2">이미지</p>
-                        <p className="b4 text-gray-600">로 공유하기</p>
+                        <p className="b4 text-gray-600">으로 공유하기</p>
                       </div>
                     </div>
                   </div>
@@ -171,7 +171,7 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
                       </div>
                       <div className="flex flex-col gap-1 mr-[30px]">
                         <p className="b2">앞뒤 10초 영상</p>
-                        <p className="b4 text-gray-600">로 공유하기</p>
+                        <p className="b4 text-gray-600">으로 공유하기</p>
                       </div>
                     </div>
                   </div>
