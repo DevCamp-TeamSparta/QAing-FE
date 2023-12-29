@@ -18,7 +18,14 @@ import {
 export default function ProfileModal() {
   const [imageFile, setImageFile] = useState<File | null>(null)
   const setModal = useModalStore(state => state.setModal)
-  const { user, setUser, setProfileImg, setProfileName } = useUserStore()
+  const {
+    user,
+    setUser,
+    setProfileImg,
+    setProfileName,
+    profileName,
+    profileImg,
+  } = useUserStore()
   const [updateUser, setUpdateUser] = useState({
     userName: user?.userName,
     userProfileImg: user?.userProfileImg,
@@ -150,7 +157,7 @@ export default function ProfileModal() {
         {updateUser.userProfileImg ? (
           <Image
             className={'rounded-[50%]'}
-            src={updateUser.userProfileImg}
+            src={profileImg || updateUser.userProfileImg}
             alt={'프로필 이미지'}
             fill
             objectFit={'cover'}
@@ -181,7 +188,7 @@ export default function ProfileModal() {
           'w-[208px] px-[40px] py-[14px] mt-[24px] text-center rounded-[8px] bg-gray-300  t1'
         }
         name={'userName'}
-        value={updateUser.userName}
+        value={profileName || updateUser.userName}
         onChange={onChangeInputHandler}
       />
 
