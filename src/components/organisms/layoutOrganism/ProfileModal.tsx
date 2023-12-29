@@ -178,7 +178,11 @@ export default function ProfileModal() {
         onChange={onChangeInputHandler}
       />
 
-      <div className={'mt-[28px] flex gap-[8px]'}>
+      <div
+        className={
+          'mt-[28px] flex gap-[8px] [&>button]:w-[100px] [&>button]:p-[12px]'
+        }
+      >
         <button
           className={'bg-gray-200 rounded-[99px] b3 w-[100px] p-[12px]'}
           onClick={closeModal}
@@ -186,7 +190,11 @@ export default function ProfileModal() {
           취소
         </button>
 
-        <CTAButton size={'small'} onClick={onClickSaveButtonHandler}>
+        <CTAButton
+          size={'small'}
+          onClick={onClickSaveButtonHandler}
+          className="w-[100px] p-[12px]"
+        >
           저장
         </CTAButton>
       </div>
