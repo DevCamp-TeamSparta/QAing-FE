@@ -69,6 +69,7 @@ export default function ProfileModal() {
             })
           })
         })
+      closeModal()
       return
     }
 
@@ -84,6 +85,7 @@ export default function ProfileModal() {
         editUserName(updateUser.userName).then(data => {
           console.log('프로필이름 수정 API test', data)
         })
+      closeModal()
       return
     }
 
@@ -107,6 +109,7 @@ export default function ProfileModal() {
         editUserName(updateUser.userName).then(data => {
           console.log('프로필이름 수정 API test', data)
         })
+      closeModal()
     }
 
     closeModal()
