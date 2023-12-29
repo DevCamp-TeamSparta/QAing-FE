@@ -15,9 +15,9 @@ export const signupUser = async (UpdateUser: EditUserType) => {
   return response.data
 }
 
-export const editUserName = async (UpdateUserName: EditUserType) => {
+export const editUserName = async (UpdateUser: string) => {
   const response = await instance.put('/users/profile', {
-    userName: UpdateUserName.userName,
+    userName: UpdateUser,
   })
   return response.data
 }

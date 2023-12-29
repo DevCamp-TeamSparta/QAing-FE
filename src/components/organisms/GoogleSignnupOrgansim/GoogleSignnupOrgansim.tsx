@@ -26,7 +26,7 @@ function GoogleSignnupOrgansim() {
         </div>
       </div>
       <div className="flex flex-col items-center mt-[307px] text-gray-600 text-[14px] ">
-        <p>위의 &apos;구글 계정으로 가입하기&apos;를 클릭하는 것으로</p>
+        <p>위의 &apos;구글 계정으로 시작하기&apos;를 클릭하는 것으로</p>
         <p>QAing의 이용약관 및 개인정보 보호정책에 동의합니다.</p>
       </div>
     </div>

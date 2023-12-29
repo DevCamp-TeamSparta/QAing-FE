@@ -12,6 +12,7 @@ import {
   uploadImageToS3,
   uploadImageToBackend,
   logout,
+  editUserName,
 } from '@/services/auth/auth.api'
 
 export default function ProfileModal() {
@@ -58,15 +59,16 @@ export default function ProfileModal() {
     if (!user) return
     console.log('imageFile', imageFile)
 
-    if (imageFile === null && user.userName === updateUser.userName) {
-      console.log('변경사항이 없습니다.')
+    if (user.userName === updateUser.userName) {
+      console.log('프로필명이 변경되지 않았습니다.')
       return
     }
     //이미지업로드만 할 때
-    // if (user.userName === updateUser.userName || updateUser.userName === '') return
-    // if (imageFile === null) {
-    //   alert('이미지가 선택되지 않았습니다.')
-    // }
+    if (user.userName === updateUser.userName || updateUser.userName === '')
+      return
+    if (imageFile === null) {
+      alert('이미지가 선택되지 않았습니다.')
+    }
     console.log('이미지 업로드가 시작됩니다.')
     imageFile &&
       getPresignedURL(imageFile).then(data => {
@@ -75,13 +77,34 @@ export default function ProfileModal() {
           console.log('s3 버킷에 저장 완료', data)
           uploadImageToBackend(imageFile).then(data => {
             console.log('백백엔드에 저장 API test', data)
+            return
           })
         })
       })
 
     //프로필이름 수정만 할 때
-    if (imageFile === null) {
+    if (!imageFile) {
+      updateUser.userName &&
+        editUserName(updateUser.userName).then(data => {
+          console.log('프로필이름 수정 API test', data)
+        })
     }
+
+    // imageFile &&
+    //   getPresignedURL(imageFile).then(data => {
+    //     console.log('presigned data', data)
+    //     uploadImageToS3(data.url, imageFile).then(data => {
+    //       console.log('s3 버킷에 저장 완료', data)
+    //       uploadImageToBackend(imageFile).then(data => {
+    //         console.log('백백엔드에 저장 API test', data)
+    //       })
+    //     })
+    //   })
+
+    // updateUser.userName &&
+    //   editUserName(updateUser.userName).then(data => {
+    //     console.log('프로필이름 수정 API test', data)
+    //   })
 
     // 이미지 업로드  + 프로필이름 수정
     // const response = await instance.put('/users/profile', {
@@ -175,15 +198,16 @@ export default function ProfileModal() {
           저장
         </CTAButton>
       </div>
-
-      <button
-        className={'mt-[40px] b4 text-gray-700'}
-        onClick={() => {
-          handleLogout()
-        }}
-      >
-        로그아웃
-      </button>
+      <form>
+        <button
+          className={'mt-[40px] b4 text-gray-700'}
+          onSubmit={() => {
+            handleLogout()
+          }}
+        >
+          로그아웃
+        </button>
+      </form>
     </div>
   )
 }

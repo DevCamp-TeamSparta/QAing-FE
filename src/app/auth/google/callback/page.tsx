@@ -51,6 +51,7 @@ function Page() {
   }, [])
 
   useEffect(() => {
+    if (!user) return
     if (!accessToken) return
     router.push('/')
   }, [accessToken])
