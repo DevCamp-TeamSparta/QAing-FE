@@ -51,12 +51,14 @@ export default function DeleteIssueModal({
         >
           취소
         </button>
-        <button
-          className={'bg-sementic-danger text-white cursor-pointer b3'}
-          onClick={() => onClickDeleteButtonHandler(folderId, issueID)}
-        >
-          삭제
-        </button>
+        <form>
+          <button
+            className={'bg-sementic-danger text-white cursor-pointer b3'}
+            onClick={() => onClickDeleteButtonHandler(folderId, issueID)}
+          >
+            삭제
+          </button>
+        </form>
       </div>
     </div>
   )
