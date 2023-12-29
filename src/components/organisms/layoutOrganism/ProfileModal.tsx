@@ -75,6 +75,7 @@ export default function ProfileModal() {
             })
           })
         })
+      return
     }
     // if (imageFile === null) {
     //   alert('이미지가 선택되지 않았습니다.')
@@ -83,6 +84,25 @@ export default function ProfileModal() {
 
     //프로필이름 수정만 할 때
     if (!imageFile) {
+      updateUser.userName &&
+        editUserName(updateUser.userName).then(data => {
+          console.log('프로필이름 수정 API test', data)
+        })
+      return
+    }
+
+    if (imageFile && updateUser.userName) {
+      imageFile &&
+        getPresignedURL(imageFile).then(data => {
+          console.log('presigned data', data)
+          uploadImageToS3(data.url, imageFile).then(data => {
+            console.log('s3 버킷에 저장 완료', data)
+            uploadImageToBackend(imageFile).then(data => {
+              console.log('백백엔드에 저장 API test', data)
+            })
+          })
+        })
+
       updateUser.userName &&
         editUserName(updateUser.userName).then(data => {
           console.log('프로필이름 수정 API test', data)
