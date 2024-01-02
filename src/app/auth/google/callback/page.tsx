@@ -45,7 +45,7 @@ function Page() {
         isAdvancedSignup(data)
       })
       .catch(e => {
-        console.error(e)
+        console.error('로그인 오류', e)
         window.location.href = 'https://qaing.co/404'
       })
   }, [])
