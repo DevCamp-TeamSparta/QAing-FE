@@ -18,7 +18,6 @@ import { useUserStore } from '@/states/user-store/userStore'
 import { ProfileImageSvg } from '../../../../public/icons/ProfileImageSvg'
 import { fetchUser } from '@/services/auth/auth.api'
 import { logEvent } from '@/lib/amplitude'
-import { useRouter } from 'next/navigation'
 import useAdvancedSignup from '@/hooks/useAdvancedSignup'
 
 const SideBarRoutes = [
@@ -42,6 +41,11 @@ export default function SideBar() {
     }
     setModal(<ProfileModal />)
   }
+  //익스텐션에 메세지 보내기
+  const extensionCall = {
+    type: 'extensionCall',
+    message: '안녕하세요, 익스텐션에 메시지를 보냅니다!',
+  }
 
   function onClickStartButtonHandler() {
     logEvent('qaing_mainpage_start_button_click', {
@@ -52,6 +56,9 @@ export default function SideBar() {
     //   'https://chromewebstore.google.com/detail/qaing-qa-%ED%99%94%EB%A9%B4-%EC%BA%A1%EC%B3%90-%EB%B0%8F-%EB%85%B9%ED%99%94/meoehebomhebdjdbcbeehbjnljdblocn',
     //   '_blank',
     // )
+    // 커스텀 이벤트 생성 및 메시지 전송
+    const event = new CustomEvent('extensionCall', { detail: extensionCall })
+    document.dispatchEvent(event)
   }
 
   useEffect(() => {

@@ -5,26 +5,15 @@ import ChromeSvg from '../../../../public/icons/ChromeSvg'
 import NextSvg from '../../../../public/icons/NextSvg'
 import { useEffect, useState } from 'react'
 
-interface InstallBannerProps {
-  isExtensionInstalled: boolean
-}
-
-export default function InstallBanner({
-  isExtensionInstalled,
-}: InstallBannerProps) {
+export default function InstallBanner() {
   function onClickInstall() {
     logEvent('qaing_mainpage_install_button_click', {
       button_name: '설치하러 가기',
     })
-
-    if (isExtensionInstalled) {
-    }
-    if (!isExtensionInstalled) {
-      window.open(
-        'https://chrome.google.com/webstore/detail/qaing-qa-%ED%99%94%EB%A9%B4-%EC%BA%A1%EC%B3%90-%EB%B0%8F-%EB%85%B9%ED%99%94/meoehebomhebdjdbcbeehbjnljdblocn',
-        '_blank',
-      )
-    }
+    window.open(
+      'https://chrome.google.com/webstore/detail/qaing-qa-%ED%99%94%EB%A9%B4-%EC%BA%A1%EC%B3%90-%EB%B0%8F-%EB%85%B9%ED%99%94/meoehebomhebdjdbcbeehbjnljdblocn',
+      '_blank',
+    )
   }
 
   // todo: extention 설치 감지 후 분기처리하기

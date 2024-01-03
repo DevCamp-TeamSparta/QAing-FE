@@ -1,11 +1,8 @@
 'use client'
 import { useEffect, useState } from 'react'
 import FolderTable from '@/components/organisms/MainPageOrganism/FolderTable'
-import { useVideoStore } from '@/states/videoStore'
 import InstallBanner from '@/components/organisms/MainPageOrganism/InstallBanner'
-import Cookies from 'js-cookie'
-import { useRouter } from 'next/navigation'
-import { initAmplitude, logPageView, logEvent } from '@/lib/amplitude'
+import { initAmplitude, logPageView } from '@/lib/amplitude'
 
 export default function MainPageTemplate() {
   const [isExtensionInstalled, setIsExtensionInstalled] = useState(true)
@@ -43,7 +40,7 @@ export default function MainPageTemplate() {
   }, [])
 
   return (
-    <main className="flex flex-col w-[1172px] px-[36px]">
+    <main className="flex flex-col w-[1172px] px-[36px] ">
       <header
         className={
           'w-full h-[108px] py-[37px] flex items-center justify-between'
@@ -51,10 +48,10 @@ export default function MainPageTemplate() {
       >
         <h1 className={'h3'}>QA 폴더</h1>
       </header>
-      {isExtensionInstalled && (
-        <InstallBanner isExtensionInstalled={isExtensionInstalled} />
-      )}
-      <div className={`${isExtensionInstalled ? '' : 'relative bottom-6'}`}>
+      {isExtensionInstalled ? <InstallBanner /> : <></>}
+      <div
+        className={`${isExtensionInstalled ? '' : 'relative bottom-[30px]'}`}
+      >
         <FolderTable />
       </div>
     </main>
