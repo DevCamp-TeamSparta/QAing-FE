@@ -120,8 +120,8 @@ export default function FolderTable({ folders }: FolderTableProps) {
   // }
 
   return (
-    <div className="py-[44px]">
-      <div className="min-w-full border-collapse">
+    <div className="py-[44px] ">
+      <div className="min-w-full border-collapse pt-4 ">
         <div
           className={
             'grid grid-cols-[2fr_1fr_1fr_20px] p-[20px] bg-gray-100 rounded-[16px_16px_0_0] border-b border-gray-400 b3 text-gray-700'

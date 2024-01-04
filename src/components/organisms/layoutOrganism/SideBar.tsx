@@ -118,6 +118,7 @@ export default function SideBar() {
       <div className={'mt-auto'}>
         <Link
           href={'https://qaing.oopy.io/guide'}
+          target={'_blank'}
           className="flex px-[16px] py-[12px] gap-[12px] items-center b4 text-gray-800"
         >
           <GuideBook />

@@ -20,7 +20,7 @@ export default function MainPageTemplate() {
     logPageView('qaing_mainpage_view')
   }, [])
 
-  const extensionId = 'dmepffidnljfigcppaifeihofmablgno'
+  const extensionId = 'meoehebomhebdjdbcbeehbjnljdblocn'
 
   async function checkExtensionInstalled() {
     try {
@@ -55,7 +55,7 @@ export default function MainPageTemplate() {
         if (response.data.length === 0) {
           setBanner('guide')
         } else {
-          setBanner('notReqiured')
+          setBanner('notRequired')
         }
 
         if (response.status === 401) {
@@ -80,7 +80,7 @@ export default function MainPageTemplate() {
     <main className="flex flex-col w-[1172px] px-[36px] ">
       <header
         className={
-          'w-full h-[108px] py-[37px] flex items-center justify-between'
+          'w-full h-[108px] py-[36px] flex items-center justify-between'
         }
       >
         <h1 className={'h3'}>내 워크스페이스</h1>
@@ -90,7 +90,7 @@ export default function MainPageTemplate() {
           none: <InstallBanner />,
           install: <GuideBanner />,
           guide: <InstallBanner />,
-          notReqiured: <></>,
+          notRequired: <></>,
         }[banner]
       }
       {/* {isExtensionInstalled ? (
@@ -101,7 +101,9 @@ export default function MainPageTemplate() {
         <GuideBanner />
       )} */}
       <div
-      // className={`${isExtensionInstalled ? '' : 'relative bottom-[30px]'}`}
+        className={`${
+          banner === 'notRequired' ? 'relative bottom-[56px]' : ''
+        }`}
       >
         <FolderTable folders={folders} />
       </div>

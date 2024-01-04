@@ -22,24 +22,24 @@ export default function InstallBanner() {
   return (
     <div
       className={
-        'px-[28px] py-14 bg-[#FFFAE2] rounded-[16px] flex gap-[16px] items-center'
+        'px-[44px] py-14 bg-[#FFFAE2] rounded-[16px] flex gap-[24px] items-center'
       }
     >
       <div className={' bg-white rounded-full'}>
         <ChromeSvg color={'#5F6060'} />
       </div>
       <div className="flex flex-col gap-2">
-        <p className={'t1 text-black'}>
+        <p className={'h2 text-black'}>
           잠깐, 크롬 확장 프로그램 설치해주세요!
         </p>
-        <p className={'b2 font-thin text-gray-800'}>
+        <p className={'t2 font-thin text-gray-800'}>
           QAing을 시작하기 전, 확장 프로그램을 설치해주세요
         </p>
       </div>
       {/* todo: Link tag로 변경? */}
       <button
         className={
-          'ml-auto flex bg-primary-default w-[178px] h-[48px] items-center justify-center rounded-[99px] t3 text-white gap-[4px]'
+          'ml-auto flex bg-primary-default w-[178px] h-[48px] items-center justify-center rounded-[99px] b2 text-white gap-[4px]'
         }
         onClick={onClickInstall}
       >
