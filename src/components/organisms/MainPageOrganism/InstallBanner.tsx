@@ -22,15 +22,17 @@ export default function InstallBanner() {
   return (
     <div
       className={
-        'px-[28px] py-[24px] bg-gray-100 rounded-[16px] flex gap-[16px] items-center'
+        'px-[28px] py-14 bg-[#FFFAE2] rounded-[16px] flex gap-[16px] items-center'
       }
     >
-      <div className={'p-[12px] bg-white rounded-full'}>
+      <div className={' bg-white rounded-full'}>
         <ChromeSvg color={'#5F6060'} />
       </div>
-      <div>
-        <p className={'t1 text-black'}>크롬 확장 프로그램 설치하기</p>
-        <p className={'b2 text-gray-800'}>
+      <div className="flex flex-col gap-2">
+        <p className={'t1 text-black'}>
+          잠깐, 크롬 확장 프로그램 설치해주세요!
+        </p>
+        <p className={'b2 font-thin text-gray-800'}>
           QAing을 시작하기 전, 확장 프로그램을 설치해주세요
         </p>
       </div>
