@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { MoreSvg } from '../../../../public/icons/MoreSvg'
-import { MyVideoSvg } from '../../../../public/icons/MyVideoSvg'
+import { FolderRowSvg } from '../../../../public/icons/FolderRowSvg'
 import { EditSvg } from '../../../../public/icons/EditSvg'
 import { TrashSvg } from '../../../../public/icons/TrashSvg'
 import { useModalStore } from '@/states/modalStore'
@@ -120,7 +120,7 @@ export default function FolderTableBody({
         }
       >
         <div className="flex gap-[12px] b3">
-          <MyVideoSvg color={'#959797'} size={'24'} />
+          <FolderRowSvg />
           {isEditButtonClicked ? (
             <form
               className="flex gap-[10px]"
@@ -146,8 +146,8 @@ export default function FolderTableBody({
             <p>{values.newFolderName}</p>
           )}
         </div>
-        <p className={'b4'}>{videoTableProps.count}개</p>
-        <p className={'b4'}>{videoTableProps.createdAt}</p>
+        <p className={'b4 ml-[56px]'}>{videoTableProps.count}개</p>
+        <p className={'b4 ml-[7px]'}>{videoTableProps.createdAt}</p>
         <button onClick={onClickMoreButtonHandler}>
           <MoreSvg />
         </button>

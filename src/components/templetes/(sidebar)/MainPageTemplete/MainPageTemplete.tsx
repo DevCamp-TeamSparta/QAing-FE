@@ -1,18 +1,26 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import FolderTable from '@/components/organisms/MainPageOrganism/FolderTable'
 import InstallBanner from '@/components/organisms/MainPageOrganism/InstallBanner'
+import GuideBanner from '@/components/organisms/MainPageOrganism/GuideBanner'
 import { initAmplitude, logPageView } from '@/lib/amplitude'
+import { Folder } from '@/types/userFolder.types'
+import { fetchFolder } from '@/services/folder/folder.api'
+import { useRouter } from 'next/navigation'
 
 export default function MainPageTemplate() {
-  const [isExtensionInstalled, setIsExtensionInstalled] = useState(true)
-
+  // const [isExtensionInstalled, setIsExtensionInstalled] = useState(true)
+  // const [isFolderExist, setIsFolderExist] = useState<boolean>(false)
+  const [banner, setBanner] = useState<string>('none')
+  const [isActive, setIsActive] = useState<boolean>(false)
+  const [folders, setFolders] = useState<Folder[]>([])
+  const router = useRouter()
   useEffect(() => {
     initAmplitude()
     logPageView('qaing_mainpage_view')
   }, [])
 
-  const extensionId = 'gmhbkcpnfgbelighhikbkdcghdjcjebg'
+  const extensionId = 'dmepffidnljfigcppaifeihofmablgno'
 
   async function checkExtensionInstalled() {
     try {
@@ -28,16 +36,45 @@ export default function MainPageTemplate() {
   }
 
   useEffect(() => {
-    // Then in your site's buisness logic, do something like this
-
+    if (banner !== 'guide') return
     checkExtensionInstalled().then((installed: any) => {
       if (installed) {
-        setIsExtensionInstalled(false)
+        setBanner('install')
+        // setIsExtensionInstalled(false)
       } else {
         console.log('The extension is NOT installed.')
       }
     })
+  }, [banner])
+
+  useEffect(() => {
+    fetchFolder()
+      .then(response => {
+        // console.log('상태값', response)
+        setFolders(response.data)
+        if (response.data.length === 0) {
+          setBanner('guide')
+        } else {
+          setBanner('notReqiured')
+        }
+
+        if (response.status === 401) {
+          router.push('/auth/signup')
+        }
+      })
+      .catch(error => {
+        // console.log('error', error)
+        if (error.response.status === 401) {
+          router.push('/auth/signup')
+          return
+        }
+        if (error.response.status !== 200) {
+          window.location.href = 'https://qaing.co/404'
+        }
+      })
   }, [])
+
+  if (banner === 'none') return <></>
 
   return (
     <main className="flex flex-col w-[1172px] px-[36px] ">
@@ -46,13 +83,27 @@ export default function MainPageTemplate() {
           'w-full h-[108px] py-[37px] flex items-center justify-between'
         }
       >
-        <h1 className={'h3'}>QA 폴더</h1>
+        <h1 className={'h3'}>내 워크스페이스</h1>
       </header>
-      {isExtensionInstalled ? <InstallBanner /> : <></>}
+      {
+        {
+          none: <InstallBanner />,
+          install: <GuideBanner />,
+          guide: <InstallBanner />,
+          notReqiured: <></>,
+        }[banner]
+      }
+      {/* {isExtensionInstalled ? (
+        <InstallBanner />
+      ) : isFolderExist ? (
+        <></>
+      ) : (
+        <GuideBanner />
+      )} */}
       <div
-        className={`${isExtensionInstalled ? '' : 'relative bottom-[30px]'}`}
+      // className={`${isExtensionInstalled ? '' : 'relative bottom-[30px]'}`}
       >
-        <FolderTable />
+        <FolderTable folders={folders} />
       </div>
     </main>
   )

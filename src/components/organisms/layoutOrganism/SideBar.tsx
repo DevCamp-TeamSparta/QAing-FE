@@ -150,9 +150,11 @@ export default function SideBar() {
             ) : (
               <ProfileImageSvg />
             )}
-            <div>
-              <p className={'b1 text-black'}>{profileName || user.userName}</p>
-              <p className={'b4 text-gray-500'}>{user.userEmail}</p>
+            <div className="w-[140px] ">
+              <p className={'b1 text-black truncate'}>
+                {profileName || user.userName}
+              </p>
+              <p className={'b4 text-gray-500 truncate '}>{user.userEmail}</p>
             </div>
           </div>
         )}
