@@ -86,7 +86,6 @@ export default function FolderTableBody({
     editFolder(folderId, values)
       .then(res => {
         // console.log('res', res)
-        alert('폴더명이 변경되었습니다.')
       })
       .catch(err => {
         // console.error('err', err)
@@ -120,7 +119,7 @@ export default function FolderTableBody({
         }
       >
         <div className="flex gap-[12px] b3">
-          <FolderRowSvg />
+          <FolderRowSvg size={24} color={'#959797'} />
           {isEditButtonClicked ? (
             <form
               className="flex gap-[10px]"
