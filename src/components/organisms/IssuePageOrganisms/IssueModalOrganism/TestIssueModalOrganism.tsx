@@ -9,6 +9,7 @@ import { CloseIcon } from '../../../../../public/icons/CloseIcon'
 import { TypeImageIcon } from '../../../../../public/icons/TypeImageIcon'
 import { TypeVideoIcon } from '../../../../../public/icons/TypeVideoIcon'
 import useClipboard from '@/hooks/useClipboard'
+import EditImageModalOrganism from './EditImageModalOrganism'
 
 interface IssueModalProps {
   imageUrl: string
@@ -35,6 +36,7 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
 
   return (
     <div className={' h-screen w-full px-[13%] py-[2%] fixed top-0 left-0 '}>
+      {/* <EditImageModalOrganism imageUrl={imageUrl} /> */}
       <div className={'w-full h-full  bg-white rounded-[8px] flex flex-col'}>
         <div
           className={
@@ -106,7 +108,7 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
               >
                 <Image
                   className={
-                    'h-full w-full rounded-[8px] overflow-hidden object-cover'
+                    'h-full w-full rounded-[8px] overflow-hidden object-fit'
                   }
                   width={1080}
                   height={720}

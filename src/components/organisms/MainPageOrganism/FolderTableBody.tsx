@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
-import { Video } from '@/states/videoStore'
 import { MoreSvg } from '../../../../public/icons/MoreSvg'
 import { MyVideoSvg } from '../../../../public/icons/MyVideoSvg'
 import { EditSvg } from '../../../../public/icons/EditSvg'
@@ -120,7 +119,7 @@ export default function FolderTableBody({
           'group hover:bg-gray-200 grid grid-cols-[2fr_1fr_1fr_20px] px-[20px] py-[16px] border-b border-gray-300  active:bg-brand-background cursor-pointer'
         }
       >
-        <p className="flex gap-[12px] b3">
+        <div className="flex gap-[12px] b3">
           <MyVideoSvg color={'#959797'} size={'24'} />
           {isEditButtonClicked ? (
             <form
@@ -146,7 +145,7 @@ export default function FolderTableBody({
           ) : (
             <p>{values.newFolderName}</p>
           )}
-        </p>
+        </div>
         <p className={'b4'}>{videoTableProps.count}개</p>
         <p className={'b4'}>{videoTableProps.createdAt}</p>
         <button onClick={onClickMoreButtonHandler}>
