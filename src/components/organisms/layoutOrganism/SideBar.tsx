@@ -13,18 +13,20 @@ import CTAButton from '@/components/atoms/CallToActionAButtonAtom/CallToActionBu
 import { useVideoStore } from '@/states/videoStore'
 import { RecodeSvg } from '../../../../public/icons/RecodeSvg'
 import { BlogSvg } from '../../../../public/icons/BlogSvg'
+import { ProfileImageSvg } from '../../../../public/icons/ProfileImageSvg'
+import { GuideBook } from '../../../../public/icons/GuideBookSvg'
 import { useEffect } from 'react'
 import { useUserStore } from '@/states/user-store/userStore'
-import { ProfileImageSvg } from '../../../../public/icons/ProfileImageSvg'
 import { fetchUser } from '@/services/auth/auth.api'
 import { logEvent } from '@/lib/amplitude'
 import useAdvancedSignup from '@/hooks/useAdvancedSignup'
+import { StarBox } from '../../../../public/icons/StarBox'
 
 const SideBarRoutes = [
   {
     path: PAGE_URL.HOME,
     icon: <MyVideoSvg />,
-    text: ' QA폴더',
+    text: ' 내 워크스페이스',
   },
 ]
 
@@ -56,9 +58,9 @@ export default function SideBar() {
     //   'https://chromewebstore.google.com/detail/qaing-qa-%ED%99%94%EB%A9%B4-%EC%BA%A1%EC%B3%90-%EB%B0%8F-%EB%85%B9%ED%99%94/meoehebomhebdjdbcbeehbjnljdblocn',
     //   '_blank',
     // )
-    // 커스텀 이벤트 생성 및 메시지 전송
-    const event = new CustomEvent('extensionCall', { detail: extensionCall })
-    document.dispatchEvent(event)
+    // 익스텐션 호출하는 커스텀 이벤트
+    // const event = new CustomEvent('extensionCall', { detail: extensionCall })
+    // document.dispatchEvent(event)
   }
 
   useEffect(() => {
@@ -87,23 +89,14 @@ export default function SideBar() {
     >
       <Image src={MainLogo} alt={'로고'} width={100} height={36} />
       {/* todo: install 감지 후 diabled에 넣기 */}
-      <CTAButton
-        className={
-          ' flex items-center justify-center mt-[48px] gap-[8px] w-full disabled:bg-primary-default disabled:opacity-30'
-        }
-        size={'medium'}
-        disabled={false}
-        onClick={onClickStartButtonHandler}
-      >
-        <RecodeSvg color={'white'} /> QA 시작하기
-      </CTAButton>
+
       <div className={'mt-[32px]'}>
         {SideBarRoutes.map(route => (
           <Link
             key={route.path}
             href={route.path}
             className={clsx(
-              `flex items-center gap-[12px] px-[12px] py-[16px] rounded-[16px] w-full`,
+              `flex items-center bg-gray-200 gap-[12px] px-[17px] py-[16px] rounded-[16px] w-full`,
               {
                 'text-black bg-gray-200': pathname === route.path,
                 'text-gray-500': pathname !== route.path,
@@ -115,7 +108,21 @@ export default function SideBar() {
           </Link>
         ))}
       </div>
+      <div className="mt-10 ml-4 b1 text-gray-700 ">
+        <p>팀 워크스페이스</p>
+        <div className="mt-[10px] py-3 flex">
+          <StarBox />
+          <div className="ml-4"> 추후 업데이트 예정</div>
+        </div>
+      </div>
       <div className={'mt-auto'}>
+        <Link
+          href={'https://qaing.oopy.io/guide'}
+          className="flex px-[16px] py-[12px] gap-[12px] items-center b4 text-gray-800"
+        >
+          <GuideBook />
+          사용 방법
+        </Link>
         <Link
           className={'flex px-[16px] py-[12px] gap-[12px] items-center'}
           href={'https://qaing.oopy.io/'}

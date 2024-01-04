@@ -12,7 +12,7 @@ export default function MainPageTemplate() {
     logPageView('qaing_mainpage_view')
   }, [])
 
-  const extensionId = 'njjpnfbdgeihghedhhahflddfmfenfli'
+  const extensionId = 'gmhbkcpnfgbelighhikbkdcghdjcjebg'
 
   async function checkExtensionInstalled() {
     try {
