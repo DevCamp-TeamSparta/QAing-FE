@@ -18,7 +18,6 @@ export default function DeleteIssueModal({
     if (!issueID) return alert('이슈아이디가 없습니다.')
     deleteIssue(folderId, issueID)
       .then(() => {
-        alert('이슈가 삭제되었습니다.')
         setModal(null)
       })
       .catch(e => {

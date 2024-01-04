@@ -6,6 +6,7 @@ import { useModalStore } from '@/states/modalStore'
 // import IssueModalOrganism from '@/components/organisms/IssuePageOrganisms/IssueModalOrganism/IssueModalOrganism'
 import { logEvent } from '@/lib/amplitude'
 import TestIssueModal from '@/components/organisms/IssuePageOrganisms/IssueModalOrganism/TestIssueModalOrganism'
+// import EditImageModalOrganism from '@/components/organisms/IssuePageOrganisms/IssueModalOrganism/EditImageModalOrganism'
 
 type ThumbnailProps = {
   imageUrl: string
