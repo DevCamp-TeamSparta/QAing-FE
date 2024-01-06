@@ -48,6 +48,7 @@ export default function FolderTableBody({
 
   function onClickDeleteButtonHandler() {
     setIsMoreButtonClicked(false)
+
     setModal(<DeleteFolderModal folderId={_id} />)
   }
 

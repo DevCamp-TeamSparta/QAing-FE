@@ -16,8 +16,6 @@ interface FolderTableProps {
 }
 
 export default function FolderTable({ folders }: FolderTableProps) {
-  const videos = useVideoStore(state => state.videos)
-
   const backServerUrl = process.env.NEXT_PUBLIC_BACKEND_API_URL
 
   // useEffect(() => {

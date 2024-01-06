@@ -36,8 +36,8 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
 
   return (
     <div className={' h-screen w-full px-[13%] py-[2%] fixed top-0 left-0 '}>
-      {/* <EditImageModalOrganism imageUrl={imageUrl} /> */}
-      <div className={'w-full h-full  bg-white rounded-[8px] flex flex-col'}>
+      <EditImageModalOrganism imageUrl={imageUrl} />
+      {/* <div className={'w-full h-full  bg-white rounded-[8px] flex flex-col'}>
         <div
           className={
             'relative px-[20px] py-[12px] flex items-center gap-[12px]  justify-between'
@@ -136,7 +136,7 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
             )}
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }
