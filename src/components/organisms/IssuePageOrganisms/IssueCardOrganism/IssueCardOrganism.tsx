@@ -1,4 +1,11 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
+import React, {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import IssueThumbnail from '@/components/atoms/issueThumbnailAtom/issueThumbnailAtom'
 import CopyButton from '@/components/atoms/CopyButtonAtom/CopyButtonAtom'
 import MoreIcon from '../../../../../public/icons/More'
@@ -16,14 +23,24 @@ import { initAmplitude, logPageView, logEvent } from '@/lib/amplitude'
 
 interface IssueCardProps {
   IssueCardProps: {
-    imageUrl: string
-    videoUrl: string
-    updatedAt: string
+    images: Images[]
     issueName: string
-    _id: string
+    videoUrl: string
   }
   folderId: string
   folderName: string
+}
+
+type Images = {
+  createdAt: string
+  owner: string
+  originImageUrl: string
+  editedImageUrl: string | null
+  parentIssueFile: string
+  updatedAt: string
+  issueName: string
+  timestamp: number
+  _id: string
 }
 
 type Values = {
@@ -37,10 +54,14 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
   const [isMoreButtonClicked, setIsMoreButtonClicked] = React.useState(false)
   const [isCopyButtonClicked, setIsCopyButtonClicked] = React.useState(false)
   const [isEditButtonClicked, setIsEditButtonClicked] = React.useState(false)
+  // const issue = IssueCardProps.images
+  // console.log('IssueCardProps', IssueCardProps.images[0].parentIssueFile)
 
-  const { imageUrl, videoUrl, updatedAt, issueName, _id } = IssueCardProps
+  const { images } = IssueCardProps
   const setModal = useModalStore(state => state.setModal)
-  const [values, setValues] = useState<Values>({ newIssueName: issueName })
+  const [values, setValues] = useState<Values>({
+    newIssueName: IssueCardProps.issueName,
+  })
   const hiddenRef = useRef(null)
 
   useClickOutSide(ref, onClickOutsideHandler, [isMoreButtonClicked])
@@ -66,7 +87,12 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
 
   function onClickDeleteButtonHandler() {
     setIsMoreButtonClicked(false)
-    setModal(<DeleteIssueModal issueID={_id} folderId={folderId} />)
+    setModal(
+      <DeleteIssueModal
+        issueID={images[0].parentIssueFile}
+        folderId={folderId}
+      />,
+    )
   }
   function onClickMoreButtonHandler(e: React.MouseEvent<HTMLButtonElement>) {
     e.stopPropagation()
@@ -100,9 +126,13 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
     event.preventDefault()
     if (values.newIssueName === '') return
     setIsEditButtonClicked(false)
-    editIssue(folderId, _id, values).then(() => {
-      // console.log('이슈 이름 변경 완료')
-    })
+    editIssue(folderId, images[0].parentIssueFile, values)
+      .then(() => {
+        // console.log('이슈 이름 변경 완료')
+      })
+      .catch(err => {
+        console.error(err)
+      })
   }
 
   useEffect(() => {
@@ -125,7 +155,12 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
     <div className="w-[440px] h-[417px] relative">
       <div className="flex flex-col">
         <div className=" relative">
-          <IssueThumbnail imageUrl={imageUrl} videoUrl={videoUrl} />
+          <IssueThumbnail
+            editedImageUrl={images[0].editedImageUrl}
+            imageUrl={images[0].originImageUrl}
+            imageId={images[0]._id}
+            videoUrl={IssueCardProps.videoUrl}
+          />
           <button
             onClick={onClickCopyButtonHandler}
             className="absolute top-0 right-0 z-30 mx-4 my-4 bg-primary-default w-[44px] h-[44px] rounded-[99px] flex flex-row justify-center items-center shadow-copybutton"
@@ -140,7 +175,7 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
                   <div
                     className="rounded-2xl px-4 py-[10px] bg-gray-200 cursor-pointer hover:bg-primary-light "
                     onClick={() => {
-                      handleCopyClipBoard(imageUrl),
+                      handleCopyClipBoard(images[0].originImageUrl),
                         linkButtonClickEvent('이미지', '썸네일')
                     }}
                   >
@@ -159,7 +194,7 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
                   <div
                     className="rounded-2xl px-4 py-[10px] bg-gray-200 cursor-pointer hover:bg-primary-light "
                     onClick={() => {
-                      handleCopyClipBoard(videoUrl),
+                      handleCopyClipBoard(IssueCardProps.videoUrl),
                         linkButtonClickEvent('영상', '썸네일')
                     }}
                   >
@@ -185,7 +220,12 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
             <form
               className="flex gap-[10px]"
               onSubmit={event =>
-                handleEditFolderSubmit(event, folderId, _id, values)
+                handleEditFolderSubmit(
+                  event,
+                  folderId,
+                  images[0].parentIssueFile,
+                  values,
+                )
               }
             >
               <div className=" bg-gray-200">
@@ -197,7 +237,12 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
                   name="newIssueName"
                   value={values.newIssueName}
                   onBlur={event =>
-                    handleEditFolderSubmit(event, folderId, _id, values)
+                    handleEditFolderSubmit(
+                      event,
+                      folderId,
+                      images[0]._id,
+                      values,
+                    )
                   }
                   maxLength={40}
                   style={{ minWidth: '50px' }}

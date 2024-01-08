@@ -1,4 +1,11 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react'
+import React, {
+  useState,
+  useRef,
+  useCallback,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+} from 'react'
 import {
   Stage,
   Layer,
@@ -23,9 +30,16 @@ import {
   uploadImageToS3,
 } from '@/services/auth/auth.api'
 import { v4 as uuidv4 } from 'uuid'
+import { useIssueStore } from '@/states/issue-store'
 
 interface EditImageModalProps {
   imageUrl: string
+  imageId: string
+  onClickPreviewThumbnailHandler: (
+    mode: 'image' | 'video' | 'editImage',
+  ) => void
+  setMode: Dispatch<SetStateAction<'image' | 'video' | 'editImage'>>
+  currentImageUrl: string | null | undefined
 }
 
 // 라인의 타입 정의
@@ -33,10 +47,20 @@ interface Line {
   points: number[]
 }
 
-function EditImageModalOrganism({ imageUrl }: EditImageModalProps) {
+function EditImageModalOrganism({
+  imageUrl,
+  currentImageUrl,
+  imageId,
+  onClickPreviewThumbnailHandler,
+}: EditImageModalProps) {
   const setModal = useModalStore(state => state.setModal)
-  const [mode, setMode] = useState<'text' | 'square' | 'eraser' | 'reset'>()
-  const [image] = useImage(imageUrl, 'anonymous')
+  const [editMode, setEditMode] = useState<
+    'text' | 'square' | 'eraser' | 'reset'
+  >()
+  const [image] = useImage(
+    currentImageUrl ? currentImageUrl : imageUrl,
+    'anonymous',
+  )
   const stageRef = useRef<Konva.Stage>(null)
   const sizeRef = useRef<HTMLInputElement>(null)
   const [rect, setRect] = useState<Konva.RectConfig | null>(null)
@@ -51,21 +75,25 @@ function EditImageModalOrganism({ imageUrl }: EditImageModalProps) {
   })
   //텍스트 추가
   const [textFields, setTextFields] = useState<
-    Array<{ x: any; y: any; text: string; id: string }>
+    { x: any; y: any; text: string; isNew?: boolean }[]
   >([])
   const [selectedId, setSelectedId] = useState<string | null>(null)
 
   //편집된 이미지 관련
   const [editedImage, setEditedImage] = useState<File | null>(null)
+  const [updatedImageUrl, setUpdatedImageUrl] = useState<string | null>(null)
 
   // 커서 스타일 정의
   const eraserCursorStyle =
-    mode === 'eraser'
+    editMode === 'eraser'
       ? { cursor: `url('/public/icons/eraseCursor.png'), auto` }
       : {}
+  //이미지 편집이 완료되면 folder업데이트
+  const { folder, setFolder } = useIssueStore()
+  const [isImageEdited, setIsImageEdited] = useState(false)
 
   const getCursorStyle = () => {
-    switch (mode) {
+    switch (editMode) {
       case 'square':
         return 'cursor-crosshair'
       case 'eraser':
@@ -83,20 +111,43 @@ function EditImageModalOrganism({ imageUrl }: EditImageModalProps) {
   const handleMouseDown = useCallback(
     (event: Konva.KonvaEventObject<MouseEvent>) => {
       const pos = event.target.getStage()?.getPointerPosition()
-      if (mode === 'square') {
+      if (editMode === 'square') {
         // 'square' 모드일 때만 도형 그리기
         if (!pos) return
         setRect({ x: pos.x, y: pos.y, width: 0, height: 0 }) // 초기 사각형 설정
         setIsDrawing(true)
       }
+      if (editMode === 'text') {
+        if (event.target === stageRef.current) {
+          const stage = stageRef.current
+          const pointerPosition = stage.getPointerPosition()
+          console.log('pointerPosition', pointerPosition)
+
+          if (pointerPosition) {
+            setTextFields([
+              ...textFields,
+              {
+                x: pointerPosition.x,
+                y: pointerPosition.y,
+                text: '',
+                isNew: true,
+              },
+            ])
+          }
+        }
+      }
     },
-    [mode],
+    [editMode],
   )
+
+  useEffect(() => {
+    console.log('textFields', setTextFields)
+  }, [textFields])
 
   // 마우스 클릭 후 이동
   const handleMouseMove = useCallback(
     (event: Konva.KonvaEventObject<MouseEvent>) => {
-      if (mode === 'square') {
+      if (editMode === 'square') {
         if (!isDrawing || !rect) return
         if (!rect.x || !rect.y) return
         const stage = event.target.getStage()
@@ -110,30 +161,30 @@ function EditImageModalOrganism({ imageUrl }: EditImageModalProps) {
           setRect(newRect)
         }
       }
-      if (mode === 'eraser' && erasing.current) {
+      if (editMode === 'eraser' && erasing.current) {
         const stage = event.target.getStage()
       }
     },
-    [isDrawing, rect, mode],
+    [isDrawing, rect, editMode],
   )
 
   // 마우스 클릭 종료
   const handleMouseUp = useCallback(() => {
-    if (mode === 'square' && rect) {
+    if (editMode === 'square' && rect) {
       setRects([...rects, rect]) // 마우스를 떼면 현재 사각형을 배열에 추가
       setRect(null) // 다음 사각형을 위해 현재 사각형 상태 초기화
     }
-    if (mode === 'eraser') {
+    if (editMode === 'eraser') {
       erasing.current = false // 드래그 종료
     }
     setIsDrawing(false)
-  }, [rect, rects, mode])
+  }, [rect, rects, editMode])
 
   //이미지 저장
   const saveImageWithShapes = async () => {
     if (stageRef.current) {
-      console.log('imageUrl', imageUrl)
-      console.log('rects', rects)
+      // console.log('imageUrl', imageUrl)
+      // console.log('rects', rects)
       if (rects.length === 0) return
       const dataURL = stageRef.current.toDataURL({
         mimeType: 'image/webp',
@@ -149,22 +200,25 @@ function EditImageModalOrganism({ imageUrl }: EditImageModalProps) {
       const file = new File([blob], uuid, { type: 'image/png' })
 
       // 여기서 File 객체 사용
-      console.log(file)
+      // console.log(file)
+      // setUpdatedImageUrl(dataURL)
       setEditedImage(file)
     }
   }
 
   useEffect(() => {
     if (!editedImage) return
-    console.log('editedImage', editedImage)
+    // console.log('editedImage', editedImage)
     const handleSubmitEditedImage = async () => {
       getPresignedURL(editedImage).then(data => {
-        console.log('presigned data', data)
+        // console.log('presigned data', data)
         uploadImageToS3(data.url, editedImage).then(data => {
-          console.log('s3 버킷에 저장 완료', data)
+          // console.log('s3 버킷에 저장 완료', data)
           uploadEditedImageToBackend(editedImage, false, imageUrl).then(
             data => {
-              console.log('백백엔드에 저장 API test', data)
+              // console.log('백백엔드에 저장 API test', data)
+              // setIsImageEdited(true)
+              setUpdatedImageUrl(data.fileUrl)
             },
           )
         })
@@ -173,9 +227,27 @@ function EditImageModalOrganism({ imageUrl }: EditImageModalProps) {
     handleSubmitEditedImage()
   }, [editedImage])
 
+  useEffect(() => {
+    console.log('맵돌린다', updatedImageUrl)
+    if (!folder) return
+    if (!updatedImageUrl) return
+    console.log('folder', folder)
+    const updatedFolder = folder.map((items, index) => {
+      if (items.images[0]._id === imageId) {
+        return {
+          ...items,
+          images: [{ ...items.images[0], editedImageUrl: updatedImageUrl }],
+        }
+      }
+      return items
+    })
+    console.log('items', updatedFolder)
+    setFolder(updatedFolder)
+  }, [updatedImageUrl])
+
   // Rect 클릭 핸들러
   const handleRectClick = (index: number) => {
-    if (mode === 'eraser') {
+    if (editMode === 'eraser') {
       // eraser 모드에서는 Rect를 제거
       setRects(rects.filter((_, rectIndex) => rectIndex !== index))
     } else {
@@ -196,7 +268,7 @@ function EditImageModalOrganism({ imageUrl }: EditImageModalProps) {
   const onClickThumbnailHandler = (
     mode: 'text' | 'square' | 'eraser' | 'reset',
   ) => {
-    setMode(mode)
+    setEditMode(mode)
     setIsActive({
       text: false,
       square: false,
@@ -214,7 +286,7 @@ function EditImageModalOrganism({ imageUrl }: EditImageModalProps) {
     // 스케일에 맞는 새로운 스테이지 크기를 설정합니다.
     const width = sizeRef.current?.offsetWidth
     const height = sizeRef.current?.offsetHeight
-    console.log(width, height)
+    // console.log(width, height)
     setStageSize({
       width: width || 0,
       height: height || 0,
@@ -222,33 +294,36 @@ function EditImageModalOrganism({ imageUrl }: EditImageModalProps) {
   }, [sizeRef])
 
   useEffect(() => {
-    console.log('isActive', isActive)
-  }, [isActive])
+    console.log('mode', editMode)
+  }, [editMode])
 
   //텍스트추가
-  const handleImageClick = (e: {
-    target: {
-      getStage: () => {
-        (): any
-        new (): any
-        getPointerPosition: { (): any; new (): any }
+  const handleTextDblClick = (
+    e: Konva.KonvaEventObject<MouseEvent>,
+    index: number,
+  ) => {
+    const textNode = e.target as Konva.Text
+    const textPosition = textNode.absolutePosition()
+    const stage = textNode.getStage()
+    const inputArea = document.createElement('input')
+    document.body.appendChild(inputArea)
+
+    inputArea.value = textNode.text()
+    inputArea.style.position = 'absolute'
+    inputArea.style.top = `${textPosition.y}px`
+    inputArea.style.left = `${textPosition.x}px`
+    inputArea.style.width = `${textNode.width()}px`
+
+    inputArea.focus()
+
+    inputArea.addEventListener('keydown', function (e) {
+      if (e.keyCode === 13) {
+        textFields[index].text = this.value
+        textFields[index].isNew = false
+        setTextFields([...textFields])
+        document.body.removeChild(this)
       }
-    }
-  }) => {
-    if (mode === 'text') {
-      const pos = e.target.getStage().getPointerPosition()
-      setTextFields([
-        ...textFields,
-        { x: pos.x, y: pos.y, text: '', id: uuidv4() },
-      ])
-      setSelectedId(null)
-    }
-  }
-  const handleTextFieldChange = (e: { target: { value: any } }, id: string) => {
-    const updatedFields = textFields.map(field =>
-      field.id === id ? { ...field, text: e.target.value } : field,
-    )
-    setTextFields(updatedFields)
+    })
   }
 
   return (
@@ -264,7 +339,7 @@ function EditImageModalOrganism({ imageUrl }: EditImageModalProps) {
       >
         <button
           className={
-            ' rounded-[8px]  duration-150  [&>svg]:w-[20px] [&>svg]:h-[20px] hover:bg-gray-200'
+            ' rounded-[8px] ml-2  duration-150  [&>svg]:w-[20px] [&>svg]:h-[20px] hover:bg-gray-200'
           }
           onClick={closeModal}
         >
@@ -322,6 +397,7 @@ function EditImageModalOrganism({ imageUrl }: EditImageModalProps) {
           <div className="flex flex-row gap-2">
             <div className="mx-[12px] my-1 border border-gray-400 h-[28px]  " />
             <button
+              onClick={() => onClickPreviewThumbnailHandler('image')}
               className={` px-[20px] py-[8px] rounded-[8px] bg-gray-300 b3  [&>svg]:w-[20px] [&>svg]:h-[20px] hover:bg-primary-hover duration-150`}
             >
               취소
@@ -360,6 +436,7 @@ function EditImageModalOrganism({ imageUrl }: EditImageModalProps) {
                   width={stageSize.width}
                   height={stageSize.height}
                 />
+
                 {rects.map((rect, index) => (
                   <Rect
                     key={index}
@@ -383,53 +460,7 @@ function EditImageModalOrganism({ imageUrl }: EditImageModalProps) {
                     fillEnabled={false}
                   />
                 )}
-                {textFields.map((field, i) => (
-                  <React.Fragment key={i}>
-                    <Text
-                      x={field.x}
-                      y={field.y}
-                      text={field.text}
-                      fontSize={20}
-                      draggable
-                      onClick={() => setSelectedId(field.id)}
-                      onDragEnd={e => {
-                        const updatedFields = [...textFields]
-                        updatedFields[i] = {
-                          ...field,
-                          x: e.target.x(),
-                          y: e.target.y(),
-                        }
-                        setTextFields(updatedFields)
-                      }}
-                    />
-                    {selectedId === field.id && (
-                      <Transformer
-                        ref={node => {
-                          if (node && stageRef.current) {
-                            const foundNode = stageRef.current.findOne(
-                              `#${field.id}`,
-                            )
-                            if (foundNode) {
-                              node.setNode(foundNode)
-                            }
-                          }
-                        }}
-                      />
-                    )}
-                  </React.Fragment>
-                ))}
-                {textFields.map((field, i) => (
-                  <input
-                    key={i}
-                    style={{
-                      position: 'absolute',
-                      top: field.y,
-                      left: field.x,
-                    }}
-                    value={field.text}
-                    onChange={e => handleTextFieldChange(e, field.id)}
-                  />
-                ))}
+                <Text text="Try click on rect" />
               </Layer>
             </Stage>
           )}

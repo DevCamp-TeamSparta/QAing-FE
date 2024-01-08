@@ -5,13 +5,25 @@ interface IssueStore {
   setFolder: (folder: Folder[]) => void
 }
 
-type Folder = {
-  folderId: string
-  issues: object[]
+type Images = {
   createdAt: string
+  owner: string
+  originImageUrl: string
+  editedImageUrl: string | null
+  parentIssueFile: string
+  updatedAt: string
+  issueName: string
+  timestamp: number
+  _id: string
 }
 
-export const issueStore = create<IssueStore>(set => ({
+type Folder = {
+  images: Images[]
+  issueName: string
+  videoUrl: string
+}
+
+export const useIssueStore = create<IssueStore>(set => ({
   folder: [],
   setFolder: folder => set({ folder }),
 }))

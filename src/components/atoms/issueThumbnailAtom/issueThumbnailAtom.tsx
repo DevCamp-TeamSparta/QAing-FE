@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useModalStore } from '@/states/modalStore'
 import { logEvent } from '@/lib/amplitude'
@@ -10,17 +10,56 @@ import IssueModalOrganism from '@/components/organisms/IssuePageOrganisms/IssueM
 
 type ThumbnailProps = {
   imageUrl: string
+  imageId: string
   videoUrl: string
+  editedImageUrl: string | null
 }
 
-function IssueThumbnail({ imageUrl, videoUrl }: ThumbnailProps) {
+function IssueThumbnail({
+  imageUrl,
+  imageId,
+  videoUrl,
+  editedImageUrl,
+}: ThumbnailProps) {
   const setModal = useModalStore(state => state.setModal)
   function onClickThumbnailHandler() {
     logEvent('qaing_folderpage_file_preview_view', {
       button_name: '파일 미리보기',
     })
-    setModal(<IssueModalOrganism imageUrl={imageUrl} videoUrl={videoUrl} />)
+    setModal(
+      <IssueModalOrganism
+        imageUrl={imageUrl}
+        imageId={imageId}
+        videoUrl={videoUrl}
+        currentImageUrl={currentImageUrl}
+      />,
+    )
   }
+
+  const [currentImageUrl, setCurrentImageUrl] = useState<
+    string | null | undefined
+  >(imageUrl)
+
+  useEffect(() => {
+    if (editedImageUrl === null) {
+      setCurrentImageUrl(imageUrl)
+    }
+    if (editedImageUrl !== null) {
+      setCurrentImageUrl(editedImageUrl)
+    }
+  }, [editedImageUrl])
+
+  useEffect(() => {
+    setModal(
+      <IssueModalOrganism
+        imageUrl={imageUrl}
+        imageId={imageId}
+        videoUrl={videoUrl}
+        currentImageUrl={currentImageUrl}
+      />,
+    )
+  }, [currentImageUrl])
+
   return (
     <div className="relative group cursor-pointer">
       <div
@@ -28,7 +67,7 @@ function IssueThumbnail({ imageUrl, videoUrl }: ThumbnailProps) {
         onClick={onClickThumbnailHandler}
       >
         <Image
-          src={imageUrl}
+          src={currentImageUrl || imageUrl}
           alt="thumbnail"
           className="w-full h-full object-cover"
           width={440}
