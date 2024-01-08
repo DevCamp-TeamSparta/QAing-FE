@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
-import { Video } from '@/states/videoStore'
 import { MoreSvg } from '../../../../public/icons/MoreSvg'
-import { MyVideoSvg } from '../../../../public/icons/MyVideoSvg'
+import { FolderRowSvg } from '../../../../public/icons/FolderRowSvg'
 import { EditSvg } from '../../../../public/icons/EditSvg'
 import { TrashSvg } from '../../../../public/icons/TrashSvg'
 import { useModalStore } from '@/states/modalStore'
@@ -49,6 +48,7 @@ export default function FolderTableBody({
 
   function onClickDeleteButtonHandler() {
     setIsMoreButtonClicked(false)
+
     setModal(<DeleteFolderModal folderId={_id} />)
   }
 
@@ -87,7 +87,6 @@ export default function FolderTableBody({
     editFolder(folderId, values)
       .then(res => {
         // console.log('res', res)
-        alert('폴더명이 변경되었습니다.')
       })
       .catch(err => {
         // console.error('err', err)
@@ -120,8 +119,8 @@ export default function FolderTableBody({
           'group hover:bg-gray-200 grid grid-cols-[2fr_1fr_1fr_20px] px-[20px] py-[16px] border-b border-gray-300  active:bg-brand-background cursor-pointer'
         }
       >
-        <p className="flex gap-[12px] b3">
-          <MyVideoSvg color={'#959797'} size={'24'} />
+        <div className="flex gap-[12px] b3">
+          <FolderRowSvg size={24} color={'#959797'} />
           {isEditButtonClicked ? (
             <form
               className="flex gap-[10px]"
@@ -146,9 +145,9 @@ export default function FolderTableBody({
           ) : (
             <p>{values.newFolderName}</p>
           )}
-        </p>
-        <p className={'b4'}>{videoTableProps.count}개</p>
-        <p className={'b4'}>{videoTableProps.createdAt}</p>
+        </div>
+        <p className={'b4 ml-[56px]'}>{videoTableProps.count}개</p>
+        <p className={'b4 ml-[7px]'}>{videoTableProps.createdAt}</p>
         <button onClick={onClickMoreButtonHandler}>
           <MoreSvg />
         </button>

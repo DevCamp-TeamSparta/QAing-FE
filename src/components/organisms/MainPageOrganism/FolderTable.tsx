@@ -9,33 +9,14 @@ import { useEffect, useState } from 'react'
 import { fetchFolder } from '@/services/folder/folder.api'
 import { Folder } from '@/types/userFolder.types'
 import { useRouter } from 'next/navigation'
+import { set } from 'zod'
 
-export default function FolderTable() {
-  const videos = useVideoStore(state => state.videos)
-  const [folders, setFolders] = useState<Folder[]>([])
+interface FolderTableProps {
+  folders: Folder[]
+}
+
+export default function FolderTable({ folders }: FolderTableProps) {
   const backServerUrl = process.env.NEXT_PUBLIC_BACKEND_API_URL
-  const router = useRouter()
-
-  useEffect(() => {
-    fetchFolder()
-      .then(response => {
-        // console.log('상태값', response)
-        setFolders(response.data)
-        if (response.status === 401) {
-          router.push('/auth/signup')
-        }
-      })
-      .catch(error => {
-        // console.log('error', error)
-        if (error.response.status === 401) {
-          router.push('/auth/signup')
-          return
-        }
-        if (error.response.status !== 200) {
-          window.location.href = 'https://qaing.co/404'
-        }
-      })
-  }, [])
 
   // useEffect(() => {
   //   if (folders.length === 0) return
@@ -137,8 +118,8 @@ export default function FolderTable() {
   // }
 
   return (
-    <div className="py-[44px]">
-      <div className="min-w-full border-collapse">
+    <div className="py-[44px] ">
+      <div className="min-w-full border-collapse pt-4 ">
         <div
           className={
             'grid grid-cols-[2fr_1fr_1fr_20px] p-[20px] bg-gray-100 rounded-[16px_16px_0_0] border-b border-gray-400 b3 text-gray-700'
@@ -171,8 +152,8 @@ export default function FolderTable() {
           </div>
         ) : (
           <div className="mt-[40px] text-center">
-            <p className="h3 text-black">아직 진행한 QA가 없어요</p>
-            <p className="b2 text-black mt-[8px]">
+            <p className="t1 text-black">아직 진행한 QA가 없어요</p>
+            <p className="b4 text-black mt-[8px]">
               우리 함께 QA를 빠르게 끝내볼까요?
             </p>
           </div>

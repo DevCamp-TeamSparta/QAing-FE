@@ -16,7 +16,7 @@ import instance from '@/services/instance'
 import { User } from '@/types/userStore.types'
 import { useUserStore } from '@/states/user-store/userStore'
 import { ProfileImageSvg } from '../../../../public/icons/ProfileImageSvg'
-import { MyVideoSvg } from '../../../../public/icons/MyVideoSvg'
+import { FolderRowSvg } from '../../../../public/icons/FolderRowSvg'
 import { fetchUser } from '@/services/auth/auth.api'
 import { initAmplitude, logPageView, logEvent } from '@/lib/amplitude'
 import useAdvancedSignup from '@/hooks/useAdvancedSignup'
@@ -72,7 +72,7 @@ function IssuePageTemplete() {
             setFolder(res.data.issuesWithContents)
             // setFolderName(res.data.folderName)
             setValues({ newFolderName: res.data.folderName })
-            // console.log('res', res)
+            console.log('res', res)
           })
           .catch(err => {
             err.response.status === 401 && router.push('/auth')
@@ -123,7 +123,6 @@ function IssuePageTemplete() {
     editFolder(folderId, values)
       .then(res => {
         // console.log('res', res)
-        alert('폴더명이 변경되었습니다.')
       })
       .catch(err => {
         // console.error('err', err)
@@ -206,7 +205,7 @@ function IssuePageTemplete() {
               <Image src={Back} alt="back" />
             </Link>
             <div className="ml-4">
-              <MyVideoSvg />
+              <FolderRowSvg size={36} color={'#3B3C3C'} />
             </div>
             <div className="ml-4"></div>
             {isEditButtonClicked ? (

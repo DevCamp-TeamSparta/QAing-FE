@@ -59,7 +59,7 @@ ChannelIO('boot', {
           }}
         />
 
-        <div className=" box-borders w-full max-w-[1440px] font-pretendard">
+        <div className=" box-borders w-full max-w-[1440px] ">
           {children}
           <ModalPortal />
         </div>

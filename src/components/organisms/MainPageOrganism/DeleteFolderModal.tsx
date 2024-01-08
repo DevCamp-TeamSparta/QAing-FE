@@ -13,7 +13,6 @@ export default function DeleteFolderModal({ folderId }: Props) {
     if (!folderId) return alert('폴더아이디가 없습니다.')
     deleteFolder(folderId)
       .then(() => {
-        alert('폴더가 삭제되었습니다.')
         setModal(null)
       })
       .catch(e => {

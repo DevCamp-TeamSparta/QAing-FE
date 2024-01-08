@@ -17,7 +17,10 @@ interface IssueModalProps {
   videoUrl: string
 }
 
-const IssueModal = ({ imageUrl, videoUrl }: IssueModalProps) => {
+export default function TestIssueModal({
+  imageUrl,
+  videoUrl,
+}: IssueModalProps) {
   const setModal = useModalStore(state => state.setModal)
   const [mode, setMode] = useState('image')
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -346,7 +349,7 @@ const IssueModal = ({ imageUrl, videoUrl }: IssueModalProps) => {
               >
                 <Image
                   className={
-                    'h-full w-full rounded-[8px] overflow-hidden object-cover'
+                    'h-full w-full rounded-[8px] overflow-hidden object-fit'
                   }
                   width={1080}
                   height={720}
@@ -399,5 +402,3 @@ const IssueModal = ({ imageUrl, videoUrl }: IssueModalProps) => {
     </div>
   )
 }
-
-export default IssueModal
