@@ -1,5 +1,13 @@
-import React, { useState, useRef, useCallback, useEffect, use } from 'react'
-import { Stage, Layer, Image as KonvaImage, Rect, Line } from 'react-konva'
+import React, { useState, useRef, useCallback, useEffect } from 'react'
+import {
+  Stage,
+  Layer,
+  Image as KonvaImage,
+  Rect,
+  Line,
+  Text,
+  Transformer,
+} from 'react-konva'
 import useImage from 'use-image'
 import Konva from 'konva'
 import { useModalStore } from '@/states/modalStore'
@@ -7,6 +15,7 @@ import clsx from 'clsx'
 import { CloseIcon } from '../../../../../public/icons/CloseIcon'
 import { DeleteSvg } from '../../../../../public/icons/DeleteSvg'
 import { ResetSvg } from '../../../../../public/icons/ResetSvg'
+import { TextIconSvg } from '../../../../../public/icons/TextIconSvg'
 import { EraseCursor } from '../../../../../public/icons/EraseCursor'
 import {
   getPresignedURL,
@@ -26,7 +35,7 @@ interface Line {
 
 function EditImageModalOrganism({ imageUrl }: EditImageModalProps) {
   const setModal = useModalStore(state => state.setModal)
-  const [mode, setMode] = useState<'square' | 'eraser'>()
+  const [mode, setMode] = useState<'text' | 'square' | 'eraser' | 'reset'>()
   const [image] = useImage(imageUrl, 'anonymous')
   const stageRef = useRef<Konva.Stage>(null)
   const sizeRef = useRef<HTMLInputElement>(null)
@@ -34,6 +43,17 @@ function EditImageModalOrganism({ imageUrl }: EditImageModalProps) {
   const [rects, setRects] = useState<Konva.RectConfig[]>([]) // 도형들을 저장할 배열 상태
   const [isDrawing, setIsDrawing] = useState(false)
   const [selectedRect, setSelectedRect] = useState<number | null>(null) // 선택된 Rect의 인덱스 저장
+  const [isActive, setIsActive] = useState({
+    text: false,
+    square: false,
+    eraser: false,
+    reset: false,
+  })
+  //텍스트 추가
+  const [textFields, setTextFields] = useState<
+    Array<{ x: any; y: any; text: string; id: string }>
+  >([])
+  const [selectedId, setSelectedId] = useState<string | null>(null)
 
   //편집된 이미지 관련
   const [editedImage, setEditedImage] = useState<File | null>(null)
@@ -166,14 +186,24 @@ function EditImageModalOrganism({ imageUrl }: EditImageModalProps) {
   // Reset 버튼 클릭 핸들러
   const handleReset = () => {
     setRects([]) // 모든 Rect 객체 제거
+    onClickThumbnailHandler('reset')
   }
 
   const closeModal = () => {
     setModal(null)
   }
 
-  const onClickThumbnailHandler = (mode: 'square' | 'eraser') => {
+  const onClickThumbnailHandler = (
+    mode: 'text' | 'square' | 'eraser' | 'reset',
+  ) => {
     setMode(mode)
+    setIsActive({
+      text: false,
+      square: false,
+      eraser: false,
+      reset: false,
+      [mode]: !isActive[mode],
+    })
   }
 
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 })
@@ -192,8 +222,34 @@ function EditImageModalOrganism({ imageUrl }: EditImageModalProps) {
   }, [sizeRef])
 
   useEffect(() => {
-    console.log(rects)
-  }, [rects])
+    console.log('isActive', isActive)
+  }, [isActive])
+
+  //텍스트추가
+  const handleImageClick = (e: {
+    target: {
+      getStage: () => {
+        (): any
+        new (): any
+        getPointerPosition: { (): any; new (): any }
+      }
+    }
+  }) => {
+    if (mode === 'text') {
+      const pos = e.target.getStage().getPointerPosition()
+      setTextFields([
+        ...textFields,
+        { x: pos.x, y: pos.y, text: '', id: uuidv4() },
+      ])
+      setSelectedId(null)
+    }
+  }
+  const handleTextFieldChange = (e: { target: { value: any } }, id: string) => {
+    const updatedFields = textFields.map(field =>
+      field.id === id ? { ...field, text: e.target.value } : field,
+    )
+    setTextFields(updatedFields)
+  }
 
   return (
     <div
@@ -203,60 +259,80 @@ function EditImageModalOrganism({ imageUrl }: EditImageModalProps) {
     >
       <div
         className={
-          'relative px-[20px] py-[12px] flex items-center gap-[12px] justify-between '
+          'relative px-[20px] py-[12px]  flex items-center  justify-between '
         }
       >
         <button
           className={
-            'p-[8px] rounded-[8px] duration-150  [&>svg]:w-[20px] [&>svg]:h-[20px] hover:bg-gray-200'
+            ' rounded-[8px]  duration-150  [&>svg]:w-[20px] [&>svg]:h-[20px] hover:bg-gray-200'
           }
           onClick={closeModal}
         >
           <CloseIcon />
         </button>
-        <div
-          className={` flex gap-2 
-            [&>button]:flex [&>button]:items-center [&>button]:justify-center [&>button]:gap-[4px]  [&>button]:h-[36px] [&>button]:b4 [&>button]:bg-gray-300
-            `}
-        ></div>
 
-        <div className="flex flex-row gap-2 items-center ">
+        <div className="flex flex-row items-center ">
           <button
             className={clsx(
-              'border p-[9px]  rounded-[8px] [&>svg]:w-[20px] [&>svg]:h-[20px] ',
+              `py-[6px] px-[14px]  rounded-[8px] ${
+                isActive.text ? 'bg-primary-default' : ''
+              } `,
+            )}
+            onClick={() => {
+              onClickThumbnailHandler('text')
+            }}
+          >
+            <TextIconSvg color={`${isActive.text ? '#fff' : '#1B1B1B'}`} />
+          </button>
+
+          <button
+            className={clsx(
+              `py-[6px] px-[14px] rounded-[8px] ${
+                isActive.square ? 'bg-primary-default' : ''
+              }`,
             )}
             onClick={() => onClickThumbnailHandler('square')}
           >
-            <div className="mx-[12px] border-[2px] border-sementic-danger w-[16px] h-[16px]"></div>
+            <div
+              className={`border-[2px] ${
+                isActive.square ? 'border-[#fff]' : 'border-extra-black'
+              }  w-[20px] h-[20px]`}
+            ></div>
           </button>
           <button
             className={clsx(
-              'border px-[18px] py-2 rounded-[8px]  [&>svg]:h-[20px]',
+              `py-[6px] px-[14px] rounded-[8px] ${
+                isActive.eraser ? 'bg-primary-default' : ''
+              }`,
             )}
             onClick={() => onClickThumbnailHandler('eraser')}
           >
-            <DeleteSvg />
+            <DeleteSvg color={`${isActive.eraser ? '#fff' : '#1B1B1B'}`} />
           </button>
           <button
             onClick={handleReset}
             className={clsx(
-              'border  rounded-[8px] px-[18px] py-2 [&>svg]:w-[20px] [&>svg]:h-[20px]',
+              `py-[6px] px-[14px] rounded-[8px] ${
+                isActive.reset ? 'bg-primary-default' : ''
+              }`,
             )}
           >
-            <ResetSvg />
+            <ResetSvg color={`${isActive.reset ? '#fff' : '#1B1B1B'}`} />
           </button>
-          <div className="m-[12px] border border-gray-400 h-[28px]  " />
-          <button
-            className={`flex gap-[8px] px-[20px] py-[8px] rounded-[8px] bg-gray-300 b3  [&>svg]:w-[20px] [&>svg]:h-[20px] hover:bg-primary-hover duration-150`}
-          >
-            취소
-          </button>
-          <button
-            onClick={saveImageWithShapes}
-            className={`flex gap-[8px] px-[20px] py-[8px] rounded-[8px] bg-primary-default b3 text-white [&>svg]:w-[20px] [&>svg]:h-[20px] hover:bg-primary-hover duration-150`}
-          >
-            저장
-          </button>
+          <div className="flex flex-row gap-2">
+            <div className="mx-[12px] my-1 border border-gray-400 h-[28px]  " />
+            <button
+              className={` px-[20px] py-[8px] rounded-[8px] bg-gray-300 b3  [&>svg]:w-[20px] [&>svg]:h-[20px] hover:bg-primary-hover duration-150`}
+            >
+              취소
+            </button>
+            <button
+              onClick={saveImageWithShapes}
+              className={`px-[20px] py-[8px] rounded-[8px] bg-primary-default b3 text-white  hover:bg-primary-hover duration-150`}
+            >
+              저장
+            </button>
+          </div>
         </div>
       </div>
       <div
@@ -307,6 +383,53 @@ function EditImageModalOrganism({ imageUrl }: EditImageModalProps) {
                     fillEnabled={false}
                   />
                 )}
+                {textFields.map((field, i) => (
+                  <React.Fragment key={i}>
+                    <Text
+                      x={field.x}
+                      y={field.y}
+                      text={field.text}
+                      fontSize={20}
+                      draggable
+                      onClick={() => setSelectedId(field.id)}
+                      onDragEnd={e => {
+                        const updatedFields = [...textFields]
+                        updatedFields[i] = {
+                          ...field,
+                          x: e.target.x(),
+                          y: e.target.y(),
+                        }
+                        setTextFields(updatedFields)
+                      }}
+                    />
+                    {selectedId === field.id && (
+                      <Transformer
+                        ref={node => {
+                          if (node && stageRef.current) {
+                            const foundNode = stageRef.current.findOne(
+                              `#${field.id}`,
+                            )
+                            if (foundNode) {
+                              node.setNode(foundNode)
+                            }
+                          }
+                        }}
+                      />
+                    )}
+                  </React.Fragment>
+                ))}
+                {textFields.map((field, i) => (
+                  <input
+                    key={i}
+                    style={{
+                      position: 'absolute',
+                      top: field.y,
+                      left: field.x,
+                    }}
+                    value={field.text}
+                    onChange={e => handleTextFieldChange(e, field.id)}
+                  />
+                ))}
               </Layer>
             </Stage>
           )}

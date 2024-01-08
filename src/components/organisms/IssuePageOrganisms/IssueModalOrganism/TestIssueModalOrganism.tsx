@@ -16,7 +16,10 @@ interface IssueModalProps {
   videoUrl: string
 }
 
-export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
+export default function TestIssueModal({
+  imageUrl,
+  videoUrl,
+}: IssueModalProps) {
   const setModal = useModalStore(state => state.setModal)
   const [mode, setMode] = useState<'image' | 'video'>('image')
   function onClickThumbnailHandler(mode: 'image' | 'video') {
@@ -36,7 +39,7 @@ export default function IssueModal({ imageUrl, videoUrl }: IssueModalProps) {
 
   return (
     <div className={' h-screen w-full px-[13%] py-[2%] fixed top-0 left-0 '}>
-      <EditImageModalOrganism imageUrl={imageUrl} />
+      {/* <EditImageModalOrganism imageUrl={imageUrl} /> */}
       {/* <div className={'w-full h-full  bg-white rounded-[8px] flex flex-col'}>
         <div
           className={
