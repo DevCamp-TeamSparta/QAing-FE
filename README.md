@@ -13,5 +13,6 @@
     - Installation
     npm i
     npm run dev
-
+# 환경변수
+https://teamsparta.notion.site/64e15acc5a0044599dc78f6a7ade58d2?pvs=4
 qaing
