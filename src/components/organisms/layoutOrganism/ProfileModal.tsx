@@ -74,7 +74,7 @@ export default function ProfileModal() {
           // console.log('presigned data', data)
           uploadImageToS3(data.url, imageFile).then(data => {
             // console.log('s3 버킷에 저장 완료', data)
-            uploadImageToBackend(imageFile).then(data => {
+            uploadImageToBackend(imageFile, true).then(data => {
               // console.log('백백엔드에 저장 API test', data)
               updateUser.userProfileImg &&
                 setProfileImg(updateUser.userProfileImg)
@@ -112,7 +112,7 @@ export default function ProfileModal() {
           // console.log('presigned data', data)
           uploadImageToS3(data.url, imageFile).then(data => {
             // console.log('s3 버킷에 저장 완료', data)
-            uploadImageToBackend(imageFile).then(data => {
+            uploadImageToBackend(imageFile, true).then(data => {
               // console.log('백백엔드에 저장 API test', data)
               updateUser.userProfileImg &&
                 setProfileImg(updateUser.userProfileImg)
