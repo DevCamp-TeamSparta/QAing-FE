@@ -5,7 +5,7 @@ import Logo from '@/components/atoms/LogoAtom/LogoAtoms'
 import Image from 'next/image'
 import ProgileImageDefault from '/public/images/profileImage.svg'
 import Back from 'public/icons/back.svg'
-import IssueCard from '@/components/organisms/IssuePageOrganisms/IssueCardOrganism/IssueCardOrganism'
+import IssueCardOrganism from '@/components/organisms/IssuePageOrganisms/IssueCardOrganism/IssueCardOrganism'
 import axios from 'axios'
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -20,6 +20,7 @@ import { FolderRowSvg } from '../../../../public/icons/FolderRowSvg'
 import { fetchUser } from '@/services/auth/auth.api'
 import { initAmplitude, logPageView, logEvent } from '@/lib/amplitude'
 import useAdvancedSignup from '@/hooks/useAdvancedSignup'
+import { useIssueStore } from '@/states/issue-store'
 
 type Values = {
   newFolderName: string
@@ -27,7 +28,7 @@ type Values = {
 
 function IssuePageTemplete() {
   const backServer = process.env.NEXT_PUBLIC_BACKEND_API_URL
-  const [folder, setFolder] = useState<object[]>([])
+  // const [folder, setFolder] = useState<object[]>([])
   // const [folderName, setFolderName] = useState<string>('')
   const [message, setMessage] = useState('')
   const [isEditButtonClicked, setIsEditButtonClicked] = React.useState(false)
@@ -35,6 +36,7 @@ function IssuePageTemplete() {
   const router = useRouter()
   const { user, setUser } = useUserStore()
   const { isAdvancedSignup } = useAdvancedSignup()
+  const { folder, setFolder } = useIssueStore()
 
   //폴더명 변경
   const inputRef = useRef<HTMLInputElement>(null)
@@ -69,6 +71,10 @@ function IssuePageTemplete() {
             withCredentials: true,
           })
           .then(res => {
+            console.log(
+              'res.data.issuesWithContents',
+              res.data.issuesWithContents,
+            )
             setFolder(res.data.issuesWithContents)
             // setFolderName(res.data.folderName)
             setValues({ newFolderName: res.data.folderName })
@@ -85,9 +91,9 @@ function IssuePageTemplete() {
     getIssues()
   }, [message])
 
-  useEffect(() => {
-    console.log('values', values.newFolderName)
-  }, [values])
+  // useEffect(() => {
+  //   console.log('folder', folder)
+  // }, [folder])
 
   //폴더명변경
 
@@ -258,11 +264,11 @@ function IssuePageTemplete() {
                 folderName={values.newFolderName}
               /> */}
 
-              {folder.length > 0 ? (
+              {folder && folder.length > 0 ? (
                 <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
                   {folder.map((item: any) => {
                     return (
-                      <IssueCard
+                      <IssueCardOrganism
                         key={item._id}
                         IssueCardProps={item}
                         folderId={folderId}
