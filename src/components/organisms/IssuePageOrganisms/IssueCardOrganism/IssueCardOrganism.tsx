@@ -6,7 +6,7 @@ import React, {
   useRef,
   useState,
 } from 'react'
-import IssueThumbnail from '@/components/atoms/issueThumbnailAtom/issueThumbnailAtom'
+import IssueThumbnailAtom from '@/components/atoms/issueThumbnailAtom/issueThumbnailAtom'
 import CopyButton from '@/components/atoms/CopyButtonAtom/CopyButtonAtom'
 import MoreIcon from '../../../../../public/icons/More'
 import { EditSvg } from '../../../../../public/icons/EditSvg'
@@ -25,7 +25,7 @@ interface IssueCardProps {
   IssueCardProps: {
     images: Images[]
     issueName: string
-    videoUrl: string
+    videoURL: string
   }
   folderId: string
   folderName: string
@@ -155,11 +155,10 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
     <div className="w-[440px] h-[417px] relative">
       <div className="flex flex-col">
         <div className=" relative">
-          <IssueThumbnail
-            editedImageUrl={images[0].editedImageUrl}
+          <IssueThumbnailAtom
             imageUrl={images[0].originImageUrl}
             imageId={images[0]._id}
-            videoUrl={IssueCardProps.videoUrl}
+            videoUrl={IssueCardProps.videoURL}
           />
           <button
             onClick={onClickCopyButtonHandler}
@@ -194,7 +193,7 @@ function Index({ IssueCardProps, folderId, folderName }: IssueCardProps) {
                   <div
                     className="rounded-2xl px-4 py-[10px] bg-gray-200 cursor-pointer hover:bg-primary-light "
                     onClick={() => {
-                      handleCopyClipBoard(IssueCardProps.videoUrl),
+                      handleCopyClipBoard(IssueCardProps.videoURL),
                         linkButtonClickEvent('영상', '썸네일')
                     }}
                   >

@@ -36,8 +36,6 @@ export default function PreviewModalOrganism({
     await handleCopyClipBoard(url)
   }
 
-  console.log('currentImageUrl', currentImageUrl)
-
   return (
     <div className={'w-full h-full  bg-white rounded-[8px] flex flex-col'}>
       <div

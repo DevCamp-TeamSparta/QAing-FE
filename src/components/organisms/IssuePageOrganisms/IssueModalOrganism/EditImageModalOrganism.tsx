@@ -89,7 +89,7 @@ function EditImageModalOrganism({
       ? { cursor: `url('/public/icons/eraseCursor.png'), auto` }
       : {}
   //이미지 편집이 완료되면 folder업데이트
-  const { folder, setFolder } = useIssueStore()
+  const { issues, setIssues } = useIssueStore()
   const [isImageEdited, setIsImageEdited] = useState(false)
 
   const getCursorStyle = () => {
@@ -216,7 +216,7 @@ function EditImageModalOrganism({
           // console.log('s3 버킷에 저장 완료', data)
           uploadEditedImageToBackend(editedImage, false, imageUrl).then(
             data => {
-              // console.log('백백엔드에 저장 API test', data)
+              console.log('백백엔드에 저장 API test', data)
               // setIsImageEdited(true)
               setUpdatedImageUrl(data.fileUrl)
             },
@@ -224,15 +224,22 @@ function EditImageModalOrganism({
         })
       })
     }
-    handleSubmitEditedImage()
+    handleSubmitEditedImage().then(() => {
+      setIsImageEdited(true)
+    })
   }, [editedImage])
 
+  //영상 저장 후 미리보기 모달로 돌아가는 코드
   useEffect(() => {
-    console.log('맵돌린다', updatedImageUrl)
-    if (!folder) return
+    if (!isImageEdited) return
+    alert('저장완료')
+    onClickPreviewThumbnailHandler('image')
+  }, [issues])
+
+  useEffect(() => {
+    if (!issues) return
     if (!updatedImageUrl) return
-    console.log('folder', folder)
-    const updatedFolder = folder.map((items, index) => {
+    const updatedFolder = issues.map((items, index) => {
       if (items.images[0]._id === imageId) {
         return {
           ...items,
@@ -241,8 +248,8 @@ function EditImageModalOrganism({
       }
       return items
     })
-    console.log('items', updatedFolder)
-    setFolder(updatedFolder)
+    // console.log('items', updatedFolder)
+    setIssues(updatedFolder)
   }, [updatedImageUrl])
 
   // Rect 클릭 핸들러
@@ -387,12 +394,12 @@ function EditImageModalOrganism({
           <button
             onClick={handleReset}
             className={clsx(
-              `py-[6px] px-[14px] rounded-[8px] ${
-                isActive.reset ? 'bg-primary-default' : ''
+              `py-[6px] px-[14px] rounded-[8px] hover:bg-gray-200 ${
+                isActive.reset ? '' : ''
               }`,
             )}
           >
-            <ResetSvg color={`${isActive.reset ? '#fff' : '#1B1B1B'}`} />
+            <ResetSvg color={`${isActive.reset ? '#1B1B1B' : '#1B1B1B'}`} />
           </button>
           <div className="flex flex-row gap-2">
             <div className="mx-[12px] my-1 border border-gray-400 h-[28px]  " />

@@ -1,8 +1,8 @@
 import { create } from 'zustand'
 
 interface IssueStore {
-  folder: Folder[] | null
-  setFolder: (folder: Folder[]) => void
+  issues: Issues[] | null
+  setIssues: (folder: Issues[]) => void
 }
 
 type Images = {
@@ -17,13 +17,13 @@ type Images = {
   _id: string
 }
 
-type Folder = {
+type Issues = {
   images: Images[]
   issueName: string
   videoUrl: string
 }
 
 export const useIssueStore = create<IssueStore>(set => ({
-  folder: [],
-  setFolder: folder => set({ folder }),
+  issues: [],
+  setIssues: issues => set({ issues }),
 }))
