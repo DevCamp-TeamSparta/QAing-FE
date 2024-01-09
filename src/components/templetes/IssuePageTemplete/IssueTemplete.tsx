@@ -36,7 +36,7 @@ function IssuePageTemplete() {
   const router = useRouter()
   const { user, setUser } = useUserStore()
   const { isAdvancedSignup } = useAdvancedSignup()
-  const { folder, setFolder } = useIssueStore()
+  const { issues, setIssues } = useIssueStore()
 
   //폴더명 변경
   const inputRef = useRef<HTMLInputElement>(null)
@@ -71,14 +71,14 @@ function IssuePageTemplete() {
             withCredentials: true,
           })
           .then(res => {
-            console.log(
-              'res.data.issuesWithContents',
-              res.data.issuesWithContents,
-            )
-            setFolder(res.data.issuesWithContents)
+            // console.log(
+            //   'res.data.issuesWithContents',
+            //   res.data.issuesWithContents,
+            // )
+            setIssues(res.data.issuesWithContents)
             // setFolderName(res.data.folderName)
             setValues({ newFolderName: res.data.folderName })
-            console.log('res', res)
+            // console.log('res', res)
           })
           .catch(err => {
             err.response.status === 401 && router.push('/auth')
@@ -136,7 +136,7 @@ function IssuePageTemplete() {
   }
   useEffect(() => {
     // console.log('folder', folder)
-  }, [folder])
+  }, [issues])
 
   //프로필 이미지
   // async function fetchUser(): Promise<User> {
@@ -257,19 +257,13 @@ function IssuePageTemplete() {
               <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
                 <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]"></div>
               </div>
-              {/* <IssueCard
-                key={IssueCardProps._id}
-                IssueCardProps={IssueCardProps}
-                folderId={folderId}
-                folderName={values.newFolderName}
-              /> */}
 
-              {folder && folder.length > 0 ? (
+              {issues && issues.length > 0 ? (
                 <div className=" grid grid-cols-3 grid-rows-auto gap-x-[24px] gap-y-[28px]">
-                  {folder.map((item: any) => {
+                  {issues.map((item: any, id: number) => {
                     return (
                       <IssueCardOrganism
-                        key={item._id}
+                        key={id}
                         IssueCardProps={item}
                         folderId={folderId}
                         folderName={values.newFolderName}

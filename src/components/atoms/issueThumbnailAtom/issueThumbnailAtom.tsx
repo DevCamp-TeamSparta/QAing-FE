@@ -3,6 +3,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useModalStore } from '@/states/modalStore'
+import { useIssueStore } from '@/states/issue-store'
 import { logEvent } from '@/lib/amplitude'
 import IssueModalOrganism from '@/components/organisms/IssuePageOrganisms/IssueModalOrganism/IssueModalOrganism'
 // import TestIssueModal from '@/components/organisms/IssuePageOrganisms/IssueModalOrganism/TestIssueModalOrganism'
@@ -12,16 +13,15 @@ type ThumbnailProps = {
   imageUrl: string
   imageId: string
   videoUrl: string
-  editedImageUrl: string | null
 }
 
-function IssueThumbnail({
+export default function IssueThumbnailAtom({
   imageUrl,
   imageId,
   videoUrl,
-  editedImageUrl,
 }: ThumbnailProps) {
   const setModal = useModalStore(state => state.setModal)
+
   function onClickThumbnailHandler() {
     logEvent('qaing_folderpage_file_preview_view', {
       button_name: '파일 미리보기',
@@ -31,34 +31,25 @@ function IssueThumbnail({
         imageUrl={imageUrl}
         imageId={imageId}
         videoUrl={videoUrl}
-        currentImageUrl={currentImageUrl}
       />,
     )
   }
 
-  const [currentImageUrl, setCurrentImageUrl] = useState<
-    string | null | undefined
-  >(imageUrl)
-
+  const { issues } = useIssueStore()
+  const [currentEditedImageURL, setCurrentEditedImageURL] = useState<
+    string | null
+  >()
   useEffect(() => {
-    if (editedImageUrl === null) {
-      setCurrentImageUrl(imageUrl)
-    }
-    if (editedImageUrl !== null) {
-      setCurrentImageUrl(editedImageUrl)
-    }
-  }, [editedImageUrl])
-
-  useEffect(() => {
-    setModal(
-      <IssueModalOrganism
-        imageUrl={imageUrl}
-        imageId={imageId}
-        videoUrl={videoUrl}
-        currentImageUrl={currentImageUrl}
-      />,
-    )
-  }, [currentImageUrl])
+    issues &&
+      issues?.forEach(f => {
+        f.images.forEach(image => {
+          if (image.originImageUrl === imageUrl) {
+            if (!image.editedImageUrl) return null
+            setCurrentEditedImageURL(image.editedImageUrl)
+          }
+        })
+      })
+  }, [issues])
 
   return (
     <div className="relative group cursor-pointer">
@@ -67,7 +58,7 @@ function IssueThumbnail({
         onClick={onClickThumbnailHandler}
       >
         <Image
-          src={currentImageUrl || imageUrl}
+          src={currentEditedImageURL || imageUrl}
           alt="thumbnail"
           className="w-full h-full object-cover"
           width={440}
@@ -78,5 +69,3 @@ function IssueThumbnail({
     </div>
   )
 }
-
-export default IssueThumbnail
